@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { GetStaticPaths, GetStaticProps } from 'next/types';
+import { getPageFilePath } from "@/logic";
+import { readFileSync } from "fs";
 
 type PageParams = Promise<Partial<{
   markdownId: string[];
@@ -19,11 +20,20 @@ export const generateStaticParams = () => {
 const Page: FC<PageProps> = async (props) => {
   const { params } = props;
 
-  const { markdownId } = await params ?? {};
+  const { markdownId = [] } = await params ?? {};
 
   console.log('%csrc/app/[...markdownId]/page.tsx:16 markdownId', 'color: white; background-color: #26bfa5;', markdownId);
 
-  return <div>{ markdownId }</div>
+  const filePath = getPageFilePath(markdownId);
+
+  const fileContent = readFileSync(filePath);
+
+  return (
+    <div>
+      <p>{markdownId}</p>
+      <article>{fileContent.toString()}</article>
+    </div>
+  )
 };
 
 export default Page;
