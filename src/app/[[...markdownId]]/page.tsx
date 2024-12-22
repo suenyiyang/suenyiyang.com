@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { getPageFilePath } from "@/logic";
 import { readFileSync } from "fs";
+import { MdxRenderer } from "@/components/MdxRenderer";
+import { serialize } from "next-mdx-remote/serialize";
 
 type PageParams = Promise<Partial<{
   markdownId: string[];
@@ -22,16 +24,15 @@ const Page: FC<PageProps> = async (props) => {
 
   const { markdownId = [] } = await params ?? {};
 
-  console.log('%csrc/app/[...markdownId]/page.tsx:16 markdownId', 'color: white; background-color: #26bfa5;', markdownId);
-
   const filePath = getPageFilePath(markdownId);
 
   const fileContent = readFileSync(filePath);
 
+  const mdxSource = await serialize(fileContent.toString());
+
   return (
     <div>
-      <p>{markdownId}</p>
-      <article>{fileContent.toString()}</article>
+      <MdxRenderer {...mdxSource} />
     </div>
   )
 };
