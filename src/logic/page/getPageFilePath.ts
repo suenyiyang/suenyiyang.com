@@ -1,7 +1,6 @@
 import { existsSync } from "fs";
 import path from "path";
-
-const PAGES_DIR_PATH = path.join(process.cwd(), './pages');
+import { PAGES_DIR_PATH } from "../constants";
 
 const getMarkdownFileExtension = (filePath: string) => existsSync(`${filePath}.md`) ? `${filePath}.md` : `${filePath}.mdx`;
 
