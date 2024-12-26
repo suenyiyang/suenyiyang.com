@@ -10,6 +10,7 @@
   "dependencies": {
     "@next/mdx": "^15.1.2",
     "@types/mdx": "^2.0.13",
+    "gray-matter": "^4.0.3",
     "next": "^15",
     "next-mdx-remote": "^5.0.0",
     "react": "^18",
