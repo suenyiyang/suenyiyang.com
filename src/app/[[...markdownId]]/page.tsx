@@ -15,8 +15,8 @@ interface PageProps {
 
 export const generateStaticParams = () => {
   return [
-    { markdownId: ['index'] },
-    { markdownId: ['posts/test'] },
+    { markdownId: [''] },
+    { markdownId: ['posts/hello-world'] },
   ]
 };
 
