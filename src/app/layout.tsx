@@ -4,7 +4,7 @@ import { BlogLayout } from "@/components/Layout";
 
 export const metadata: Metadata = {
   title: "Yiyang's Blog",
-  description: "coming soon...",
+  keywords: ["Frontend", "前端", "Yiyang Suen", "孙轶扬"],
 };
 
 export default function RootLayout({
