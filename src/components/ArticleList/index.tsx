@@ -7,11 +7,11 @@ const ArticleList: FC = () => {
   const articleInfoList = getArticleInfoList();
 
   return (
-    <div>
+    <div className="py-8">
       {articleInfoList.map((item) => (
-        <Link href={item.url}>
-          {item.title}
-          {item.createdAt}
+        <Link className="flex flex-col" href={item.url}>
+          <h3 className="text-xl font-semibold">{item.title}</h3>
+          <span className="text-sm">{item.createdAt}</span>
         </Link>
       ))}
     </div>

@@ -1,3 +1,3 @@
-import { DivLayout } from "@/components/Layout";
+import { ContentLayout } from "@/components/Layout";
 
-export default DivLayout;
+export default ContentLayout;
