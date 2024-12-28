@@ -3,6 +3,7 @@ import { getPageFilePath } from "@/logic";
 import { readFileSync } from "fs";
 import { MdxRenderer } from "@/components/MdxRenderer";
 import { serialize } from "next-mdx-remote/serialize";
+import matter from "gray-matter";
 
 type PageParams = Promise<Partial<{
   markdownId: string[];
@@ -28,11 +29,11 @@ const Page: FC<PageProps> = async (props) => {
 
   const fileContent = readFileSync(filePath);
 
-  const mdxSource = await serialize(fileContent.toString());
+  const { content } = matter(fileContent);
 
   return (
     <div>
-      <MdxRenderer {...mdxSource} />
+      <MdxRenderer source={content} />
     </div>
   )
 };

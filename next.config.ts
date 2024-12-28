@@ -1,4 +1,5 @@
 import createMdx from '@next/mdx';
+import { NextConfig } from 'next';
 
 const withMdx = createMdx({
   options: {
@@ -7,6 +8,6 @@ const withMdx = createMdx({
   }
 })
 
-const nextConfig = {};
+const nextConfig: NextConfig = {};
 
 export default withMdx(nextConfig);
