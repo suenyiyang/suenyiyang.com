@@ -9,7 +9,7 @@ const ArticleList: FC = () => {
   return (
     <div className="py-8">
       {articleInfoList.map((item) => (
-        <Link className="flex flex-col" href={item.url}>
+        <Link key={item.url} className="flex flex-col" href={item.url}>
           <h3 className="text-xl font-semibold">{item.title}</h3>
           <span className="text-sm">{item.createdAt}</span>
         </Link>

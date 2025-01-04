@@ -6,7 +6,7 @@ export const Header: FC<HeaderProps> = (props) => {
   const {} = props;
 
   return (
-    <div className="flex flex-row justify-between p-8">
+    <div className="flex flex-row justify-between py-4 px-8">
       <h1 className="text-2xl font-bold">Yiyang Suen 的博客</h1>
       <span></span>
     </div>

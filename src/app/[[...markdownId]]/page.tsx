@@ -2,7 +2,6 @@ import { FC } from "react";
 import { getPageFilePath } from "@/logic";
 import { readFileSync } from "fs";
 import { MdxRenderer } from "@/components/MdxRenderer";
-import { serialize } from "next-mdx-remote/serialize";
 import matter from "gray-matter";
 
 type PageParams = Promise<Partial<{
@@ -32,9 +31,9 @@ const Page: FC<PageProps> = async (props) => {
   const { content } = matter(fileContent);
 
   return (
-    <div>
+    <article className="prose prose-slate dark:prose-invert max-w-none">
       <MdxRenderer source={content} />
-    </div>
+    </article>
   )
 };
 
