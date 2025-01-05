@@ -10,7 +10,7 @@ export const Header: FC<HeaderProps> = (props) => {
   return (
     <div className="flex flex-row justify-between py-4 px-8">
       <h1 className="text-2xl font-bold text-white">
-        <Logo className="dark:fill-white" />
+        <Logo className="dark:fill-white w-8 h-8" />
       </h1>
       <div className="flex">
         <ToggleDark />
