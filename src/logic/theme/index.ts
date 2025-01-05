@@ -1,1 +1,1 @@
-export * from './useToggleDarkMode';
+export * from './useThemeStore';

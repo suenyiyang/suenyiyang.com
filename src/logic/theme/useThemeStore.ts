@@ -9,10 +9,11 @@ interface ThemeStore {
 
 interface ThemeStoreActions {
   toggleDarkMode: () => void;
+  initThemeStore: () => void;
 }
 
 const INITIAL_STATE: Omit<ThemeStore, 'actions'> = {
-  isDark: Boolean(window.matchMedia('prefers-color-scheme: dark').matches),
+  isDark: false,
 };
 
 export const useThemeStore = create<ThemeStore>()((set, get) => ({
@@ -26,6 +27,10 @@ export const useThemeStore = create<ThemeStore>()((set, get) => ({
         document.querySelector('html')?.classList.add('dark');
       }
       set({ isDark: !isCurrentDark });
+    },
+
+    initThemeStore: () => {
+      set({ isDark: window.matchMedia('prefers-color-scheme: dark').matches });
     },
   }
 }));
