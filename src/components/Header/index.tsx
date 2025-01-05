@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import Logo from '@/assets/logo.svg';
+import { ToggleDark } from './ToggleDark';
 
 interface HeaderProps {}
 
@@ -7,8 +9,12 @@ export const Header: FC<HeaderProps> = (props) => {
 
   return (
     <div className="flex flex-row justify-between py-4 px-8">
-      <h1 className="text-2xl font-bold">Yiyang Suen 的博客</h1>
-      <span></span>
+      <h1 className="text-2xl font-bold text-white">
+        <Logo className="dark:fill-white" />
+      </h1>
+      <div className="flex">
+        <ToggleDark />
+      </div>
     </div>
   );
 };
