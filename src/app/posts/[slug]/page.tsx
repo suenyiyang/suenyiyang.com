@@ -10,7 +10,9 @@ interface PostPageProps {
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = allPosts.find((post: Post) => post._raw.flattenedPath === params.slug);
+  const { slug } = await params;
+
+  const post = allPosts.find((post: Post) => post._raw.flattenedPath === slug);
   
   if (!post) {
     return {
