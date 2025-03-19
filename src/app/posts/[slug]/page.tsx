@@ -1,4 +1,5 @@
 import { allPosts, Post } from 'contentlayer/generated';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXContent } from '@/components/MDXContent';
 
@@ -8,7 +9,22 @@ interface PostPageProps {
   }>;
 }
 
-export const generateStaticParams = () => {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const post = allPosts.find((post: Post) => post._raw.flattenedPath === params.slug);
+  
+  if (!post) {
+    return {
+      title: 'Post not found',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: `${post.title} - Published on ${post.createdAt}`,
+  };
+}
+
+export async function generateStaticParams() {
   return allPosts.map((post: Post) => ({
     slug: post._raw.flattenedPath,
   }));
@@ -24,7 +40,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="py-8 mx-auto max-w-3xl">
+    <article className="max-w-3xl mx-auto px-4 py-12">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
         <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -34,7 +50,9 @@ export default async function PostPage({ params }: PostPageProps) {
           )}
         </div>
       </div>
-      <MDXContent code={post.body.code} />
+      <div className="prose dark:prose-invert max-w-none">
+        <MDXContent code={post.body.code} />
+      </div>
     </article>
   );
 } 

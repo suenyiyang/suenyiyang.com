@@ -15,6 +15,25 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            a: {
+              textDecoration: 'underline',
+              '&:hover': {
+                opacity: 0.8,
+              },
+            },
+            code: {
+              borderRadius: '0.25rem',
+              padding: '0.15rem 0.3rem',
+              backgroundColor: 'rgba(0,0,0,0.1)',
+              fontWeight: '400',
+            },
+          },
+        },
+      },
     },
   },
   plugins: [
