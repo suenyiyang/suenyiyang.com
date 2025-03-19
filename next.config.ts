@@ -1,12 +1,5 @@
-import createMdx from '@next/mdx';
+import { withContentlayer } from 'next-contentlayer';
 import { NextConfig } from 'next';
-
-const withMdx = createMdx({
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-  }
-})
 
 const nextConfig: NextConfig = {
   webpack(config) {
@@ -19,4 +12,4 @@ const nextConfig: NextConfig = {
   }
 };
 
-export default withMdx(nextConfig);
+export default withContentlayer(nextConfig);
