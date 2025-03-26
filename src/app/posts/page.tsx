@@ -1,5 +1,6 @@
 import ArticleList from '@/components/ArticleList';
 import { Metadata } from 'next';
+import SidebarLayout from '@/components/Layout/SidebarLayout';
 
 export const metadata: Metadata = {
   title: 'Posts',
@@ -8,9 +9,11 @@ export const metadata: Metadata = {
 
 export default function PostsPage() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-center mt-8">Posts</h1>
-      <ArticleList />
-    </div>
+    <SidebarLayout>
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-4xl font-bold mb-12">All Posts</h1>
+        <ArticleList />
+      </div>
+    </SidebarLayout>
   );
-} 
+}

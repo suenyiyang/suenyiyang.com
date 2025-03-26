@@ -1,7 +1,7 @@
 'use client';
 import { allPosts, Post } from 'contentlayer/generated';
-import Link from "next/link";
-import { FC } from "react";
+import Link from 'next/link';
+import { FC } from 'react';
 
 const ArticleList: FC = () => {
   const posts = allPosts.sort(
@@ -9,16 +9,22 @@ const ArticleList: FC = () => {
   );
 
   return (
-    <div className="py-8 max-w-3xl mx-auto">
+    <div className="space-y-12">
       {posts.map((post: Post) => (
-        <Link 
-          key={post.url} 
-          className="flex flex-col mb-6 hover:opacity-70 transition-opacity duration-200" 
-          href={post.url}
-        >
-          <h3 className="text-xl font-bold mb-1 text-gray-900 dark:text-gray-100">{post.title}</h3>
-          <span className="text-sm text-gray-600 dark:text-gray-400">{post.createdAt}</span>
-        </Link>
+        <article key={post.url} className="group">
+          <Link href={post.url} className="block">
+            <h2 className="text-2xl font-bold mb-2 group-hover:underline">
+              {post.title}
+            </h2>
+            <time className="text-gray-500 dark:text-gray-400">
+              {new Date(post.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+          </Link>
+        </article>
       ))}
     </div>
   );

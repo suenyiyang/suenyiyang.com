@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Monaspace';
+  src: url('/fonts/MonaspaceNeonVarVF[wght,wdth,slnt].woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+:root {
+  --color-primary: #000000;
+  --color-secondary: #333333;
+  --color-background: #ffffff;
+}
+
+.dark {
+  --color-primary: #ffffff;
+  --color-secondary: #cccccc;
+  --color-background: #000000;
+}
+
+body {
+  font-family: 'Monaspace', monospace;
+  color: var(--color-primary);
+  background-color: var(--color-background);
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
