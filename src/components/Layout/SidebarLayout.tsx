@@ -40,13 +40,20 @@ export default function SidebarLayout({ children }: { children: React.ReactNode 
         <ul className="flex md:flex-col gap-4 md:gap-2">
           {navItems.map((item) => (
             <li key={item.href}>
-              <Link
-                href={item.href}
-                className={`block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors
-                  ${pathname === item.href ? 'font-bold' : ''}`}
-              >
-                {item.name}
-              </Link>
+                <Link
+                  href={item.href}
+                  className={`block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors
+                    ${pathname === item.href ? 'font-bold' : ''}`}
+                  onClick={(e) => {
+                    if (!document.startViewTransition) return;
+                    e.preventDefault();
+                    document.startViewTransition(() => {
+                      window.location.href = item.href;
+                    });
+                  }}
+                >
+                  {item.name}
+                </Link>
             </li>
           ))}
         </ul>

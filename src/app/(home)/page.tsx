@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <SidebarLayout>
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-12">Recent Posts</h1>
+        <h1 className="text-4xl font-bold mb-12 text-right pr-8">Home</h1>
         
         <div className="space-y-12">
           {recentPosts.map((post) => (

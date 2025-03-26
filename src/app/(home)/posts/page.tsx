@@ -11,7 +11,7 @@ export default function PostsPage() {
   return (
     <SidebarLayout>
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-12">All Posts</h1>
+        <h1 className="text-4xl font-bold mb-12 text-right pr-8">All Posts</h1>
         <ArticleList />
       </div>
     </SidebarLayout>

@@ -2,7 +2,7 @@
   "name": "suenyiyang.com",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,7 +13,7 @@
     "@types/mdx": "^2.0.13",
     "contentlayer": "^0.3.4",
     "gray-matter": "^4.0.3",
-    "next": "^15",
+    "next": "^15.2.4",
     "next-contentlayer": "^0.3.4",
     "next-mdx-remote": "^5.0.0",
     "react": "^19",
