@@ -1,8 +1,19 @@
+import SidebarLayout from "@/components/Layout/SidebarLayout";
+
 export default function WorkPage() {
   return (
-    <div className="flex-1">
-      <h1 className="text-3xl font-bold mb-8">Work</h1>
-      <p>Work page content coming soon</p>
-    </div>
+    <SidebarLayout>
+      <div className="max-w-3xl mx-auto">
+        <h1
+          className="text-4xl font-bold mb-12"
+          style={{ viewTransitionName: "page-title" }}
+        >
+          Work
+        </h1>
+        <div className="space-y-12">
+          <p>Work page content coming soon</p>
+        </div>
+      </div>
+    </SidebarLayout>
   );
 }

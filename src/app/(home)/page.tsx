@@ -1,19 +1,25 @@
-import { allPosts, Post } from 'contentlayer/generated';
-import Link from 'next/link';
-import SidebarLayout from '@/components/Layout/SidebarLayout';
+import SidebarLayout from "@/components/Layout/SidebarLayout";
+import { allPosts, Post } from "contentlayer/generated";
+import Link from "next/link";
 
 export default function HomePage() {
   const recentPosts = allPosts
-    .sort((a: Post, b: Post) => 
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    .sort(
+      (a: Post, b: Post) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     )
     .slice(0, 3);
 
   return (
     <SidebarLayout>
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-12 text-right pr-8">Home</h1>
-        
+        <h1
+          className="text-4xl font-bold mb-12"
+          style={{ viewTransitionName: "page-title" }}
+        >
+          Home
+        </h1>
+
         <div className="space-y-12">
           {recentPosts.map((post) => (
             <article key={post.url} className="group">
@@ -22,10 +28,10 @@ export default function HomePage() {
                   {post.title}
                 </h2>
                 <time className="text-gray-500 dark:text-gray-400">
-                  {new Date(post.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+                  {new Date(post.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
                   })}
                 </time>
               </Link>

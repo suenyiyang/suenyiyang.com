@@ -1,0 +1,19 @@
+---
+description: Product Requirements Document of this project.
+globs: 
+alwaysApply: false
+---
+# Blog Project
+
+## Introduction
+
+This project is a personal blog. It is a modern and fast frontend application.
+
+## Technique Stack
+
+- Use TypeScript
+- Use NodeJS 22
+- Use ESLint for linting
+- Use Prettier for formatting
+- Use Pnpm for package management
+- Use NextJS for framework
