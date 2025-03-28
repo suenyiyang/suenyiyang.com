@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { Header } from '@/components/Header';
+import { Header } from "@/components/Header";
+import { Navigation } from "./_components/Navigation";
+import { PageTitle } from "./_components/pageTitle";
+import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -9,11 +9,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <header>
-        <Header />
-      </header>
-      <main>{children}</main>
-    </>
+    <div>
+      <Header />
+      <div className="flex flex-row gap-4">
+        <Navigation />
+        <div className="flex flex-col gap-4">
+          <PageTitle />
+          <div>{children}</div>
+        </div>
+      </div>
+    </div>
   );
 }
