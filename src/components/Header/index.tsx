@@ -11,7 +11,7 @@ export const Header: FC<HeaderProps> = (props) => {
     <div className="flex flex-row justify-between py-4 px-8">
       <h1 className="text-2xl font-bold text-white">
         <a href="/">
-          <Logo className="dark:fill-white w-8 h-8" />
+          <Logo className="dark:fill-white w-12 h-12" />
         </a>
       </h1>
       <div className="flex">

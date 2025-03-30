@@ -16,8 +16,12 @@ const NavigationItem: FC<Route> = (props) => {
 
   return (
     <ViewTransition name={label}>
-      <Link key={href} href={href}>
-        <div className="capitalize">{label}</div>
+      <Link
+        key={href}
+        href={href}
+        className="block capitalize font-bold text-2xl"
+      >
+        {label}
       </Link>
     </ViewTransition>
   );
@@ -25,7 +29,7 @@ const NavigationItem: FC<Route> = (props) => {
 
 export const Navigation: FC = () => {
   return (
-    <div>
+    <div className="fixed bottom-20 left-20 flex flex-col gap-4">
       {routes.map((route) => (
         <NavigationItem key={route.href} {...route} />
       ))}

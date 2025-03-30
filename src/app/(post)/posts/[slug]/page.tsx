@@ -1,7 +1,7 @@
-import { allPosts, Post } from 'contentlayer/generated';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { MDXContent } from '@/components/MDXContent';
+import { MDXContent } from "@/components/MDXContent";
+import { allPosts, Post } from "contentlayer/generated";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 interface PostPageProps {
   params: Promise<{
@@ -9,14 +9,16 @@ interface PostPageProps {
   }>;
 }
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
 
   const post = allPosts.find((post: Post) => post._raw.flattenedPath === slug);
-  
+
   if (!post) {
     return {
-      title: 'Post not found',
+      title: "Post not found",
     };
   }
 
@@ -48,7 +50,10 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className="text-sm text-gray-600 dark:text-gray-400">
           <time dateTime={post.createdAt}>{post.createdAt}</time>
           {post.updatedAt && post.updatedAt !== post.createdAt && (
-            <span> · Updated <time dateTime={post.updatedAt}>{post.updatedAt}</time></span>
+            <span>
+              {" "}
+              · Updated <time dateTime={post.updatedAt}>{post.updatedAt}</time>
+            </span>
           )}
         </div>
       </div>
@@ -57,4 +62,4 @@ export default async function PostPage({ params }: PostPageProps) {
       </div>
     </article>
   );
-} 
+}
