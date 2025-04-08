@@ -8,9 +8,9 @@ export const PageTitle: FC = () => {
 
   return (
     <ViewTransition name={segment}>
-      <h1 className="block relative capitalize text-4xl font-bold">
+      <div className="absolute right-0 text-4xl font-bold tracking-tight capitalize">
         {segment}
-      </h1>
+      </div>
     </ViewTransition>
   );
 };

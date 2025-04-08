@@ -7,11 +7,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-row gap-20 px-11">
+    <div className="flex flex-row gap-20 px-44 py-8 max-md:gap-10 max-md:px-20 max-md:py-4">
       <Navigation />
-      <div className="flex flex-col gap-4 flex-1">
+      <div className="relative flex flex-col gap-4 flex-1">
         <PageTitle />
-        <div>{children}</div>
+        <div className="mt-[80px]">{children}</div>
       </div>
     </div>
   );

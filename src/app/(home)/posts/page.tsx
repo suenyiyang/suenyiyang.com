@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function PostsPage() {
   return (
-    <div className="max-w-3xl mx-auto">
+    <div>
       <ArticleList />
     </div>
   );

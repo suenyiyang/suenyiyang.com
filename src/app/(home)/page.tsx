@@ -10,7 +10,7 @@ export default function HomePage() {
     .slice(0, 3);
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div>
       <div className="space-y-12">
         {recentPosts.map((post) => (
           <article key={post.url} className="group">

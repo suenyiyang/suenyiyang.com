@@ -19,7 +19,7 @@ const NavigationItem: FC<Route> = (props) => {
       <Link
         key={href}
         href={href}
-        className="block capitalize font-bold text-2xl"
+        className="overflow-hidden group py-1 capitalize font-bold tracking-tight"
       >
         {label}
       </Link>
@@ -29,7 +29,7 @@ const NavigationItem: FC<Route> = (props) => {
 
 export const Navigation: FC = () => {
   return (
-    <div className="fixed bottom-20 left-20 flex flex-col gap-4">
+    <div className="fixed bottom-12 left-10 flex flex-col gap-2">
       {routes.map((route) => (
         <NavigationItem key={route.href} {...route} />
       ))}
