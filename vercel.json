@@ -2,5 +2,11 @@
   "buildCommand": "npm run build",
   "cleanUrls": true,
   "framework": "nextjs",
-  "installCommand": "pnpm install"
+  "installCommand": "pnpm install",
+  "rewrites": [
+    {
+      "source": "/excalidraw/:path*",
+      "destination": "https://excalidraw-with-nextjs-lilac-rho.vercel.app/:path*"
+    }
+  ]
 }
