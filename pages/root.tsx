@@ -1,11 +1,17 @@
 import Header from "@/components/layout/Header";
-import { Outlet } from "react-router-dom";
+import { Outlet, Scripts } from "react-router";
 
 export default function Root() {
   return (
-    <div>
-      <Header />
-      <Outlet />
-    </div>
+    <html>
+      <head />
+      <body>
+        <div>
+          <Header />
+          <Outlet />
+        </div>
+        <Scripts />
+      </body>
+    </html>
   );
 }
