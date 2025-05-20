@@ -12,5 +12,6 @@ declare module "react-router" {
 
 type Params = {
   "/": {};
-  "/est1": {};
+  "/about": {};
+  "/test1": {};
 };
