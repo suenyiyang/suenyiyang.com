@@ -1,7 +1,5 @@
-import { useParams } from "react-router-dom";
-
 export default function BlogPost() {
-  const { slug } = useParams();
+  // const { slug } = useParams();
 
   // This would typically fetch the blog post content based on the slug
   const post = {
