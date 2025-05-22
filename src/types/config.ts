@@ -6,5 +6,7 @@ export interface SiteConfig {
     label?: string;
     icon?: string;
     href: string;
+    target?: string;
+    component?: ReactNode;
   }[];
 }

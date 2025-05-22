@@ -13,17 +13,20 @@ export default function Header() {
             {siteConfig.logo}
           </Link>
         </div>
-        <div className="space-x-6">
+        <div className="space-x-6 flex flex-row items-center">
           {siteConfig.navItems.map((item, index) => (
             <Link
               key={index}
               to={item.href}
               className="hover:text-gray-600 inline-flex items-center gap-2"
+              target={item.target}
             >
-              {item.icon && (
-                <span className={`icon-${item.icon.toLowerCase()}`} />
-              )}
-              {item.label && <span>{item.label}</span>}
+              {item.icon ? (
+                <span
+                  className={`${item.icon.toLowerCase()} w-6 h-6 text-light-grey`}
+                />
+              ) : null}
+              {item.label ? <span>{item.label}</span> : null}
             </Link>
           ))}
         </div>

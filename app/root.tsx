@@ -23,7 +23,7 @@ export default function Root() {
   }, [criticalCss]);
 
   return (
-    <html>
+    <html className="bg-background">
       <head>{css}</head>
       <body className="relative">
         <App />

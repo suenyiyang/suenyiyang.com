@@ -5,6 +5,10 @@ export const siteConfig = {
   logo: <Logo />,
   navItems: [
     { label: "Home", href: "/" },
-    { icon: "GitHub", href: "https://github.com/suenyiyang" },
+    {
+      icon: "icon-[line-md--github-loop]",
+      href: "https://github.com/suenyiyang",
+      target: "_blank",
+    },
   ],
-} satisfies SiteConfig;
+} as SiteConfig;

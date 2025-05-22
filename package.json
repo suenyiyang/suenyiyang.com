@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@iconify/json": "^2.2.340",
     "@mdx-js/react": "^3.0.0",
     "@mdx-js/rollup": "^3.1.0",
     "@react-router/node": "^7.6.0",
@@ -25,7 +24,9 @@
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
-    "@iconify/react": "^6.0.0",
+    "@iconify-json/grommet-icons": "^1.2.1",
+    "@iconify/json": "^2.2.340",
+    "@iconify/tailwind4": "^1.0.6",
     "@react-router/dev": "^7.6.0",
     "@react-router/fs-routes": "^7.6.0",
     "@tailwindcss/vite": "^4.1.7",

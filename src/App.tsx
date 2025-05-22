@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen bg-primary-white">
       <Header />
-      <main className="flex-grow prose container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-4 py-8 prose dark:prose-invert">
         <Outlet />
       </main>
       <Footer />
