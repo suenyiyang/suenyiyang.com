@@ -1,0 +1,156 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Overall Design Philosophy:
+Minimalism: "Less is more." We'll focus on essential elements and generous white space.
+Typography: Crisp, legible, and elegant fonts will be key. We'll use a combination of a sans-serif for body text and a slightly more characterful (but still clean) sans-serif or serif for headings.
+Color Palette:
+Primary Black: #121212 (A deep, rich black for primary text and strong accents)
+Primary White: #FFFFFF (For backgrounds and to create contrast)
+Light Grey: #F5F5F5 (For subtle backgrounds, dividers, or secondary information)
+Medium Grey: #A0A0A0 (For secondary text, metadata, and subtle UI elements)
+Dark Grey: #333333 (For less prominent headings or hover states)
+Layout: Consistent grid system, ample padding, and clear visual hierarchy.
+Imagery: If used, images should be high-quality and complement the minimalist aesthetic. They can be black and white or have a muted color palette. The "light grey aesthetic headers" from the example could be subtly incorporated as background patterns or textures if desired, but sparingly.
+Font Choices (Example):
+Headings (Primary): Montserrat (Bold, SemiBold) - Modern, geometric, and highly legible.
+Headings (Secondary/Subtitles): Lora (Regular, Italic) - A well-balanced contemporary serif with a touch of elegance, offering a nice contrast to Montserrat. Alternatively, use a lighter weight of Montserrat.
+Body Text: Open Sans or Roboto (Regular, Light) - Excellent readability for longer content.
+Metadata/Captions: Open Sans or Roboto (Light, Italic)
+Page Designs:
+1. Homepage
+(Focus: Introduce the blog's essence and guide users to content)
+
+Header:
+
+Background: Primary White (#FFFFFF)
+Logo/Blog Title: Top left. Text-based, using Montserrat Bold in Primary Black (#121212). Perhaps with a subtle, single-letter monogram in Medium Grey (#A0A0A0) if a visual mark is desired.
+Navigation: Top right. Links like "Blog," "About," "Projects" (if applicable). Open Sans Regular in Dark Grey (#333333), hover state Primary Black (#121212) with a subtle underline.
+Divider: A very thin, 1px Light Grey (#F5F5F5) line separating the header from the content below.
+Hero Section (Optional but Recommended for "High-Level" Feel):
+
+Background: Primary White (#FFFFFF) or a very Light Grey (#F5F5F5) subtle texture (like the faint branches in the example, but even more subdued).
+Headline: Large, impactful statement or the blog's tagline. Montserrat Bold in Primary Black (#121212).
+Sub-headline: A brief description of the blog's focus or latest theme. Lora Regular or Montserrat Light in Dark Grey (#333333).
+Call to Action (Optional): A simple button like "Explore Latest Posts" or "Read More."
+Button Style: Ghost button (outline in Medium Grey (#A0A0A0), text in Medium Grey (#A0A0A0)), on hover fills with Light Grey (#F5F5F5) and text becomes Primary Black (#121212). Or, a solid Primary Black (#121212) button with Primary White (#FFFFFF) text for a stronger CTA.
+Featured Posts Section:
+
+Layout: 2-3 horizontally scrolling cards or a clean grid.
+Card Background: Primary White (#FFFFFF) with a very subtle Light Grey (#F5F5F5) border or a light box-shadow on hover.
+Post Title: Montserrat SemiBold in Primary Black (#121212).
+Excerpt: 2-3 lines. Open Sans Regular in Dark Grey (#333333).
+Metadata: Category, Date. Open Sans Light in Medium Grey (#A0A0A0).
+"Read More" Link: Open Sans Regular in Primary Black (#121212) with an arrow icon.
+Brief "About" Snippet (Optional):
+
+A short paragraph introducing the author or the blog's purpose. Lora Regular in Dark Grey (#333333).
+Link to the full "About Me" page.
+Footer:
+
+Background: Light Grey (#F5F5F5) or Primary White (#FFFFFF).
+Content: Copyright information, social media icons (simple, monochrome icons in Medium Grey (#A0A0A0), hover Primary Black (#121212)), perhaps a link back to the top. Open Sans Light in Medium Grey (#A0A0A0).
+Divider: A thin Medium Grey (#A0A0A0) line separating it from the content above if the background is white.
+2. Blog List Page
+(Focus: Clean, scannable list of all blog posts, similar to the example's central column but with refined styling)
+
+Header: Consistent with Homepage.
+
+Page Title:
+
+Large "Blog" or "Articles". Montserrat Bold in Primary Black (#121212).
+Optional: Short descriptive tagline below in Lora Regular or Montserrat Light in Dark Grey (#333333). (e.g., "Thoughts, learnings, and explorations.")
+Filter/Sort Options (Optional & Minimal):
+
+Subtle dropdowns or text links for categories/tags. Open Sans Regular in Medium Grey (#A0A0A0). Active filter in Primary Black (#121212).
+Blog Post List:
+
+Layout: Vertical list, single column, generous spacing between entries.
+Each Post Item:
+Title: Montserrat SemiBold in Primary Black (#121212). Hover: subtle underline or slight color change to a darker shade of black.
+Date & Reading Time: Open Sans Light in Medium Grey (#A0A0A0). Positioned below the title or to the side. (e.g., "May 21, 2025 · 5 min read")
+Excerpt (Optional): 2-3 lines of introductory text. Open Sans Regular in Dark Grey (#333333). Keep it concise.
+Divider: A thin, Light Grey (#F5F5F5) horizontal line between posts.
+Visual Grouping (like the year "2025" in the example):
+Large, light year numbers (Montserrat Light in a very Light Grey (#F5F5F5) almost blending into the background but still visible) can be used as section dividers if the post list is long. Position them to the side or subtly behind the post entries for that year.
+Pagination:
+
+Simple "Older Posts" / "Newer Posts" links or numbered pagination.
+Open Sans Regular in Medium Grey (#A0A0A0). Active page number in Primary Black (#121212).
+Footer: Consistent with Homepage.
+
+3. Blog Post Detail Page
+(Focus: Readability and content immersion)
+
+Header: Consistent with Homepage. Can be slightly more minimal here, perhaps just the logo/blog title linking home and no other navigation links to reduce distraction, or make them less prominent.
+
+Post Title Area:
+
+Title: Large and prominent. Montserrat Bold in Primary Black (#121212).
+Subtitle (Optional): Lora Regular or Montserrat Light in Dark Grey (#333333).
+Metadata: Author name (if applicable), publication date, reading time, category/tags. Open Sans Light or Lora Italic in Medium Grey (#A0A0A0). Placed cleanly below the title.
+Featured Image (Optional):
+
+If used, full-width or slightly inset with white space around it. High quality. Can be black and white to maintain the aesthetic.
+Caption: Open Sans Italic in Medium Grey (#A0A0A0) below the image.
+Main Content Area:
+
+Width: Optimized for reading (approx. 600-800px wide content column).
+Body Text: Open Sans Regular or Roboto Regular in Primary Black (#121212) or a very Dark Grey (#333333) for slightly softer contrast on a Primary White (#FFFFFF) background. Line height approx. 1.6-1.8.
+Headings (H2, H3, etc.):
+H2: Montserrat SemiBold in Primary Black (#121212).
+H3: Montserrat Regular or Lora Bold in Primary Black (#121212).
+Blockquotes: Indented, with a Light Grey (#F5F5F5) left border or italicized Lora Regular in Dark Grey (#333333).
+Links: Primary Black (#121212) with a subtle underline on hover, or a distinct but not overly distracting accent color if absolutely necessary (though sticking to monochrome is part of the challenge).
+Code Blocks: Light Grey (#F5F5F5) background, monospace font (e.g., Fira Code, Source Code Pro) in Dark Grey (#333333).
+Lists: Ample spacing, standard bullet points or numbered lists.
+Author Bio (Brief, at the end of the post):
+
+Small circular image (optional).
+Short bio. Open Sans Regular in Dark Grey (#333333). Link to "About Me" page.
+Share Buttons (Optional & Minimal):
+
+Subtle, monochrome icons for sharing on key platforms. Medium Grey (#A0A0A0), hover Primary Black (#121212).
+Comments Section (If applicable):
+
+Clean design, matching the overall aesthetic. Input fields with Light Grey (#F5F5F5) borders.
+Related Posts (Optional):
+
+2-3 cards or simple text links at the bottom. Style similar to Featured Posts on Homepage.
+Footer: Consistent with Homepage.
+
+4. About Me Page
+(Focus: Personal connection, showcasing expertise/personality within the aesthetic)
+
+Header: Consistent with Homepage.
+
+Page Title: "About Me" or "[Your Name]". Montserrat Bold in Primary Black (#121212).
+
+Main Content Area:
+
+Layout: Can be a two-column layout (one for image, one for text) or a single, wider column.
+Profile Image (Optional): High-quality, professional photo. Can be black and white or have a muted color scheme.
+Introduction/Bio:
+Lora Regular or Open Sans Regular for the main narrative text, in Primary Black (#121212) or Dark Grey (#333333).
+Use Montserrat SemiBold for any subheadings within the bio (e.g., "My Story," "Expertise," "Interests").
+Key Information/Highlights: Can use bullet points or short paragraphs.
+Call to Action (Optional): "Get In Touch," "View Projects," "Connect on LinkedIn." Styled as subtle buttons or text links.
+Optional Sections:
+
+Timeline/Milestones: Visually clean timeline with key achievements.
+Skills/Expertise: Clean list or visual representation (e.g., subtle bar graphs if done minimally).
+Testimonials (if applicable): Styled as blockquotes.
+Contact Information/Social Links:
+
+Clearly presented. Icons for social media. Medium Grey (#A0A0A0) icons, hover Primary Black (#121212).
+Footer: Consistent with Homepage.
+
+Key Design Principles to Emphasize:
+White Space (Negative Space): Crucial for the high-level, uncluttered feel. Don't be afraid of it; use it generously around all elements.
+Visual Hierarchy: Guide the user's eye through clear distinctions in font size, weight, and color. Headings should stand out, body text should be legible, and metadata should be secondary.
+Consistency: Maintain consistent styling for similar elements across all pages (e.g., button styles, link styles, heading treatments).
+Subtlety: Details like thin borders, slight changes in grey tones, and subtle hover effects contribute to the sophisticated feel without being distracting.
+Responsiveness: Ensure the design adapts seamlessly to different screen sizes (desktop, tablet, mobile). For mobile, navigation might collapse into a hamburger menu, and layouts will become single-column.
+This detailed design provides a strong foundation. The exact implementation would involve iterating on spacing, typography scales, and the precise shades of grey to achieve the perfect balance for that "high-level" feel you're aiming for. Good luck!

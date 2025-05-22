@@ -1,5 +1,6 @@
-import Header from "@/components/layout/Header";
-import { Outlet, Scripts } from "react-router";
+import App from "@/App";
+import { useContext, useMemo } from "react";
+import { Scripts, UNSAFE_FrameworkContext } from "react-router";
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   if (error.status === 404) {
@@ -9,14 +10,23 @@ export function ErrorBoundary({ error }: { error: { status: number } }) {
 }
 
 export default function Root() {
+  const { criticalCss } = useContext(UNSAFE_FrameworkContext) ?? {};
+
+  const css = useMemo(() => {
+    if (!criticalCss) {
+      return null;
+    }
+    if (typeof criticalCss === "string") {
+      return <style>{criticalCss}</style>;
+    }
+    return <link {...criticalCss} />;
+  }, [criticalCss]);
+
   return (
     <html>
-      <head />
-      <body>
-        <div>
-          <Header />
-          <Outlet />
-        </div>
+      <head>{css}</head>
+      <body className="relative">
+        <App />
         <Scripts />
       </body>
     </html>
