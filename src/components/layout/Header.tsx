@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="w-full p-8">
+    <header className="w-full p-8 text-neutral-700 dark:text-neutral-300 fill-neutral-700 dark:fill-neutral-300">
       <div className="flex items-center justify-between">
         <div>
           <Link
             to="/"
-            className="text-xl font-bold w-12 h-12 m-5 absolute left-0 top-0"
+            className="text-xl font-bold w-12 h-12 m-8 absolute left-0 top-0"
           >
             {siteConfig.logo}
           </Link>
@@ -18,7 +18,7 @@ export default function Header() {
             <Link
               key={index}
               to={item.href}
-              className="hover:text-gray-600 inline-flex items-center gap-2"
+              className="inline-flex items-center gap-2"
               target={item.target}
             >
               {item.icon ? (

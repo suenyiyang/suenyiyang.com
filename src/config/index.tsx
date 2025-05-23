@@ -1,7 +1,8 @@
 import Logo from "@/assets/logo.svg";
+import { t } from "@/locale";
 import { SiteConfig } from "@/types/config";
 
-export const siteConfig = {
+export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
     { label: "Home", href: "/" },
@@ -11,4 +12,11 @@ export const siteConfig = {
       target: "_blank",
     },
   ],
-} as SiteConfig;
+  metadata: {
+    title: t("site.title"),
+    description: t("site.description"),
+    keywords: t("site.keywords"),
+    url: "https://suenyiyang.com",
+    favicon: <Logo />,
+  },
+};

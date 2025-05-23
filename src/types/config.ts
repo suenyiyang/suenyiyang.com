@@ -9,4 +9,11 @@ export interface SiteConfig {
     target?: string;
     component?: ReactNode;
   }[];
+  metadata: {
+    title: string;
+    description: string;
+    keywords: string;
+    url: string;
+    favicon: ReactNode;
+  };
 }

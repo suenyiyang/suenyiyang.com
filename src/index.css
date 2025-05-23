@@ -1,15 +1,11 @@
 @import "tailwindcss";
 
-@theme {
+/* @theme {
   --color-title: #121212;
   --color-heading: #2c2c2c;
   --color-body: #555555;
   --color-hints: #8e8e8e;
   --color-background: #ffffff;
-
-  --font-sans: "Open Sans", "Roboto", "sans-serif";
-  --font-serif: "Lora", "serif";
-  --font-montserrat: "Montserrat", "sans-serif";
 }
 
 @variant dark {
@@ -18,7 +14,7 @@
   --color-body: #a0a0a0;
   --color-hints: #6b6b6b;
   --color-background: #1c1c1e;
-}
+} */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
