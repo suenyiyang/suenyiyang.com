@@ -8,7 +8,7 @@ export default function Header() {
         <div>
           <Link
             to="/"
-            className="text-xl font-bold w-12 h-12 m-8 absolute left-0 top-0"
+            className="text-xl font-bold w-12 h-12 my-5 mx-8 absolute left-0 top-0"
           >
             {siteConfig.logo}
           </Link>

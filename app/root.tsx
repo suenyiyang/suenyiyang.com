@@ -1,10 +1,8 @@
 import App from "@/App";
 import { siteConfig } from "@/config";
 import { initLocale } from "@/locale";
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { Scripts, UNSAFE_FrameworkContext } from "react-router";
-
-initLocale();
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   console.log(
@@ -19,6 +17,10 @@ export function ErrorBoundary({ error }: { error: { status: number } }) {
 }
 
 export default function Root() {
+  useEffect(() => {
+    initLocale();
+  }, []);
+
   const { criticalCss } = useContext(UNSAFE_FrameworkContext) ?? {};
 
   const css = useMemo(() => {
