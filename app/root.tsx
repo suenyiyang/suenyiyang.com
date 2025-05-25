@@ -22,7 +22,7 @@ export default function Root() {
   }, []);
 
   return (
-    <html className="bg-neutral-50 dark:bg-neutral-950 font-sans">
+    <html className="bg-white dark:bg-neutral-950 font-sans">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />

@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config";
 import { Link } from "react-router-dom";
+import { ToggleDark } from "../ToggleDark";
 
 export default function Header() {
   return (
@@ -29,6 +30,7 @@ export default function Header() {
               {item.label ? <span>{item.label}</span> : null}
             </Link>
           ))}
+          <ToggleDark />
         </div>
       </div>
     </header>
