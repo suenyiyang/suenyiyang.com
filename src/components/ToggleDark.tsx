@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export const ToggleDark = () => {
   const [isDark, setIsDark] = useState(false);
-  const [key, setKey] = useState(0);
 
   useEffect(() => {
     // Check initial dark mode
@@ -14,7 +13,6 @@ export const ToggleDark = () => {
     const htmlElement = document.documentElement;
     htmlElement.classList.toggle("dark");
     setIsDark(!isDark);
-    setKey(key + 1);
   };
 
   return (
@@ -24,9 +22,9 @@ export const ToggleDark = () => {
       onClick={onClick}
     >
       {isDark ? (
-        <span key={key} className="icon-[line-md--sun-rising-loop] w-6 h-6" />
+        <span className="icon-[line-md--sunny-loop] w-6 h-6" />
       ) : (
-        <span key={key} className="icon-[line-md--moon-loop] w-6 h-6" />
+        <span className="icon-[line-md--moon-loop] w-6 h-6" />
       )}
     </div>
   );
