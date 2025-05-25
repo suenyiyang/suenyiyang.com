@@ -1,8 +1,8 @@
 import App from "@/App";
 import { siteConfig } from "@/config";
 import { initLocale } from "@/locale";
-import { useContext, useEffect, useMemo } from "react";
-import { Scripts, UNSAFE_FrameworkContext } from "react-router";
+import { useEffect } from "react";
+import { Links, Scripts } from "react-router";
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   console.log(
@@ -21,18 +21,6 @@ export default function Root() {
     initLocale();
   }, []);
 
-  const { criticalCss } = useContext(UNSAFE_FrameworkContext) ?? {};
-
-  const css = useMemo(() => {
-    if (!criticalCss) {
-      return null;
-    }
-    if (typeof criticalCss === "string") {
-      return <style>{criticalCss}</style>;
-    }
-    return <link {...criticalCss} />;
-  }, [criticalCss]);
-
   return (
     <html className="bg-neutral-50 dark:bg-neutral-950 font-sans">
       <head>
@@ -40,6 +28,7 @@ export default function Root() {
         <meta charSet="utf-8" />
         <title>{siteConfig.metadata.title}</title>
         <meta name="description" content={siteConfig.metadata.description} />
+        <Links />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
@@ -68,7 +57,6 @@ export default function Root() {
         <meta name="robots" content="index, follow" />
         <meta name="keywords" content={siteConfig.metadata.keywords} />
         <link rel="canonical" href={siteConfig.metadata.url} />
-        <>{css}</>
       </head>
       <body className="relative">
         <App />

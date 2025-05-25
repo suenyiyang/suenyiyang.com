@@ -1,21 +1,5 @@
 @import "tailwindcss";
 
-/* @theme {
-  --color-title: #121212;
-  --color-heading: #2c2c2c;
-  --color-body: #555555;
-  --color-hints: #8e8e8e;
-  --color-background: #ffffff;
-}
-
-@variant dark {
-  --color-title: #f0f0f0;
-  --color-heading: #cccccc;
-  --color-body: #a0a0a0;
-  --color-hints: #6b6b6b;
-  --color-background: #1c1c1e;
-} */
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 @plugin "@tailwindcss/typography";
