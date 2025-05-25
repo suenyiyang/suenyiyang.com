@@ -42,6 +42,7 @@
     "eslint": "^9.27.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "remark-frontmatter": "^5.0.0",
     "typescript": "^5.2.2",
     "vite": "^6.3.5",
     "vite-plugin-svgr": "^4.3.0"
