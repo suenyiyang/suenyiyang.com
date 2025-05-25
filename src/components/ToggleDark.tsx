@@ -31,7 +31,7 @@ export const ToggleDark = () => {
       onClick={onClick}
     >
       {isDark ? (
-        <span className="icon-[line-md--sun-loop] w-6 h-6" />
+        <span className="icon-[line-md--sun-rising-loop] w-6 h-6" />
       ) : (
         <span className="icon-[line-md--moon-loop] w-6 h-6" />
       )}
