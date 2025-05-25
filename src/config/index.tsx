@@ -6,6 +6,7 @@ export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
     { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
     {
       icon: "icon-[line-md--github-loop]",
       href: "https://github.com/suenyiyang",
