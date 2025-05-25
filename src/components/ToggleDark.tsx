@@ -19,15 +19,14 @@ export const ToggleDark = () => {
 
   return (
     <div
-      key={key}
       className="inline-flex items-center gap-2 cursor-pointer"
       aria-label="Toggle dark mode"
       onClick={onClick}
     >
       {isDark ? (
-        <span className="icon-[line-md--sun-rising-loop] w-6 h-6" />
+        <span key={key} className="icon-[line-md--sun-rising-loop] w-6 h-6" />
       ) : (
-        <span className="icon-[line-md--moon-loop] w-6 h-6" />
+        <span key={key} className="icon-[line-md--moon-loop] w-6 h-6" />
       )}
     </div>
   );
