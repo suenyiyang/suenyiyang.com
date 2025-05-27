@@ -1,8 +1,8 @@
-import App from "@/App";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import { siteConfig } from "@/config";
-import { initLocale } from "@/locale";
-import { useEffect } from "react";
-import { Links, Scripts } from "react-router";
+import { Links, Outlet, Scripts } from "react-router";
+import "./index.css";
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   console.log(
@@ -16,11 +16,7 @@ export function ErrorBoundary({ error }: { error: { status: number } }) {
   return <div>500</div>;
 }
 
-export default function Root() {
-  useEffect(() => {
-    initLocale();
-  }, []);
-
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html className="bg-white dark:bg-neutral-950 font-sans">
       <head>
@@ -59,9 +55,19 @@ export default function Root() {
         <link rel="canonical" href={siteConfig.metadata.url} />
       </head>
       <body className="relative">
-        <App />
+        <div className="flex flex-col min-h-screen bg-primary-white">
+          <Header />
+          <main className="flex-grow container mx-auto px-4 py-8 prose dark:prose-invert">
+            {children}
+          </main>
+          <Footer />
+        </div>
         <Scripts />
       </body>
     </html>
   );
+}
+
+export default function Root() {
+  return <Outlet />;
 }
