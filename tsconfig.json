@@ -17,9 +17,10 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "~/*": ["src/*"],
+      "content-collections/generated": ["./.content-collections/generated"]
     }
   },
-  "include": ["src", "app"],
+  "include": ["src", ".content-collections/generated"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

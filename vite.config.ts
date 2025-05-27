@@ -4,19 +4,23 @@ import tailwindcss from "@tailwindcss/vite";
 import remarkFrontmatter from "remark-frontmatter";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
+import contentCollections from "@content-collections/remix-vite";
+import path from "node:path";
 
 export default defineConfig({
   plugins: [
+    mdx({ remarkPlugins: [remarkFrontmatter], providerImportSource: "@mdx-js/react" }),
     tailwindcss(),
     reactRouter(),
-    { enforce: "pre", ...mdx({ remarkPlugins: [remarkFrontmatter] }) },
     svgr({
       include: "**/*.svg",
     }),
+    contentCollections(),
   ],
   resolve: {
     alias: {
-      "@": "/src",
+      "~": path.resolve(__dirname, "./src"),
+      "content-collections/generated": path.resolve(__dirname, "./.content-collections/generated"),
     },
   },
 });

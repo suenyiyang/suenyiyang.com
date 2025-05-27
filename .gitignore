@@ -46,3 +46,6 @@ lerna-debug.log*
 
 # React Router
 .react-router
+
+# Content Collections
+.content-collections

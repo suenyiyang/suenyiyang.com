@@ -1,9 +1,9 @@
-import { type Post } from "~/utils/posts";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { allPosts, type Post } from "content-collections/generated";
 
-export const PostList = ({ posts }: { posts: Post[] }) => {
-  if (!posts || posts.length === 0) {
+export const PostList = () => {
+  if (!allPosts || allPosts.length === 0) {
     return (
       <div className="text-center py-12">
         <p className="text-neutral-500 dark:text-neutral-400">No posts found</p>
@@ -14,8 +14,8 @@ export const PostList = ({ posts }: { posts: Post[] }) => {
   return (
     <div className="max-w-4xl mx-auto not-prose">
       <div className="space-y-8">
-        {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
+        {allPosts.map((post) => (
+          <PostCard key={post._meta.path} post={post} />
         ))}
       </div>
     </div>
@@ -34,7 +34,7 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <article className="group border-b border-neutral-100 dark:border-neutral-800 pb-8 last:border-b-0">
       <Link
-        to={`/posts/${post.slug}`}
+        to={`/posts/${post._meta.path}`}
         className="block transition-all duration-200 hover:translate-x-1"
       >
         <div className="space-y-3">
@@ -49,12 +49,6 @@ const PostCard = ({ post }: PostCardProps) => {
             >
               {formattedDate}
             </time>
-          )}
-
-          {post.description && (
-            <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-              {post.description}
-            </p>
           )}
 
           <div className="flex items-center text-sm text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
