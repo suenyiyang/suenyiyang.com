@@ -1,25 +1,12 @@
+import { type Post } from "~/utils/posts";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import { getPosts, type Post } from "@/utils/posts";
-import { useRouteLoaderData } from "react-router";
 
-export const PostList = () => {
-  const posts = getPosts();
-
-  const routes = useRouteLoaderData("posts");
-
-  console.log(
-    "%csrc/components/PostList.tsx:11 routes",
-    "color: white; background-color: #26bfa5;",
-    routes
-  );
-
-  if (posts.length === 0) {
+export const PostList = ({ posts }: { posts: Post[] }) => {
+  if (!posts || posts.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-neutral-500 dark:text-neutral-400">
-          No posts found. Start writing your first post!
-        </p>
+        <p className="text-neutral-500 dark:text-neutral-400">No posts found</p>
       </div>
     );
   }

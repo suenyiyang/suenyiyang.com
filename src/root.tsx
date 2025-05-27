@@ -1,6 +1,6 @@
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
-import { siteConfig } from "@/config";
+import Footer from "~/components/layout/Footer";
+import Header from "~/components/layout/Header";
+import { siteConfig } from "~/config";
 import { Links, Outlet, Scripts } from "react-router";
 import "./index.css";
 

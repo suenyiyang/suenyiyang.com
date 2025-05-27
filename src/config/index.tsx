@@ -1,6 +1,6 @@
-import Logo from "@/assets/logo.svg";
-import { t } from "@/locale";
-import { SiteConfig } from "@/types/config";
+import Logo from "~/assets/logo.svg";
+import { t } from "~/locale";
+import { SiteConfig } from "~/types/config";
 
 export const siteConfig: SiteConfig = {
   logo: <Logo />,

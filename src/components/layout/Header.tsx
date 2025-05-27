@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config";
+import { siteConfig } from "~/config";
 import { Link } from "react-router-dom";
 import { ToggleDark } from "../ToggleDark";
 
