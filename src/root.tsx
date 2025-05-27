@@ -5,11 +5,6 @@ import { Links, Outlet, Scripts } from "react-router";
 import "./index.css";
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
-  console.log(
-    "%capp/root.tsx:7 error",
-    "color: white; background-color: #26bfa5;",
-    error
-  );
   if (error.status === 404) {
     return <div>404</div>;
   }
