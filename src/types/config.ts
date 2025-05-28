@@ -14,6 +14,6 @@ export interface SiteConfig {
     description: string;
     keywords: string;
     url: string;
-    favicon: ReactNode;
+    favicon: string;
   };
 }
