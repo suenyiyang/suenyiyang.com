@@ -17,10 +17,10 @@ export const PostItem: FC<PostItemProps> = (props) => {
   return (
     <Link
       to={post._meta.path}
-      className="block group opacity-70 transition-opacity duration-200 hover:opacity-100"
+      className="block group opacity-75 transition-opacity duration-200 hover:opacity-100"
     >
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+        <h2 className="text-xl font-semibold text-neutral-950 dark:text-neutral-50">
           {post.title}
         </h2>
 
