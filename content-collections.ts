@@ -10,11 +10,13 @@ const getPathnameFromContext = (directory: string, path: string) => {
 }
 
 const schema = z.object({
-  title: z.string().optional(),
   date: z.string().optional(),
   description: z.string().optional(),
   keywords: z.string().optional(),
+  readingTime: z.string().optional(),
+  title: z.string().optional(),
   url: z.string().optional(),
+  tags: z.string().optional(),
 });
 
 type ZodObjectType = typeof schema;
