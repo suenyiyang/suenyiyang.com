@@ -6,10 +6,11 @@ import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 import contentCollections from "@content-collections/remix-vite";
 import path from "node:path";
+import remarkEmoji from "remark-emoji";
 
 export default defineConfig({
   plugins: [
-    mdx({ remarkPlugins: [remarkFrontmatter], providerImportSource: "@mdx-js/react" }),
+    mdx({ remarkPlugins: [remarkFrontmatter, remarkEmoji], providerImportSource: "@mdx-js/react" }),
     tailwindcss(),
     reactRouter(),
     svgr({
