@@ -31,6 +31,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <Links />
         <Meta />
+        {/* Set dark mode based on system preference */}
+        <script
+          defer
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                document && document.documentElement && document.documentElement.classList.add("dark");
+              }
+            `,
+          }}
+        />
       </head>
       <body className="relative">
         <div className="flex flex-col min-h-screen bg-primary-white">
