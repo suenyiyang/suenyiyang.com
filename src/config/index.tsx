@@ -5,8 +5,11 @@ import { SiteConfig } from "~/types/config";
 export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
-    { label: "Home", href: "/" },
     { label: "Posts", href: "/posts" },
+    {
+      icon: "icon-[line-md--link]",
+      href: "/links",
+    },
     {
       icon: "icon-[line-md--github-loop]",
       href: "https://github.com/suenyiyang",
