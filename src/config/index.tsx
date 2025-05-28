@@ -1,4 +1,5 @@
 import Logo from "~/assets/logo.svg";
+import favicon from "~/assets/favicon.svg?url";
 import { t } from "~/locale";
 import { SiteConfig } from "~/types/config";
 
@@ -21,6 +22,6 @@ export const siteConfig: SiteConfig = {
     description: t("site.description"),
     keywords: t("site.keywords"),
     url: "https://suenyiyang.com",
-    favicon: <Logo />,
+    favicon,
   },
 };
