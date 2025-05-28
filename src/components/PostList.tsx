@@ -34,7 +34,7 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <article className="group border-b border-neutral-100 dark:border-neutral-800 pb-8 last:border-b-0">
       <Link
-        to={`/posts/${post._meta.path}`}
+        to={post._meta.path}
         className="block transition-all duration-200 hover:translate-x-1"
       >
         <div className="space-y-3">
