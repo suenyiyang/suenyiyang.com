@@ -20,7 +20,7 @@ export const siteConfig: SiteConfig = {
     title: "Yiyang Suen",
     description:
       "Personal blog including frontend tech, life sharing, AI exploration and more.",
-    keywords: "Yiyang Suen, Frontend, Tech, 孙轶扬, 前端, 技术",
+    keywords: "Yiyang Suen, Frontend, Tech",
     url: "https://suenyiyang.com",
     favicon,
   },
