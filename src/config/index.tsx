@@ -1,6 +1,5 @@
 import Logo from "~/assets/logo.svg";
 import favicon from "~/assets/favicon.svg?url";
-import { t } from "~/locale";
 import { SiteConfig } from "~/types/config";
 
 export const siteConfig: SiteConfig = {
@@ -18,9 +17,10 @@ export const siteConfig: SiteConfig = {
     },
   ],
   metadata: {
-    title: t("site.title"),
-    description: t("site.description"),
-    keywords: t("site.keywords"),
+    title: "Yiyang Suen",
+    description:
+      "Personal blog including frontend tech, life sharing, AI exploration and more.",
+    keywords: "Yiyang Suen, Frontend, Tech, 孙轶扬, 前端, 技术",
     url: "https://suenyiyang.com",
     favicon,
   },
