@@ -1,10 +1,10 @@
 import Footer from "~/components/layout/Footer";
 import Header from "~/components/layout/Header";
 import { Links, Meta, Outlet, Scripts } from "react-router";
-import stylesheet from "./index.css?url";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
-import { siteConfig } from "./config";
+import { siteConfig } from "~/config";
+import stylesheet from "~/index.css?url";
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   if (error.status === 404) {
