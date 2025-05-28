@@ -12,6 +12,24 @@ export const ToggleDark = () => {
   const onClick = () => {
     const htmlElement = document.documentElement;
     htmlElement.classList.toggle("dark");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: light)"
+    ).matches;
+
+    if (
+      (prefersDark && htmlElement.classList.contains("dark")) ||
+      (prefersLight && !htmlElement.classList.contains("dark"))
+    ) {
+      localStorage.setItem("color-scheme", "auto");
+    } else if (prefersDark && !htmlElement.classList.contains("dark")) {
+      localStorage.setItem("color-scheme", "light");
+    } else {
+      localStorage.setItem("color-scheme", "dark");
+    }
+
     setIsDark(!isDark);
   };
 
