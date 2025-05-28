@@ -4,6 +4,7 @@ import { Links, Meta, Outlet, Scripts } from "react-router";
 import stylesheet from "./index.css?url";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
+import { siteConfig } from "./config";
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   if (error.status === 404) {
@@ -12,20 +13,18 @@ export function ErrorBoundary({ error }: { error: { status: number } }) {
   return <div>500</div>;
 }
 
-export function HydrateFallback() {
-  return <div>Loading...</div>;
-}
-
 export function links() {
   return [
     { rel: "preload", href: stylesheet, as: "style" },
     { rel: "stylesheet", href: stylesheet },
+    { rel: "canonical", href: siteConfig.metadata.url },
+    { rel: "icon", href: siteConfig.metadata.favicon },
   ];
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html className="bg-white dark:bg-neutral-950 font-sans">
+    <html suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
@@ -33,17 +32,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         {/* Set dark mode based on system preference */}
         <script
-          defer
           dangerouslySetInnerHTML={{
             __html: `
-              if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                document && document.documentElement && document.documentElement.classList.add("dark");
+            (() => {
+              const prefersDark =
+                  window.matchMedia &&
+                  window.matchMedia("(prefers-color-scheme: dark)").matches;
+              const colorScheme = localStorage.getItem("color-scheme") || "auto";
+
+              if (colorScheme === "dark" || (prefersDark && colorScheme !== "light")) {
+                document.documentElement.classList.toggle("dark", true);
               }
-            `,
+            })()
+              `,
           }}
         />
       </head>
-      <body className="relative">
+      <body className="relative bg-white dark:bg-neutral-950 font-sans">
         <div className="flex flex-col min-h-screen bg-primary-white">
           <Header />
           <main className="flex-grow container mx-auto px-4 py-8 prose dark:prose-invert">
