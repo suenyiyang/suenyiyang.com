@@ -20,12 +20,22 @@ export const PostItem: FC<PostItemProps> = (props) => {
       className="block group opacity-75 transition-opacity duration-200 hover:opacity-100"
     >
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold text-neutral-950 dark:text-neutral-50">
-          {post.title}
-        </h2>
-
+        <div className="flex items-center gap-2">
+          {/* Post title */}
+          <h2 className="text-xl font-semibold text-neutral-950 dark:text-neutral-50">
+            {post.title}
+          </h2>
+          {/* Language badge */}
+          {post.lang && (
+            <span className="text-xs px-1.5 py-0.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded">
+              {post.lang}
+            </span>
+          )}
+        </div>
         <div className="flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+          {/* Publication date */}
           {formattedDate && <time dateTime={post.date}>{formattedDate}</time>}
+          {/* Reading time */}
           {post.readingTime && (
             <>
               <span>•</span>

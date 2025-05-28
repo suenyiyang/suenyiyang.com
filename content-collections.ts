@@ -13,6 +13,7 @@ const schema = z.object({
   date: z.string().optional(),
   description: z.string().optional(),
   keywords: z.string().optional(),
+  lang: z.string().optional(),
   readingTime: z.string().optional(),
   title: z.string().optional(),
   url: z.string().optional(),
