@@ -2,7 +2,7 @@ import { type Context, defineCollection, defineConfig, Schema } from "@content-c
 import { z } from "zod";
 
 const getTitleFromContent = (content: string) => {
-  return content.match(/^# (.*)\n/)?.[1];
+  return content.match(/^# (.*)(\n)?/)?.[1];
 }
 
 const getPathnameFromContext = (directory: string, path: string) => {
