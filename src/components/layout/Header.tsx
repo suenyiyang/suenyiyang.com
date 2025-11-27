@@ -4,7 +4,7 @@ import { ToggleDark } from "../ToggleDark";
 
 export default function Header() {
   return (
-    <header className="w-full p-8 text-neutral-700 dark:text-neutral-300 fill-neutral-700 dark:fill-neutral-300">
+    <header className="w-full p-8 text-neutral-700 dark:text-neutral-300 fill-neutral-700 dark:fill-neutral-300 sticky top-0 backdrop-blur-sm">
       <div className="flex items-center justify-between">
         <div>
           <Link
