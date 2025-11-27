@@ -52,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="relative bg-white dark:bg-neutral-950 font-sans">
         <div className="flex flex-col min-h-screen bg-primary-white">
           <Header />
-          <main className="flex-grow container mx-auto px-4 py-8 prose dark:prose-invert">
+          <main className="flex-grow container mx-auto p-8 prose dark:prose-invert">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
           <Footer />
