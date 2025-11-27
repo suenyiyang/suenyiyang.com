@@ -5,7 +5,7 @@ import { SiteConfig } from "~/types/config";
 export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
-    { label: "Posts", href: "/posts" },
+    { icon: "icon-[line-md--document-list]", href: "/posts" },
     {
       icon: "icon-[line-md--link]",
       href: "/links",
