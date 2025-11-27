@@ -4,3 +4,37 @@
 
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
+
+:root {
+  view-transition-name: theme;
+  --vt-x: 50%;
+  --vt-y: 50%;
+  --vt-radius: 150%;
+}
+
+::view-transition-old(theme),
+::view-transition-new(theme) {
+  animation: none;
+}
+
+::view-transition-new(theme) {
+  clip-path: circle(0 at var(--vt-x) var(--vt-y));
+  animation: theme-wipe-in 420ms ease-out forwards;
+}
+
+::view-transition {
+  background: transparent;
+}
+
+@keyframes theme-wipe-in {
+  to {
+    clip-path: circle(var(--vt-radius) at var(--vt-x) var(--vt-y));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(theme),
+  ::view-transition-new(theme) {
+    animation: none !important;
+  }
+}
