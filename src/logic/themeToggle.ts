@@ -25,19 +25,21 @@ export const toggleThemeWithTransition = (
   trigger?: ThemeToggleTrigger
 ): boolean => {
   const htmlElement = document.documentElement;
+  const currentIsDark = htmlElement.classList.contains("dark");
+  const nextIsDark = !currentIsDark;
   const prefersReducedMotion =
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const supportsViewTransition =
     "startViewTransition" in document && !prefersReducedMotion;
 
   const runToggle = () => {
-    htmlElement.classList.toggle("dark");
+    htmlElement.classList.toggle("dark", nextIsDark);
     persistPreference(htmlElement);
-    return htmlElement.classList.contains("dark");
   };
 
   if (!supportsViewTransition) {
-    return runToggle();
+    runToggle();
+    return nextIsDark;
   }
 
   const x = trigger?.clientX ?? window.innerWidth / 2;
@@ -51,10 +53,8 @@ export const toggleThemeWithTransition = (
   htmlElement.style.setProperty("--vt-y", `${y}px`);
   htmlElement.style.setProperty("--vt-radius", `${endRadius}px`);
 
-  let nextIsDark = htmlElement.classList.contains("dark");
-
   (document as any).startViewTransition(() => {
-    nextIsDark = runToggle();
+    runToggle();
   })?.finished.finally(() => {
     htmlElement.style.removeProperty("--vt-x");
     htmlElement.style.removeProperty("--vt-y");
