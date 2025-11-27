@@ -52,6 +52,7 @@ export const toggleThemeWithTransition = (
   htmlElement.style.setProperty("--vt-x", `${x}px`);
   htmlElement.style.setProperty("--vt-y", `${y}px`);
   htmlElement.style.setProperty("--vt-radius", `${endRadius}px`);
+  htmlElement.dataset.themeTransition = nextIsDark ? "to-dark" : "to-light";
 
   (document as any).startViewTransition(() => {
     runToggle();
@@ -59,6 +60,7 @@ export const toggleThemeWithTransition = (
     htmlElement.style.removeProperty("--vt-x");
     htmlElement.style.removeProperty("--vt-y");
     htmlElement.style.removeProperty("--vt-radius");
+    delete htmlElement.dataset.themeTransition;
   });
 
   return nextIsDark;

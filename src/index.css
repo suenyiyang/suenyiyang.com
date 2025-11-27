@@ -17,18 +17,31 @@
   animation: none;
 }
 
-::view-transition-new(theme) {
+::view-transition {
+  background: transparent;
+}
+
+:root[data-theme-transition="to-light"]::view-transition-new(theme) {
+  z-index: 1;
   clip-path: circle(0 at var(--vt-x) var(--vt-y));
   animation: theme-wipe-in 420ms ease-out forwards;
 }
 
-::view-transition {
-  background: transparent;
+:root[data-theme-transition="to-dark"]::view-transition-old(theme) {
+  z-index: 1;
+  clip-path: circle(var(--vt-radius) at var(--vt-x) var(--vt-y));
+  animation: theme-wipe-out 420ms ease-in forwards;
 }
 
 @keyframes theme-wipe-in {
   to {
     clip-path: circle(var(--vt-radius) at var(--vt-x) var(--vt-y));
+  }
+}
+
+@keyframes theme-wipe-out {
+  to {
+    clip-path: circle(0 at var(--vt-x) var(--vt-y));
   }
 }
 
