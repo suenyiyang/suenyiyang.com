@@ -46,7 +46,7 @@ const main = async () => {
     const client = createOSSClient(config);
 
     for (const filePath of filePathList) {
-      const relativePath = filePath.replace(outputFolder, new URL(ENV_OSS_PREFIX_PATH).pathname);
+      const relativePath = filePath.replace(outputFolder, new URL(ENV_OSS_PREFIX_PATH).pathname.replace(/(\/)?$/, ''));
       await client.put(
         relativePath,
         filePath,
