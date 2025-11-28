@@ -8,6 +8,8 @@ import contentCollections from "@content-collections/remix-vite";
 import path from "node:path";
 import remarkEmoji from "remark-emoji";
 
+import { BASE } from './config/build';
+
 export default defineConfig({
   plugins: [
     mdx({ remarkPlugins: [remarkFrontmatter, remarkEmoji], providerImportSource: "@mdx-js/react" }),
@@ -24,4 +26,5 @@ export default defineConfig({
       "content-collections/generated": path.resolve(__dirname, "./.content-collections/generated"),
     },
   },
+  base: BASE,
 });

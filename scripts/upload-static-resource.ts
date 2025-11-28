@@ -2,37 +2,19 @@ import OSSClient from 'ali-oss';
 import assert from 'node:assert';
 import glob from 'fast-glob';
 import path from 'node:path';
+import { BUILD_REGION_TO_OSS_CONFIG, OSSConfigItem } from '../config/build';
+import { ENV_BASE, ENV_BUILD_REGION, ENV_OSS_ACCESS_KEY_ID, ENV_OSS_ACCESS_KEY_SECRET } from '../config/env';
 
-interface OSSConfigItem {
-  region: string;
-  bucket: string;
-}
-
-assert(process.env.BUILD_REGION);
-
-const BUILD_REGION_TO_OSS_CONFIG: Record<string, OSSConfigItem[]> = {
-  cn: [
-    {
-      region: 'oss-cn-chengdu',
-      bucket: 'static-resource-cn-cd',
-    },
-  ],
-  jp: [
-    {
-      region: 'oss-ap-northeast-1',
-      bucket: 'static-resource-jp',
-    },
-  ],
-};
+assert(ENV_BUILD_REGION);
 
 const createOSSClient = (config: OSSConfigItem) => {
-  assert(process.env.OSS_ACCESS_KEY_ID);
-  assert(process.env.OSS_ACCESS_KEY_SECRET);
+  assert(ENV_OSS_ACCESS_KEY_ID);
+  assert(ENV_OSS_ACCESS_KEY_SECRET);
 
   const client = new OSSClient({
     region: config.region,
-    accessKeyId: process.env.OSS_ACCESS_KEY_ID,
-    accessKeySecret: process.env.OSS_ACCESS_KEY_SECRET,
+    accessKeyId: ENV_OSS_ACCESS_KEY_ID,
+    accessKeySecret: ENV_OSS_ACCESS_KEY_SECRET,
     bucket: config.bucket,
   });
 
@@ -52,7 +34,7 @@ const getFilePathList = async (folder: string) => {
   return filePathList;
 };
 
-const OSS_CONFIG = BUILD_REGION_TO_OSS_CONFIG[process.env.BUILD_REGION];
+const OSS_CONFIG = BUILD_REGION_TO_OSS_CONFIG[ENV_BUILD_REGION];
 
 assert(OSS_CONFIG);
 
@@ -64,7 +46,7 @@ const main = async () => {
     const client = createOSSClient(config);
 
     for (const filePath of filePathList) {
-      const relativePath = filePath.replace(outputFolder, '');
+      const relativePath = filePath.replace(outputFolder, ENV_BASE);
       await client.put(
         relativePath,
         filePath,
