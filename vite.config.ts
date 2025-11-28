@@ -8,7 +8,7 @@ import contentCollections from "@content-collections/remix-vite";
 import path from "node:path";
 import remarkEmoji from "remark-emoji";
 
-import { ENV_BASE, ENV_OSS_PREFIX_PATH } from "./config/env";
+import { ENV_OSS_PREFIX_PATH } from "./config/env";
 
 export default defineConfig({
   plugins: [
