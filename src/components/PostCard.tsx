@@ -17,12 +17,12 @@ export const PostItem: FC<PostItemProps> = (props) => {
   return (
     <Link
       to={post._meta.path}
-      className="block group opacity-75 transition-opacity duration-200 hover:opacity-100"
+      className="block group transition-opacity duration-200"
     >
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           {/* Post title */}
-          <h2 className="text-xl font-semibold text-neutral-950 dark:text-neutral-50">
+          <h2 className="text-xl font-semibold text-neutral-950 dark:text-neutral-300">
             {post.title}
           </h2>
           {/* Language badge */}
