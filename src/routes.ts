@@ -2,6 +2,8 @@ import { route, type RouteConfig } from "@react-router/dev/routes";
 import { readdirSync } from "node:fs";
 import path from "node:path";
 
+import { ENV_BASE } from '../config/env';
+
 const PAGES_DIR = path.resolve(__dirname, "../pages");
 const FILE_EXTENSIONS = [".mdx", ".md"];
 
@@ -43,7 +45,7 @@ const nestedRoutes = (params: {
     }
   };
 
-  scanDirectory(routesDir, __ROUTER_BASE_PATH__);
+  scanDirectory(routesDir, ENV_BASE);
   return routes;
 };
 

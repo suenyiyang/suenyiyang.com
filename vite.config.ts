@@ -27,7 +27,4 @@ export default defineConfig({
     },
   },
   base: ENV_OSS_PREFIX_PATH,
-  define: {
-    __ROUTER_BASE_PATH__: JSON.stringify(ENV_BASE),
-  },
 });
