@@ -2,7 +2,7 @@ import OSSClient from 'ali-oss';
 import assert from 'node:assert';
 import glob from 'fast-glob';
 import path from 'node:path';
-import { BUILD_REGION_TO_OSS_CONFIG, OSSConfigItem } from '../config/build';
+import { OSS_CONFIG, OSSConfigItem } from '../config/build';
 import { ENV_BUILD_REGION, ENV_OSS_ACCESS_KEY_ID, ENV_OSS_ACCESS_KEY_SECRET, ENV_OSS_PREFIX_PATH } from '../config/env';
 
 assert(ENV_BUILD_REGION);
@@ -33,8 +33,6 @@ const getFilePathList = async (folder: string) => {
 
   return filePathList;
 };
-
-const OSS_CONFIG = BUILD_REGION_TO_OSS_CONFIG[ENV_BUILD_REGION];
 
 assert(OSS_CONFIG);
 
