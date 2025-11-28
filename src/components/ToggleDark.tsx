@@ -5,7 +5,7 @@ import {
 } from "~/logic/themeToggle";
 
 export const ToggleDark = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState<boolean>();
 
   useEffect(() => {
     // Check initial dark mode

@@ -18,7 +18,6 @@ const persistPreference = (htmlElement: HTMLElement) => {
 };
 
 export const isDarkMode = () =>
-  typeof document !== "undefined" &&
   document.documentElement.classList.contains("dark");
 
 export const toggleThemeWithTransition = (
