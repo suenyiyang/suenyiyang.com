@@ -5,11 +5,51 @@
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 
+@font-face {
+  font-family: "Monaspace Neon";
+  src:
+    url("/fonts/Monaspace Neon/Monaspace Neon Var.woff2") format("woff2"),
+    url("/fonts/Monaspace Neon/Monaspace Neon Var.woff") format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Monaspace Xenon";
+  src:
+    url("/fonts/Monaspace Xenon/Monaspace Xenon Var.woff2") format("woff2"),
+    url("/fonts/Monaspace Xenon/Monaspace Xenon Var.woff") format("woff");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@theme {
+  --font-sans: "Monaspace Xenon", "PingFang SC", "Source Han Serif SC", "Source Han Serif", "Noto Serif SC", "Microsoft YaHei", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Monaspace Neon", ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 :root {
   view-transition-name: theme;
   --vt-x: 50%;
   --vt-y: 50%;
   --vt-radius: 150%;
+  --font-chinese: "PingFang SC", "Source Han Serif SC", "Source Han Serif", "Noto Serif SC", "Microsoft YaHei", serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+
+  :lang(zh),
+  :lang(zh-CN),
+  :lang(zh-Hans),
+  :lang(zh-TW),
+  :lang(zh-HK) {
+    font-family: var(--font-chinese);
+  }
 }
 
 ::view-transition-old(theme),
