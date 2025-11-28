@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import glob from 'fast-glob';
 import path from 'node:path';
 import { BUILD_REGION_TO_OSS_CONFIG, OSSConfigItem } from '../config/build';
-import { ENV_BASE, ENV_BUILD_REGION, ENV_OSS_ACCESS_KEY_ID, ENV_OSS_ACCESS_KEY_SECRET } from '../config/env';
+import { ENV_BUILD_REGION, ENV_OSS_ACCESS_KEY_ID, ENV_OSS_ACCESS_KEY_SECRET, ENV_OSS_PREFIX_PATH } from '../config/env';
 
 assert(ENV_BUILD_REGION);
 
@@ -46,7 +46,7 @@ const main = async () => {
     const client = createOSSClient(config);
 
     for (const filePath of filePathList) {
-      const relativePath = filePath.replace(outputFolder, ENV_BASE);
+      const relativePath = filePath.replace(outputFolder, ENV_OSS_PREFIX_PATH);
       await client.put(
         relativePath,
         filePath,
