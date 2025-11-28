@@ -12,3 +12,5 @@ declare module "*.svg?url" {
   const content: string;
   export default content;
 }
+
+declare const __ROUTER_BASE_PATH__: string | undefined;

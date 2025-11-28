@@ -43,7 +43,7 @@ const nestedRoutes = (params: {
     }
   };
 
-  scanDirectory(routesDir);
+  scanDirectory(routesDir, __ROUTER_BASE_PATH__);
   return routes;
 };
 
