@@ -7,7 +7,8 @@
     "dev": "vite dev",
     "build": "react-router build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "serve": "react-router serve"
+    "serve": "react-router serve",
+    "postbuild": "esno scripts/upload-static-resource.ts"
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.1.0",
@@ -33,14 +34,18 @@
     "@react-router/dev": "^7.6.1",
     "@react-router/fs-routes": "^7.6.1",
     "@tailwindcss/vite": "^4.1.7",
+    "@types/ali-oss": "^6.16.13",
     "@types/node": "^22.15.21",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "ali-oss": "^6.23.0",
     "eslint": "^9.27.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "esno": "^4.8.0",
+    "fast-glob": "^3.3.3",
     "remark-emoji": "^5.0.1",
     "remark-frontmatter": "^5.0.0",
     "tsx": "^4.20.3",
