@@ -39,7 +39,7 @@ const OSS_CONFIG = BUILD_REGION_TO_OSS_CONFIG[ENV_BUILD_REGION];
 assert(OSS_CONFIG);
 
 const main = async () => {
-  const outputFolder = path.resolve(import.meta.dirname, '../build');
+  const outputFolder = path.resolve(import.meta.dirname, '../build/client');
   const filePathList = await getFilePathList(outputFolder);
 
   for (const config of OSS_CONFIG) {
