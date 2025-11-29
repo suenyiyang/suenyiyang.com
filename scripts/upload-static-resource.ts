@@ -3,9 +3,7 @@ import assert from 'node:assert';
 import glob from 'fast-glob';
 import path from 'node:path';
 import { OSS_CONFIG, OSSConfigItem } from '../config/build';
-import { ENV_BUILD_REGION, ENV_OSS_ACCESS_KEY_ID, ENV_OSS_ACCESS_KEY_SECRET, ENV_OSS_PREFIX_PATH } from '../config/env';
-
-assert(ENV_BUILD_REGION);
+import { ENV_OSS_ACCESS_KEY_ID, ENV_OSS_ACCESS_KEY_SECRET, ENV_OSS_PREFIX_PATH } from '../config/env';
 
 const createOSSClient = (config: OSSConfigItem) => {
   assert(ENV_OSS_ACCESS_KEY_ID);
