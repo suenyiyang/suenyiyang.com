@@ -1,7 +1,30 @@
 ---
-date: 2025-05-28
+date: 2025-11-30
+lang: 中文
 ---
 
-# WIP: Refactor Blog with React Router v7 SSG
+# 使用 React Router v7 重构博客（WIP）
 
-WIP...
+前段时间用 React Router v7 重构了原本使用 Next.js 搭的博客。写一篇博客记录下。
+
+## 1. 为什么要重构？
+
+Next.js 是一个不错的框架，在 React 的基础上，预置了诸如 SSR、RSC 之类的能力。
+
+但对于一个静态博客而言，有些能力心智负担太重了。
+
+例如，我需要在开发时，了解 Next.js 的文件路由约定、特殊生命周期函数约定以及考虑我的代码实际会在 Server 端还是 Client 端执行。
+
+`"use server"` 和 `"use client"` 的文件，在 Hook 的能力上有不同的限制。
+
+Server Components 可以依赖 Client Components，但 Client Components 不能依赖 Server Components。（我印象中是这样的）
+
+这些约定和限制对大项目来说，可能会让架构向着更固定的方向发展，约束不同协作者写出相似风格的代码。但对于个人博客项目来说，缺失了一些灵活性，并且加重了心智负担。
+
+所以，我决定重构我的博客。
+
+## 2. 为什么要用 React Router v7 重构？
+
+首先是为了技术尝鲜。选择要重构时，React Router v7 刚刚发布不久。作为一个个人玩具项目，完全没必要考虑什么稳定性。好玩是第一位的。
+
+此外，RR7 还内置支持了 SSG。这对于一个静态博客来说十分友好。我可以在构建时生成静态的页面和资源，托管到 Vercel 之类的部署平台，不需要自己购买和维护服务器（虽然最终还是买了）。
