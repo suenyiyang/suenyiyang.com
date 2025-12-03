@@ -1,5 +1,5 @@
 import { type Context, defineCollection, defineConfig, Schema } from "@content-collections/core";
-import { z } from "zod";
+import { schema, type SchemaZodObject } from "~/types/post";
 
 const getTitleFromContent = (content: string) => {
   return content.match(/^# (.*)(\n)?/)?.[1];
@@ -9,20 +9,7 @@ const getPathnameFromContext = (directory: string, path: string) => {
   return "/" + [directory.replace(/^\/?pages\/?/i, ""), path.replace(/index$/i, "")].filter(Boolean).join('/');
 }
 
-const schema = z.object({
-  date: z.string().optional(),
-  description: z.string().optional(),
-  keywords: z.string().optional(),
-  lang: z.string().optional(),
-  readingTime: z.string().optional(),
-  title: z.string().optional(),
-  url: z.string().optional(),
-  tags: z.string().optional(),
-});
-
-type ZodObjectType = typeof schema;
-
-const transform = (data: Schema<"frontmatter", ZodObjectType>, context: Context<Schema<"frontmatter", ZodObjectType>>) => {
+const transform = (data: Schema<"frontmatter", SchemaZodObject>, context: Context<Schema<"frontmatter", SchemaZodObject>>) => {
   return {
     ...data,
     title: data.title ?? getTitleFromContent(data.content),
