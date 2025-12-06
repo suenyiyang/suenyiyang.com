@@ -12,16 +12,14 @@
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.1.0",
-    "@react-router/node": "^7.6.1",
     "@tailwindcss/typography": "^0.5.16",
     "date-fns": "^3.6.0",
     "gray-matter": "^4.0.3",
     "i18next": "^25.2.1",
-    "isbot": "^5.1.28",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router": "^7.6.1",
-    "react-router-dom": "^7.6.1",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "react-router": "^7.10.1",
+    "react-router-dom": "^7.10.1",
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
