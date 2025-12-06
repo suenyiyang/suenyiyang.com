@@ -36,11 +36,32 @@
   --vt-y: 50%;
   --vt-radius: 150%;
   --font-chinese: "PingFang SC", "Source Han Serif SC", "Source Han Serif", "Noto Serif SC", "Microsoft YaHei", serif;
+  --grid-size: clamp(24px, 8vw, 48px);
+  --grid-line: rgba(17, 24, 39, 0.05);
+  --grid-spot-1: rgba(0, 0, 0, 0.05);
+  --grid-spot-2: rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --grid-spot-1: rgba(255, 255, 255, 0.08);
+  --grid-spot-2: rgba(255, 255, 255, 0.12);
 }
 
 @layer base {
-  body {
+  body, header {
     font-family: var(--font-sans);
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:
+      var(--grid-size) var(--grid-size),
+      var(--grid-size) var(--grid-size);
+    background-position:
+      0 0,
+      0 0;
+    background-repeat: repeat, repeat;
+    background-attachment: fixed;
   }
 
   :lang(zh),
