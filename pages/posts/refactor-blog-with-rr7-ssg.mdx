@@ -1,6 +1,6 @@
 ---
 date: 2025-11-30
-lang: 中文
+lang: zh
 ---
 
 # 使用 React Router v7 重构博客（WIP）
@@ -17,7 +17,7 @@ Next.js 是一个不错的框架，在 React 的基础上，预置了诸如 SSR�
 
 `"use server"` 和 `"use client"` 的文件，在 Hook 的能力上有不同的限制。
 
-Server Components 可以依赖 Client Components，但 Client Components 不能依赖 Server Components。（我印象中是这样的）
+Server Components 可以依赖 Client Components，但 Client Components 不能依赖 Server Components。
 
 这些约定和限制对大项目来说，可能会让架构向着更固定的方向发展，约束不同协作者写出相似风格的代码。但对于个人博客项目来说，缺失了一些灵活性，并且加重了心智负担。
 
@@ -25,6 +25,32 @@ Server Components 可以依赖 Client Components，但 Client Components 不能�
 
 ## 2. 为什么要用 React Router v7 重构？
 
-首先是为了技术尝鲜。选择要重构时，React Router v7 刚刚发布不久。作为一个个人玩具项目，完全没必要考虑什么稳定性。好玩是第一位的。
+首先是为了技术尝鲜。当时 React Router v7 刚刚发布不久。作为一个个人玩具项目，完全没必要考虑什么稳定性。好玩是第一位的。
 
 此外，RR7 还内置支持了 SSG。这对于一个静态博客来说十分友好。我可以在构建时生成静态的页面和资源，托管到 Vercel 之类的部署平台，不需要自己购买和维护服务器（虽然最终还是买了）。
+
+## 3. 简单介绍我的新博客
+
+### 3.1. 支持文件路由及嵌套路由
+
+使用 SSG 的博客，通常会使用「文件路由」（File Based Route）。即在一个目录下，按照特定目录结构组织 markdown 文件，以实现运行时可以按照同样的层级结构访问实际页面。
+
+React Router 通过 `@react-router/fs-router` 提供了文件路由支持，但对于嵌套路由的支持不好。
+
+例如想要实现 `posts/index.mdx` 对应 `/posts` 页面，`posts/refactor-blog-with-rr7-ssg.mdx` 对应 `/posts/refactor-blog-with-rr7-ssg` 页面。
+
+需要在 pages 根目录下，创建两个平级文件 `posts._index.mdx` 和 `posts.refactor-blog-with-rr7-ssg.mdx`。
+
+本地没有对应层级结构，不方便管理，也不好看，官方提供的方案无法满足需求。
+
+React Router 支持自定义 `RouteConfig`。因此，我们可以在 `routes.ts` 中自己写一段逻辑，在构建时读取 `pages` 文件夹下的文件及目录结构，构建符合数据结构要求的 `RouteConfig`，实现嵌套文件路由。
+
+### 3.2. 项目架构
+
+静态网站项目，通常由两个主要部分组成，博客文章（Markdown）和解析生成器（例如 VitePress）。
+
+对于不使用解析生成器的个人博客，也可以按照这两个部分做拆分。`pages` 文件夹用于存放博客 Markdown 文件，`src` 文件夹用于存放解析生成部分逻辑。
+
+这样，Markdown 文件相当于博客的“数据库”，保存在硬盘上。按照变更频次做拆分，也有利于博客稳定迭代。
+
+### 3.3. 
