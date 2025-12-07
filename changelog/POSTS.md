@@ -1,10 +1,13 @@
 # Posts updates
 
-# 2025-12-06
+## 2025-12-07
 
-- Add background for blog.
-- Update post: refactor-blog-with-rr7-ssg.
+- Optimize: Make content wider for readability.
+
+## 2025-12-06
+
+- Feature: Add background for blog.
 
 ## 2025-12-03
 
-- New WIP post: refactor-blog-with-rr7-ssg.
+- Post: refactor-blog-with-rr7-ssg.
