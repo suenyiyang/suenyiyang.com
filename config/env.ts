@@ -7,3 +7,5 @@ export const ENV_OSS_ACCESS_KEY_ID = process.env.OSS_ACCESS_KEY_ID;
 export const ENV_OSS_ACCESS_KEY_SECRET = process.env.OSS_ACCESS_KEY_SECRET;
 
 export const ENV_OSS_PREFIX_PATH = process.env.OSS_PREFIX_PATH;
+
+export const ENV_WALINE_SERVER_URL = process.env.WALINE_SERVER_URL;

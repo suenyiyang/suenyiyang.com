@@ -8,6 +8,7 @@ export const schema = z.object({
   title: z.string().optional(),
   url: z.string().optional(),
   tags: z.string().optional(),
+  comment: z.boolean().optional(),
 });
 
 export type SchemaZodObject = typeof schema;

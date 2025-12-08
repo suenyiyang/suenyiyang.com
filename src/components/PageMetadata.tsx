@@ -1,9 +1,9 @@
+import { Page } from "content-collections/generated";
 import { FC } from "react";
 import { siteConfig } from "~/config";
-import type { SiteConfig } from "~/types/config";
 
 export const PageMetadata: FC<{
-  metadata: Partial<SiteConfig["metadata"]>;
+  metadata: Page | null;
 }> = (props) => {
   const { metadata } = props;
 
@@ -12,7 +12,7 @@ export const PageMetadata: FC<{
     ...metadata,
   };
 
-  const title = [metadata.title, siteConfig.metadata.title]
+  const title = [metadata?.title, siteConfig.metadata.title]
     .filter(Boolean)
     .join(" - ");
 

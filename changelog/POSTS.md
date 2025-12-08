@@ -1,5 +1,9 @@
 # Posts updates
 
+## 2025-12-08
+
+- Feature: Add Waline comment system to blog.
+
 ## 2025-12-07
 
 - Optimize: Make content wider for readability.

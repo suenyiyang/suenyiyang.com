@@ -1,4 +1,3 @@
-import Footer from "~/components/layout/Footer";
 import Header from "~/components/layout/Header";
 import { Links, Meta, Outlet, Scripts } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
@@ -52,10 +51,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="relative bg-white dark:bg-neutral-950 font-sans">
         <div className="flex flex-col min-h-screen bg-primary-white">
           <Header />
-          <main className="flex-grow w-full max-w-4xl min-w-xs mx-auto p-8 prose dark:prose-invert dark:text-neutral-300 prose-h1:text-3xl">
+          <main className="flex flex-col flex-grow w-full max-w-4xl min-w-xs mx-auto p-8 prose dark:prose-invert dark:text-neutral-300 prose-h1:text-3xl">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
-          <Footer />
         </div>
         <Scripts />
       </body>

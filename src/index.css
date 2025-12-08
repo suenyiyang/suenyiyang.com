@@ -40,12 +40,16 @@
   --grid-line: rgba(17, 24, 39, 0.05);
   --grid-spot-1: rgba(0, 0, 0, 0.05);
   --grid-spot-2: rgba(0, 0, 0, 0.08);
+  --waline-theme-color: var(--color-neutral-700) !important;
+  --waline-active-color: var(--color-neutral-950) !important;
 }
 
 .dark {
   --grid-line: rgba(255, 255, 255, 0.05);
   --grid-spot-1: rgba(255, 255, 255, 0.08);
   --grid-spot-2: rgba(255, 255, 255, 0.12);
+  --waline-theme-color: var(--color-neutral-300) !important;
+  --waline-active-color: var(--color-neutral-50) !important;
 }
 
 @layer base {

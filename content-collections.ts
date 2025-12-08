@@ -13,6 +13,7 @@ const transform = (data: Schema<"frontmatter", SchemaZodObject>, context: Contex
   return {
     ...data,
     title: data.title ?? getTitleFromContent(data.content),
+    comment: data.comment ?? true,
     _meta: {
       ...data._meta,
       path: getPathnameFromContext(context.collection.directory, data._meta.path),
