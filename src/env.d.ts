@@ -1,3 +1,7 @@
+declare module globalThis {
+  export const __INJECTED_WALINE_SERVER_URL__: string;
+}
+
 declare module "*.svg" {
   const content: string;
   export default content;

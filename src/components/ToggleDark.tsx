@@ -1,11 +1,13 @@
-import { type MouseEvent, useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { type MouseEvent, useEffect } from "react";
 import {
   isDarkMode,
   toggleThemeWithTransition,
 } from "~/logic/themeToggle";
+import { isDarkAtom } from "~/stores/theme";
 
 export const ToggleDark = () => {
-  const [isDark, setIsDark] = useState<boolean>();
+  const [isDark, setIsDark] = useAtom(isDarkAtom);
 
   useEffect(() => {
     // Check initial dark mode
