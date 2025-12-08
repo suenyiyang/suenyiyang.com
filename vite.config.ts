@@ -8,7 +8,7 @@ import contentCollections from "@content-collections/remix-vite";
 import path from "node:path";
 import remarkEmoji from "remark-emoji";
 
-import { ENV_OSS_PREFIX_PATH, ENV_WALINE_SERVER_URL } from "./config/env";
+import { ENV_R2_PUBLIC_URL, ENV_WALINE_SERVER_URL } from "./config/env";
 
 export default defineConfig({
   plugins: [
@@ -29,5 +29,5 @@ export default defineConfig({
   define: {
     __INJECTED_WALINE_SERVER_URL__: JSON.stringify(ENV_WALINE_SERVER_URL),
   },
-  base: ENV_OSS_PREFIX_PATH,
+  base: ENV_R2_PUBLIC_URL,
 });
