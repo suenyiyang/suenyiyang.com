@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { type WalineInstance, init } from '@waline/client';
+import { WalineInitOptions, type WalineInstance, init } from '@waline/client';
 
 import '@waline/client/style';
 import { Page } from 'content-collections/generated';
@@ -21,35 +21,30 @@ export const WalineComment = (props: WalineCommentProps) => {
 
   // Initialize Waline
   useEffect(() => {
-    if (!shouldShowComment || !containerRef.current || !postPath) {
+    if (!containerRef.current || !postPath) {
       return;
     }
 
-    // Only initialize if not already initialized
+    const params: WalineInitOptions = {
+      el: containerRef.current,
+      path: postPath,
+      serverURL: __INJECTED_WALINE_SERVER_URL__ ?? '/',
+      dark: isDark,
+      noCopyright: true,
+      requiredMeta: ['nick', 'mail'],
+    };
+
     if (!walineInstanceRef.current) {
-      walineInstanceRef.current = init({
-        el: containerRef.current,
-        path: postPath,
-        serverURL: __INJECTED_WALINE_SERVER_URL__ ?? '/',
-        dark: isDark,
-        noCopyright: true,
-        requiredMeta: ['nick', 'mail'],
-      });
+      walineInstanceRef.current = init(params);
+    } else {
+      walineInstanceRef.current.update(params);
     }
 
-    // Cleanup only on unmount
     return () => {
       walineInstanceRef.current?.destroy();
       walineInstanceRef.current = null;
     };
-  }, [shouldShowComment, postPath]);
-
-  // Update dark mode separately without destroying instance
-  useEffect(() => {
-    if (walineInstanceRef.current && isDark !== undefined) {
-      walineInstanceRef.current.update({ dark: isDark });
-    }
-  }, [isDark]);
+  }, [isDark, postPath]);
 
   if (!shouldShowComment) {
     return null;
