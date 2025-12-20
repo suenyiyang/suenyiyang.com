@@ -13,3 +13,5 @@ export const ENV_R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
 export const ENV_R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
 
 export const ENV_WALINE_SERVER_URL = process.env.WALINE_SERVER_URL;
+
+export const ENV_GA_ID = process.env.GA_ID;

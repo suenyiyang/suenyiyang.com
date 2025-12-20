@@ -8,7 +8,7 @@ import contentCollections from "@content-collections/remix-vite";
 import path from "node:path";
 import remarkEmoji from "remark-emoji";
 
-import { ENV_R2_PUBLIC_URL, ENV_WALINE_SERVER_URL } from "./config/env";
+import { ENV_GA_ID, ENV_R2_PUBLIC_URL, ENV_WALINE_SERVER_URL } from "./config/env";
 
 const CDN_BASE = ENV_R2_PUBLIC_URL || "/";
 
@@ -31,6 +31,7 @@ export default defineConfig({
   define: {
     __INJECTED_WALINE_SERVER_URL__: JSON.stringify(ENV_WALINE_SERVER_URL),
     __INJECTED_R2_PUBLIC_URL__: JSON.stringify(CDN_BASE),
+    __INJECTED_GA_ID__: JSON.stringify(ENV_GA_ID),
   },
   base: CDN_BASE,
 });
