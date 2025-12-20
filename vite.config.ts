@@ -10,6 +10,8 @@ import remarkEmoji from "remark-emoji";
 
 import { ENV_R2_PUBLIC_URL, ENV_WALINE_SERVER_URL } from "./config/env";
 
+const CDN_BASE = ENV_R2_PUBLIC_URL || "/";
+
 export default defineConfig({
   plugins: [
     mdx({ remarkPlugins: [remarkFrontmatter, remarkEmoji], providerImportSource: "@mdx-js/react" }),
@@ -28,6 +30,7 @@ export default defineConfig({
   },
   define: {
     __INJECTED_WALINE_SERVER_URL__: JSON.stringify(ENV_WALINE_SERVER_URL),
+    __INJECTED_R2_PUBLIC_URL__: JSON.stringify(CDN_BASE),
   },
-  base: ENV_R2_PUBLIC_URL,
+  base: CDN_BASE,
 });

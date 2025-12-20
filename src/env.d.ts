@@ -1,5 +1,6 @@
 declare module globalThis {
   export const __INJECTED_WALINE_SERVER_URL__: string;
+  export const __INJECTED_R2_PUBLIC_URL__: string;
 }
 
 declare module "*.svg" {
