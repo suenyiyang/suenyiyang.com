@@ -2,6 +2,7 @@ import Header from "~/components/layout/Header";
 import { Links, Meta, Outlet, Scripts } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
+import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 
 import { siteConfig } from "~/config";
 import stylesheet from "~/index.css?url";
@@ -30,6 +31,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <Links />
         <Meta />
+        {__INJECTED_GA_ID__ ? (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${__INJECTED_GA_ID__}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${__INJECTED_GA_ID__}', { send_page_view: false });
+                `,
+              }}
+            />
+          </>
+        ) : null}
         {/* Set dark mode based on system preference */}
         <script
           dangerouslySetInnerHTML={{
@@ -55,6 +74,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
         </div>
+        <GoogleAnalytics gaId={__INJECTED_GA_ID__} />
         <Scripts />
       </body>
     </html>
