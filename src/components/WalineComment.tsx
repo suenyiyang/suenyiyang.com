@@ -50,5 +50,5 @@ export const WalineComment = (props: WalineCommentProps) => {
     return null;
   }
 
-  return <div className="not-prose" ref={containerRef} />;
+  return <div className="not-prose mt-20" ref={containerRef} />;
 };
