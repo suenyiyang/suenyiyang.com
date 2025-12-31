@@ -10,10 +10,14 @@ export const PostList = () => {
     );
   }
 
+  const sortedPosts = [...allPosts].sort(
+    (a, b) => new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
+  );
+
   return (
     <div className="max-w-4xl mx-auto not-prose">
       <div className="space-y-8">
-        {allPosts.map((post) => (
+        {sortedPosts.map((post) => (
           <PostItem key={post._meta.path} post={post} />
         ))}
       </div>
