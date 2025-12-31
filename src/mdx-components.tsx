@@ -45,6 +45,11 @@ export default {
   a: Anchor,
   img: (props: MdxImageProps) => {
     const resolvedSrc = resolveMdxImageSrc(props.src);
-    return <img {...props} src={resolvedSrc} />;
+    return (
+      <div className="max-w-md mx-auto flex flex-col items-center gap-2 my-4">
+        <img className="mt-0 mb-0" {...props} src={resolvedSrc} />
+        {props.alt ? <span className="text-neutral-500 text-sm">{props.alt}</span> : null}
+      </div>
+    );
   },
 } satisfies MDXComponents;
