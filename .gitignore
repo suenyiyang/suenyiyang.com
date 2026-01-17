@@ -7,6 +7,9 @@ node_modules
 coverage
 /cypress/videos/
 /cypress/screenshots/
+/playwright-report/
+/test-results/
+# Keep e2e/snapshots for baseline screenshots (do not ignore)
 
 # Production
 /dist
