@@ -8,7 +8,13 @@
     "build": "react-router build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "serve": "react-router serve",
-    "postbuild": "esno scripts/upload-static-resource.ts"
+    "postbuild": "esno scripts/upload-static-resource.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.1.0",
@@ -33,6 +39,7 @@
     "@iconify/json": "^2.2.342",
     "@iconify/tailwind4": "^1.0.6",
     "@mdx-js/react": "^3.1.0",
+    "@playwright/test": "^1.57.0",
     "@react-router/dev": "^7.6.1",
     "@react-router/fs-routes": "^7.6.1",
     "@tailwindcss/vite": "^4.1.7",
