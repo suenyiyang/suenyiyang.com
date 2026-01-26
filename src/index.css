@@ -1,33 +1,37 @@
 @import "tailwindcss";
 
+/* Import new fonts from fontsource */
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/inter/wght-italic.css";
+@import "@fontsource-variable/playfair-display/wght.css";
+@import "@fontsource-variable/playfair-display/wght-italic.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 
-@font-face {
-  font-family: "Monaspace Neon";
-  src:
-    url("/fonts/Monaspace Neon/Monaspace Neon Var.woff2") format("woff2"),
-    url("/fonts/Monaspace Neon/Monaspace Neon Var.woff") format("woff");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 100 900;
-}
-
-@font-face {
-  font-family: "Monaspace Xenon";
-  src:
-    url("/fonts/Monaspace Xenon/Monaspace Xenon Var.woff2") format("woff2"),
-    url("/fonts/Monaspace Xenon/Monaspace Xenon Var.woff") format("woff");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 100 900;
-}
-
 @theme {
-  --font-sans: "Monaspace Xenon", "PingFang SC", "Source Han Serif SC", "Source Han Serif", "Noto Serif SC", "Microsoft YaHei", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Monaspace Neon", ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: "Playfair Display Variable", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Pencil Design Colors */
+  --color-bg-light: #FDFCF9;
+  --color-bg-dark: #0D0D0D;
+  --color-text-primary: #1A1A1A;
+  --color-text-primary-dark: #FDFCF9;
+  --color-text-secondary: #666666;
+  --color-text-secondary-dark: #A0A0A0;
+  --color-text-muted: #999999;
+  --color-border-light: #E5E2DC;
+  --color-border-dark: #2A2A2A;
+
+  /* Body text color for articles (darker than secondary) */
+  --color-text-body: #444444;
+  --color-text-body-dark: #B0B0B0;
 }
 
 :root {
@@ -36,36 +40,18 @@
   --vt-y: 50%;
   --vt-radius: 150%;
   --font-chinese: "PingFang SC", "Source Han Serif SC", "Source Han Serif", "Noto Serif SC", "Microsoft YaHei", serif;
-  --grid-size: clamp(24px, 8vw, 48px);
-  --grid-line: rgba(17, 24, 39, 0.05);
-  --grid-spot-1: rgba(0, 0, 0, 0.05);
-  --grid-spot-2: rgba(0, 0, 0, 0.08);
   --waline-theme-color: var(--color-neutral-700) !important;
   --waline-active-color: var(--color-neutral-950) !important;
 }
 
 .dark {
-  --grid-line: rgba(255, 255, 255, 0.05);
-  --grid-spot-1: rgba(255, 255, 255, 0.08);
-  --grid-spot-2: rgba(255, 255, 255, 0.12);
   --waline-theme-color: var(--color-neutral-300) !important;
   --waline-active-color: var(--color-neutral-50) !important;
 }
 
 @layer base {
-  body, header {
+  body {
     font-family: var(--font-sans);
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size:
-      var(--grid-size) var(--grid-size),
-      var(--grid-size) var(--grid-size);
-    background-position:
-      0 0,
-      0 0;
-    background-repeat: repeat, repeat;
-    background-attachment: fixed;
   }
 
   :lang(zh),
