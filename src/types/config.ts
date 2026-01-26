@@ -9,6 +9,11 @@ export interface SiteConfig {
     target?: string;
     component?: ReactNode;
   }[];
+  socialLinks?: {
+    label: string;
+    icon: string;
+    href: string;
+  }[];
   metadata: {
     title: string;
     description: string;

@@ -1,19 +1,29 @@
-import Logo from "~/assets/logo.svg";
+import { Logo } from "~/components/Logo";
 import favicon from "~/assets/favicon.svg?url";
 import { SiteConfig } from "~/types/config";
 
 export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
-    { icon: "icon-[line-md--document-list]", href: "/posts" },
+    { label: "Home", href: "/" },
+    { label: "Posts", href: "/posts" },
+    { label: "About", href: "/about" },
+  ],
+  socialLinks: [
     {
-      icon: "icon-[line-md--link]",
-      href: "/links",
-    },
-    {
+      label: "GitHub",
       icon: "icon-[line-md--github-loop]",
       href: "https://github.com/suenyiyang",
-      target: "_blank",
+    },
+    {
+      label: "Twitter",
+      icon: "icon-[line-md--twitter-x]",
+      href: "https://twitter.com/suenyiyang",
+    },
+    {
+      label: "RSS",
+      icon: "icon-[line-md--rss]",
+      href: "/rss.xml",
     },
   ],
   metadata: {
