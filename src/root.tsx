@@ -1,4 +1,5 @@
 import Header from "~/components/layout/Header";
+import Footer from "~/components/layout/Footer";
 import { Links, Meta, Outlet, Scripts } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
@@ -67,12 +68,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         />
       </head>
-      <body className="relative bg-white dark:bg-neutral-950 font-sans">
-        <div className="flex flex-col min-h-screen bg-primary-white">
+      <body className="bg-bg-light dark:bg-bg-dark text-text-primary dark:text-text-primary-dark font-sans">
+        <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex flex-col flex-grow w-full max-w-4xl min-w-xs mx-auto p-8 prose dark:prose-invert dark:text-neutral-300 prose-h1:text-3xl">
+          <main className="flex flex-col flex-grow w-full max-w-[800px] mx-auto px-5 py-8 md:px-16 md:py-12">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
+          <Footer />
         </div>
         <GoogleAnalytics gaId={__INJECTED_GA_ID__} />
         <Scripts />
