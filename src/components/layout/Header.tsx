@@ -1,37 +1,44 @@
 import { siteConfig } from "~/config";
-import { Link } from "react-router-dom";
-import { ToggleDark } from "../ToggleDark";
+import { NavLink, Link } from "react-router";
+import { Logo } from "../Logo";
 
 export default function Header() {
   return (
-    <header className="w-full p-8 text-neutral-700 dark:text-neutral-300 fill-neutral-700 dark:fill-neutral-300 sticky top-0 backdrop-blur-sm">
+    <header className="w-full py-5 px-16 text-text-secondary dark:text-text-secondary-dark sticky top-0 bg-bg-light dark:bg-bg-dark z-10 border-b border-border-light dark:border-border-dark">
       <div className="flex items-center justify-between">
-        <div>
-          <Link
-            to="/"
-            className="text-xl font-bold w-12 h-12 my-5 mx-8 absolute left-0 top-0"
-          >
-            {siteConfig.logo}
-          </Link>
-        </div>
-        <div className="space-x-6 flex flex-row items-center">
+        <Link to="/" className="flex items-center">
+          <Logo />
+        </Link>
+        <nav className="flex items-center gap-8">
           {siteConfig.navItems.map((item, index) => (
-            <Link
-              key={index}
-              to={item.href}
-              className="inline-flex items-center gap-2"
-              target={item.target}
-            >
-              {item.icon ? (
-                <span
-                  className={`${item.icon.toLowerCase()} w-6 h-6 text-light-grey`}
-                />
-              ) : null}
-              {item.label ? <span>{item.label}</span> : null}
-            </Link>
+            item.target === "_blank" ? (
+              <a
+                key={index}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[13px] text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <NavLink
+                key={index}
+                to={item.href}
+                className={({ isActive }) =>
+                  `font-mono text-[13px] transition-colors ${
+                    isActive
+                      ? "font-medium text-text-primary dark:text-text-primary-dark"
+                      : "text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark"
+                  }`
+                }
+                end={item.href === "/"}
+              >
+                {item.label}
+              </NavLink>
+            )
           ))}
-          <ToggleDark />
-        </div>
+        </nav>
       </div>
     </header>
   );
