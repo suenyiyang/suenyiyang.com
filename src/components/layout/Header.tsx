@@ -4,7 +4,7 @@ import { Logo } from "../Logo";
 
 export default function Header() {
   return (
-    <header className="w-full py-5 px-16 text-text-secondary dark:text-text-secondary-dark sticky top-0 bg-bg-light dark:bg-bg-dark z-10 border-b border-border-light dark:border-border-dark">
+    <header className="w-full py-4 px-5 md:py-5 md:px-16 text-text-secondary dark:text-text-secondary-dark sticky top-0 z-10 backdrop-blur-md">
       <div className="flex items-center justify-between">
         <Link to="/" className="flex items-center">
           <Logo />
