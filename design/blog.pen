@@ -882,12 +882,6 @@
                   "id": "G6YKu",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     20,
                     64
@@ -1022,12 +1016,6 @@
                       "id": "tBkkk",
                       "name": "sectionHeader",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "top": 1
-                        },
-                        "fill": "#E5E2DC"
-                      },
                       "padding": [
                         16,
                         0,
@@ -1072,12 +1060,6 @@
                           "id": "owUaN",
                           "name": "Post Item 1",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#E5E2DC"
-                          },
                           "padding": [
                             24,
                             0
@@ -1163,12 +1145,6 @@
                           "id": "i7DmY",
                           "name": "Post Item 2",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#E5E2DC"
-                          },
                           "padding": [
                             24,
                             0
@@ -1343,12 +1319,6 @@
                   "id": "wuM4v",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     32,
                     64
@@ -1475,12 +1445,6 @@
                   "id": "YC3UY",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     20,
                     64
@@ -1615,12 +1579,6 @@
                       "id": "cIbQR",
                       "name": "sectionHeader",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "top": 1
-                        },
-                        "fill": "#2A2A2A"
-                      },
                       "padding": [
                         16,
                         0,
@@ -1665,12 +1623,6 @@
                           "id": "H2UPk",
                           "name": "Post Item 1",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#2A2A2A"
-                          },
                           "padding": [
                             24,
                             0
@@ -1756,12 +1708,6 @@
                           "id": "8BBjm",
                           "name": "Post Item 2",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#2A2A2A"
-                          },
                           "padding": [
                             24,
                             0
@@ -1936,12 +1882,6 @@
                   "id": "3YARZ",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     32,
                     64
@@ -2068,12 +2008,6 @@
                   "id": "MEWhg",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     16,
                     20
@@ -2173,12 +2107,6 @@
                       "id": "wr055",
                       "name": "mSectionHeader",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "top": 1
-                        },
-                        "fill": "#E5E2DC"
-                      },
                       "padding": [
                         12,
                         0,
@@ -2223,12 +2151,6 @@
                           "id": "LSktP",
                           "name": "mPost1",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#E5E2DC"
-                          },
                           "layout": "vertical",
                           "gap": 8,
                           "padding": [
@@ -2295,12 +2217,6 @@
                           "id": "ZR6tr",
                           "name": "mPost2",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#E5E2DC"
-                          },
                           "layout": "vertical",
                           "gap": 8,
                           "padding": [
@@ -2437,12 +2353,6 @@
                   "id": "vyYeN",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "layout": "vertical",
                   "gap": 16,
                   "padding": [
@@ -2561,12 +2471,6 @@
                   "id": "lCnkk",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     16,
                     20
@@ -2666,12 +2570,6 @@
                       "id": "WkJgs",
                       "name": "mSectionHeader",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "top": 1
-                        },
-                        "fill": "#2A2A2A"
-                      },
                       "padding": [
                         12,
                         0,
@@ -2716,12 +2614,6 @@
                           "id": "Zx1uO",
                           "name": "mPost1",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#2A2A2A"
-                          },
                           "layout": "vertical",
                           "gap": 8,
                           "padding": [
@@ -2788,12 +2680,6 @@
                           "id": "XVjAj",
                           "name": "mPost2",
                           "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#2A2A2A"
-                          },
                           "layout": "vertical",
                           "gap": 8,
                           "padding": [
@@ -2930,12 +2816,6 @@
                   "id": "L3vmP",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "layout": "vertical",
                   "gap": 16,
                   "padding": [
@@ -3078,12 +2958,6 @@
                   "id": "ilxM4",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     20,
                     64
@@ -4144,12 +4018,6 @@
                   "id": "JW43w",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     20,
                     64
@@ -5210,12 +5078,6 @@
                   "id": "QiiT8",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     16,
                     20
@@ -5798,12 +5660,6 @@
                   "id": "FTUl8",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "layout": "vertical",
                   "gap": 16,
                   "padding": [
@@ -5922,12 +5778,6 @@
                   "id": "ymCXs",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     16,
                     20
@@ -6510,12 +6360,6 @@
                   "id": "6p0Yn",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "layout": "vertical",
                   "gap": 16,
                   "padding": [
@@ -6658,12 +6502,6 @@
                   "id": "WoxhE",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     20,
                     64
@@ -7389,12 +7227,6 @@
                   "id": "Xm2i5",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     32,
                     64
@@ -7521,12 +7353,6 @@
                   "id": "vR0Lq",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     20,
                     64
@@ -8252,12 +8078,6 @@
                   "id": "6TvzL",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     32,
                     64
@@ -8394,12 +8214,6 @@
                       "id": "3HXGQ",
                       "name": "Header",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "bottom": 1
-                        },
-                        "fill": "#E5E2DC"
-                      },
                       "padding": [
                         16,
                         20
@@ -9089,12 +8903,6 @@
                       "id": "6nK4P",
                       "name": "Footer",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "top": 1
-                        },
-                        "fill": "#E5E2DC"
-                      },
                       "layout": "vertical",
                       "gap": 12,
                       "padding": [
@@ -9547,12 +9355,6 @@
                       "id": "ok0NO",
                       "name": "Header",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "bottom": 1
-                        },
-                        "fill": "#2A2A2A"
-                      },
                       "padding": [
                         16,
                         20
@@ -10242,12 +10044,6 @@
                       "id": "q1kv6",
                       "name": "Footer",
                       "width": "fill_container",
-                      "stroke": {
-                        "thickness": {
-                          "top": 1
-                        },
-                        "fill": "#2A2A2A"
-                      },
                       "layout": "vertical",
                       "gap": 12,
                       "padding": [
@@ -10714,12 +10510,6 @@
                   "id": "wTqR0",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     20,
                     64
@@ -11152,12 +10942,6 @@
                   "id": "O8c8K",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     32,
                     64
@@ -11284,12 +11068,6 @@
                   "id": "L7zjq",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     20,
                     64
@@ -11722,12 +11500,6 @@
                   "id": "ju97T",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     32,
                     64
@@ -11854,12 +11626,6 @@
                   "id": "4iIbr",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     16,
                     20
@@ -12298,12 +12064,6 @@
                   "id": "PQSwh",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "layout": "vertical",
                   "gap": 12,
                   "padding": [
@@ -12422,12 +12182,6 @@
                   "id": "7fJGv",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     16,
                     20
@@ -12866,12 +12620,6 @@
                   "id": "KgP7p",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "layout": "vertical",
                   "gap": 12,
                   "padding": [
@@ -13014,12 +12762,6 @@
                   "id": "Doe40",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     20,
                     64
@@ -13405,12 +13147,6 @@
                   "id": "t6fg6",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     32,
                     64
@@ -13537,12 +13273,6 @@
                   "id": "CeeKq",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     20,
                     64
@@ -13928,12 +13658,6 @@
                   "id": "ix66t",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     32,
                     64
@@ -14060,12 +13784,6 @@
                   "id": "YCTiI",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "padding": [
                     16,
                     20
@@ -14440,12 +14158,6 @@
                   "id": "jxYB7",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#E5E2DC"
-                  },
                   "layout": "vertical",
                   "gap": 12,
                   "padding": [
@@ -14564,12 +14276,6 @@
                   "id": "XHCqW",
                   "name": "Header",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "padding": [
                     16,
                     20
@@ -14944,12 +14650,6 @@
                   "id": "kFWyp",
                   "name": "Footer",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "top": 1
-                    },
-                    "fill": "#2A2A2A"
-                  },
                   "layout": "vertical",
                   "gap": 12,
                   "padding": [
@@ -15050,6 +14750,596 @@
                           ]
                         }
                       ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "xEVlC",
+      "x": -245,
+      "y": 12539,
+      "name": "Home - Wide (2560)",
+      "width": 2560,
+      "fill": "#FDFCF9",
+      "layout": "vertical",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "6piYQ",
+          "name": "Header",
+          "width": "fill_container",
+          "padding": [
+            20,
+            64
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "9olmH",
+              "name": "headerInner",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "id": "tPXDr",
+                  "type": "ref",
+                  "ref": "gmUV2",
+                  "name": "logo"
+                },
+                {
+                  "type": "frame",
+                  "id": "x5az7",
+                  "name": "nav",
+                  "gap": 32,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "zYuu2",
+                      "name": "navHome",
+                      "fill": "#1A1A1A",
+                      "content": "Home",
+                      "fontFamily": "IBM Plex Mono",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "1E4IL",
+                      "name": "navPosts",
+                      "fill": "#666666",
+                      "content": "Posts",
+                      "fontFamily": "IBM Plex Mono",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "HvB99",
+                      "name": "navTalks",
+                      "fill": "#666666",
+                      "content": "Small Talks",
+                      "fontFamily": "IBM Plex Mono",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "0dA1y",
+                      "name": "navAbout",
+                      "fill": "#666666",
+                      "content": "About",
+                      "fontFamily": "IBM Plex Mono",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "KBxnG",
+          "name": "Main Content",
+          "width": 800,
+          "layout": "vertical",
+          "padding": [
+            0,
+            64
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "CwC5q",
+              "name": "Hero",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "padding": [
+                80,
+                0,
+                64,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "KbNtW",
+                  "name": "heroTitle",
+                  "fill": "#999999",
+                  "content": "Frontend · AI · Design · UX",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 13,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "F3mSl",
+                  "name": "heroHeadline",
+                  "fill": "#1A1A1A",
+                  "content": "Exploring the intersection of\ncode, intelligence & craft.",
+                  "lineHeight": 1.15,
+                  "fontFamily": "Playfair Display",
+                  "fontSize": 56,
+                  "fontWeight": "normal",
+                  "letterSpacing": -1,
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "text",
+                  "id": "IRsIK",
+                  "name": "heroDesc",
+                  "fill": "#666666",
+                  "content": "Personal notes on building interfaces, experimenting with AI agents,\nand obsessing over pixels.",
+                  "lineHeight": 1.6,
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DHARr",
+              "name": "Featured Posts",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                0,
+                0,
+                64,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "0pWjY",
+                  "name": "sectionHeader",
+                  "width": "fill_container",
+                  "padding": [
+                    16,
+                    0,
+                    0,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "G5xPi",
+                      "name": "sectionLabel",
+                      "fill": "#1A1A1A",
+                      "content": "RECENT POSTS",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "PFUJx",
+                      "name": "viewAll",
+                      "fill": "#666666",
+                      "content": "View all →",
+                      "fontFamily": "IBM Plex Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fsZjU",
+                  "name": "Posts List",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "gN4dM",
+                      "name": "Post Item 1",
+                      "width": "fill_container",
+                      "padding": [
+                        24,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "TYg8S",
+                          "name": "post1Left",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "LwGM1",
+                              "name": "post1Title",
+                              "fill": "#1A1A1A",
+                              "content": "Building an AI Agent Framework from Scratch",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "1pFHK",
+                              "name": "post1Desc",
+                              "fill": "#666666",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "A deep dive into creating a modular agent system with tool calling, memory, and reasoning capabilities.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "eX9yC",
+                              "name": "post1Meta",
+                              "gap": 16,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "pohYe",
+                                  "name": "post1Date",
+                                  "fill": "#999999",
+                                  "content": "Jan 24, 2026",
+                                  "fontFamily": "IBM Plex Mono",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "N8qnX",
+                                  "name": "post1Tag",
+                                  "fill": "#666666",
+                                  "content": "AI Agent",
+                                  "fontFamily": "IBM Plex Mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "Xdtjl",
+                          "name": "post1Read",
+                          "fill": "#999999",
+                          "content": "8 min",
+                          "fontFamily": "IBM Plex Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ilmtr",
+                      "name": "Post Item 2",
+                      "width": "fill_container",
+                      "padding": [
+                        24,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "4g1UP",
+                          "name": "post2Left",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "h7n53",
+                              "name": "post2Title",
+                              "fill": "#1A1A1A",
+                              "content": "Design Systems That Scale: Lessons from 3 Years",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "dOQPb",
+                              "name": "post2Desc",
+                              "fill": "#666666",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "How to build component libraries that grow with your product without becoming unmaintainable.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hHIia",
+                              "name": "post2Meta",
+                              "gap": 16,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "B3fJG",
+                                  "name": "post2Date",
+                                  "fill": "#999999",
+                                  "content": "Jan 18, 2026",
+                                  "fontFamily": "IBM Plex Mono",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "xiK60",
+                                  "name": "post2Tag",
+                                  "fill": "#666666",
+                                  "content": "Design",
+                                  "fontFamily": "IBM Plex Mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "PSfXf",
+                          "name": "post2Read",
+                          "fill": "#999999",
+                          "content": "12 min",
+                          "fontFamily": "IBM Plex Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "JQ6Xt",
+                      "name": "Post Item 3",
+                      "width": "fill_container",
+                      "padding": [
+                        24,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "O05C0",
+                          "name": "post3Left",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rV4Nu",
+                              "name": "post3Title",
+                              "fill": "#1A1A1A",
+                              "content": "The UX of Error States: Beyond Red Borders",
+                              "fontFamily": "Inter",
+                              "fontSize": 18,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "oxzL3",
+                              "name": "post3Desc",
+                              "fill": "#666666",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Why thoughtful error handling is the difference between frustration and delight in user interfaces.",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "kjOAh",
+                              "name": "post3Meta",
+                              "gap": 16,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "3EyY1",
+                                  "name": "post3Date",
+                                  "fill": "#999999",
+                                  "content": "Jan 10, 2026",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "kQmP5",
+                                  "name": "post3Tag",
+                                  "fill": "#666666",
+                                  "content": "UX",
+                                  "fontFamily": "IBM Plex Mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "yZRR5",
+                          "name": "post3Read",
+                          "fill": "#999999",
+                          "content": "6 min",
+                          "fontFamily": "IBM Plex Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "33Gz5",
+          "name": "Footer",
+          "width": "fill_container",
+          "padding": [
+            32,
+            64
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "mI3Lu",
+              "name": "footerLeft",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "s2nCP",
+                  "name": "footerCopy",
+                  "fill": "#999999",
+                  "content": "© 2026 · Built with curiosity",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "KDik1",
+              "name": "footerRight",
+              "gap": 24,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "q4tka",
+                  "name": "footerGithub",
+                  "fill": "#666666",
+                  "content": "GitHub",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "t4eDd",
+                  "name": "footerTwitter",
+                  "fill": "#666666",
+                  "content": "Twitter",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "CY0EX",
+                  "name": "footerRss",
+                  "fill": "#666666",
+                  "content": "RSS",
+                  "fontFamily": "IBM Plex Mono",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "v6l7p",
+                  "name": "themeToggle",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E2DC"
+                  },
+                  "gap": 4,
+                  "padding": 4,
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "oqNan",
+                      "name": "sun1",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "sun",
+                      "iconFontFamily": "lucide",
+                      "fill": "#1A1A1A"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "AYI1p",
+                      "name": "moon1",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "moon",
+                      "iconFontFamily": "lucide",
+                      "fill": "#999999"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "cXszb",
+                      "name": "monitor1",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "monitor",
+                      "iconFontFamily": "lucide",
+                      "fill": "#999999"
                     }
                   ]
                 }
