@@ -34,4 +34,15 @@ export const siteConfig: SiteConfig = {
     url: "https://suenyiyang.com",
     favicon,
   },
+  about: {
+    avatar: "/images/avatar.jpg",
+    skills: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "AI Tools",
+      "UI/UX",
+      "Photography",
+    ],
+  },
 };
