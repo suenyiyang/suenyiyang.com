@@ -24,14 +24,14 @@ export const ToggleDark = () => {
 
   return (
     <div
-      className="inline-flex items-center gap-2 cursor-pointer"
+      className="inline-flex items-center gap-1 p-1 rounded border border-border-light dark:border-border-dark cursor-pointer"
       aria-label="Toggle dark mode"
       onClick={runTransition}
     >
       {isDark ? (
-        <span className="icon-[line-md--sunny-loop] w-6 h-6" />
+        <span className="icon-[line-md--sunny-loop] w-4 h-4 text-text-secondary dark:text-text-secondary-dark" />
       ) : (
-        <span className="icon-[line-md--moon-loop] w-6 h-6" />
+        <span className="icon-[line-md--moon-loop] w-4 h-4 text-text-secondary dark:text-text-secondary-dark" />
       )}
     </div>
   );

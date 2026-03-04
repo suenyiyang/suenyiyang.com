@@ -21,4 +21,8 @@ export interface SiteConfig {
     url: string;
     favicon: string;
   };
+  about?: {
+    avatar?: string;
+    skills?: string[];
+  };
 }
