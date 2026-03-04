@@ -35,7 +35,7 @@ export const siteConfig: SiteConfig = {
     favicon,
   },
   about: {
-    avatar: "/images/avatar.jpg",
+    avatar: "https://sf-cdn.suenyiyang.com/avatar/avatar.jpeg",
     skills: [
       "React",
       "TypeScript",
