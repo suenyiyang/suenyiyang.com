@@ -1,13 +1,13 @@
 # suenyiyang.com
 
-Personal site and blog built with React Router SSG, Vite, MDX, and Tailwind CSS.
+Personal site and blog built with React Router SSG, Vite, MDX, and Tailwind CSS. Hosted on Cloudflare Pages.
 
 ## Stack
-- React Router v7 + Vite
+- React Router v7 + Vite (prerendered, no SSR)
 - MDX with content-collections
 - Tailwind CSS
 - Waline comments (optional)
-- Cloudflare R2 for static assets (optional)
+- Cloudflare Pages for hosting + CDN (everything, including images)
 
 ## Getting started
 ```bash
@@ -17,15 +17,16 @@ pnpm dev
 
 ## Scripts
 - `pnpm dev` - start the Vite dev server (loads `.env`)
-- `pnpm build` - build the site and run the R2 upload step
-- `pnpm serve` - serve the production build
+- `pnpm build` - build the static site to `build/client/`
+- `pnpm serve` - serve the production build locally
+- `pnpm deploy` - publish `build/client/` to Cloudflare Pages via Wrangler
 - `pnpm lint` - run ESLint
 
 ## Content
-- MDX pages live in `pages/`; posts live in `pages/posts/`.
+- MDX pages live in `pages/`; posts live in `pages/posts/<slug>/index.mdx`.
 - Frontmatter schema (all optional): `title`, `date`, `description`, `keywords`, `lang` (`zh` or `en`), `url`, `tags`, `comment`.
 - If `title` is missing, it is inferred from the first `#` heading.
-- MDX images can use `public/` paths; when `R2_PUBLIC_URL` is set, absolute paths are prefixed with the CDN base.
+- **Images are co-located with the post**: drop them in the same folder and reference with relative paths, e.g. `![alt](./diagram.png)`. A remark plugin rewrites these into ESM imports so Vite hashes and bundles them. IDE markdown preview renders them inline.
 
 ## Environment variables
 Create a `.env` file if needed.
@@ -33,22 +34,30 @@ Create a `.env` file if needed.
 ```bash
 BASE=/
 BUILD_REGION=
-R2_ACCOUNT_ID=
-R2_ACCESS_KEY_ID=
-R2_SECRET_ACCESS_KEY=
-R2_BUCKET_NAME=
-R2_PUBLIC_URL=
 WALINE_SERVER_URL=
+GA_ID=
 ```
 
 - `BASE` - base path prefix for routes.
-- `R2_PUBLIC_URL` - CDN base for assets and Vite `base`.
-- `R2_*` - required by the postbuild uploader to Cloudflare R2.
 - `WALINE_SERVER_URL` - Waline server endpoint for comments.
+- `GA_ID` - Google Analytics ID.
 
-## Build and deploy
-- `pnpm build` outputs `build/` and then runs `scripts/upload-static-resource.ts` to upload `build/client` to R2.
-- To build locally without uploading, run:
+## Deploy
+
+The site is hosted on Cloudflare Pages. Two ways to deploy:
+
+### Git integration (recommended)
+1. Connect this repo in the Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git.
+2. Build command: `pnpm install --frozen-lockfile && pnpm build`
+3. Build output directory: `build/client`
+4. Environment variables: set `WALINE_SERVER_URL`, `GA_ID` as needed (production scope).
+5. Add the custom domain `suenyiyang.com` under the project's Custom domains tab.
+
+Every push to `main` then ships automatically.
+
+### Manual via Wrangler
 ```bash
-NPM_CONFIG_IGNORE_SCRIPTS=1 pnpm build
+pnpm build
+pnpm deploy
 ```
+First run will prompt `wrangler login`.

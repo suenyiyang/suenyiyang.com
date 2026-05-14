@@ -1,6 +1,5 @@
 declare module globalThis {
   export const __INJECTED_WALINE_SERVER_URL__: string;
-  export const __INJECTED_R2_PUBLIC_URL__: string;
   export const __INJECTED_GA_ID__: string;
 }
 
@@ -17,4 +16,29 @@ declare module "*.css?url" {
 declare module "*.svg?url" {
   const content: string;
   export default content;
+}
+
+declare module "*.png" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.jpg" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.jpeg" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.gif" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.webp" {
+  const src: string;
+  export default src;
 }

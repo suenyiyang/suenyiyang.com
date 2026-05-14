@@ -22,7 +22,7 @@ LLM，英文为 Large Language Model，即大语言模型。
 
 这也是 GPT 名称的由来，Generative Pre-trained Transformer。
 
-![diagram-llm](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/ea3aa4923bc057de2e1c01a3841ab4e12381fc9b06b4376f8136dfddd3a38e33.png)
+![diagram-llm](./images/ea3aa4923bc057de2e1c01a3841ab4e12381fc9b06b4376f8136dfddd3a38e33.png)
 
 ## Chat bot
 
@@ -34,7 +34,7 @@ LLM，英文为 Large Language Model，即大语言模型。
 
 这就是聊天机器人，早期 ChatGPT、豆包、DeepSeek App 等 AI 助手，都可以统称为 Chat bot。
 
-![diagram-chatbot](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/8e106291327721018bddc3dd5a830695ceba5ed74fffbecc6a4b90e42d46b953.png)
+![diagram-chatbot](./images/8e106291327721018bddc3dd5a830695ceba5ed74fffbecc6a4b90e42d46b953.png)
 
 ## Agent
 
@@ -64,7 +64,7 @@ LLM 的能力远远不止聊天，如何让 LLM 的智力和实际场景结合�
 
 这就是一个最简单的 Re-Act 例子。
 
-![diagram-react](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/e9b7650364c5c9508b6ef9c8f6839c167c6361917aa139458e1879a166089c82.png)
+![diagram-react](./images/e9b7650364c5c9508b6ef9c8f6839c167c6361917aa139458e1879a166089c82.png)
 
 ### RAG
 
@@ -80,7 +80,7 @@ RAG，英文为 Retrieval-Augmented Generation，即获取增强生成。
 
 例如我们刚刚举的例子，"把北京过去七天的天气情况告诉模型"，可能是一段普通文本或 JSON 数据，不一定是从向量数据库中查询得出的。
 
-![diagram-rag](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/bc7be852329c6df4129e9c84b913da869b6444af543fd8a3ec58809ecb91befc.png)
+![diagram-rag](./images/bc7be852329c6df4129e9c84b913da869b6444af543fd8a3ec58809ecb91befc.png)
 
 ### Tool call
 
@@ -94,7 +94,7 @@ RAG，英文为 Retrieval-Augmented Generation，即获取增强生成。
 
 这时，模型会观察到工具调用的结果，告诉用户"明天是晴天，门票已经帮你买好了"。
 
-![diagram-toolcall](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/77e7228ac9c1fa9514c919e42fa7cca13399292fa8cfa3c258a39b479394345a.png)
+![diagram-toolcall](./images/77e7228ac9c1fa9514c919e42fa7cca13399292fa8cfa3c258a39b479394345a.png)
 
 ### MCP
 
@@ -118,7 +118,7 @@ MCP Client，实现于 MCP Host 中，用于从 MCP Server 获取可用的 tool 
 
 MCP Server，通过标准协议提供 tool，也可以通过例如 MCP Apps 之类的 extensions，实现可交互的 UI 渲染能力。
 
-![diagram-mcp](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/69da4f1adde5972297f85f7e8590153dd75a7b1d91857b4d5911b26aa0bf6e3a.png)
+![diagram-mcp](./images/69da4f1adde5972297f85f7e8590153dd75a7b1d91857b4d5911b26aa0bf6e3a.png)
 
 ### Human-in-the-loop
 
@@ -130,11 +130,11 @@ MCP Server，通过标准协议提供 tool，也可以通过例如 MCP Apps 之�
 
 LangChain 定义的 HITL 特指执行 tool call 之前的用户审批（确认要不要执行这个 tool）。
 
-![Pasted image 20260320154551](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/b79fb60cff7b820e99840e1425bf8925906cf7e82a8eaf4293772257cdf47264.png)
+![Pasted image 20260320154551](./images/b79fb60cff7b820e99840e1425bf8925906cf7e82a8eaf4293772257cdf47264.png)
 
 Claude 没有特别使用 HITL 这个词，而是统称为 user input。分为 `tool approval request` 和 `clarifying request`，分别对应我们上述的两种需要 human 参与的情况。
 
-![Pasted image 20260320145127](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/a60fee0095eb10891fa7d340c4ff445068b626fd07fcd305b5a5a5968f39e37c.png)
+![Pasted image 20260320145127](./images/a60fee0095eb10891fa7d340c4ff445068b626fd07fcd305b5a5a5968f39e37c.png)
 
 个人更倾向于 Claude 对 HITL 的定义。因为这两种本质都属于中断 Agent loop，等待用户输入，只是需要用户输入的目的以及用户输入的内容不太一样。
 
@@ -156,13 +156,13 @@ Claude 没有特别使用 HITL 这个词，而是统称为 user input。分为 `
 
 以 Claude Code 之类的 Agent 举例，这些 Agent 有 Bash tool，某些 Bash 命令可能有操作风险，比如 `rm` 命令。在 LLM call Bash tool 之前，需要人工确认，是否同意用 xxx 参数，调用 Bash tool。这就是需要 Human as gatekeeper 的原因。
 
-![Pasted image 20260318234146](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/7000813dc76d9cdb7e31b61579d3d49b6d41ded7c5af130c2587ceebda5e1b17.png)
+![Pasted image 20260318234146](./images/7000813dc76d9cdb7e31b61579d3d49b6d41ded7c5af130c2587ceebda5e1b17.png)
 
 其次是 Human as tool。
 
 以 Claude Code 中 AskUserQuestion tool 为例，Agent loop 中，LLM 需要用户提供额外信息，可以通过这个 tool，要求用户输入。用户的输入会作为 tool result 存在于 LLM 上下文中，LLM 通过观察 tool result，再规划下一步的 action。
 
-![Pasted image 20260319001607](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/9fc0aa3ba4a4f0d15c34c19294e32520cfa6bbb6a33c3529331f691fe5ccc342.png)
+![Pasted image 20260319001607](./images/9fc0aa3ba4a4f0d15c34c19294e32520cfa6bbb6a33c3529331f691fe5ccc342.png)
 
 **对用户来说，两种 HITL 的输入输出分别是什么？**
 
@@ -172,11 +172,11 @@ Claude 没有特别使用 HITL 这个词，而是统称为 user input。分为 `
 
 如果用户 Approve，则 tool 会完成执行，并将获取到的结果，作为 tool result 给到 LLM 的 context list 中。
 
-![Pasted image 20260319001239](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/3069c4531c7c61d3102ec6742b59680dff2dd92cd8d7efa879e2a43f047c30fd.png)
+![Pasted image 20260319001239](./images/3069c4531c7c61d3102ec6742b59680dff2dd92cd8d7efa879e2a43f047c30fd.png)
 
 如果用户 Reject，则 tool 不会实际执行。Agent 开发者会构造一条 tool result，告诉 LLM 这次执行被拒绝了，LLM 会基于这次 action 的结果，做观察，规划下一步的 action。
 
-![Pasted image 20260319000206](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/24422d6ebf873839976563654644d5c9fab1c6cfd3040ab4efa8d0a60383e1cc.png)
+![Pasted image 20260319000206](./images/24422d6ebf873839976563654644d5c9fab1c6cfd3040ab4efa8d0a60383e1cc.png)
 
 其次，Human as tool。
 
@@ -184,15 +184,15 @@ Claude 没有特别使用 HITL 这个词，而是统称为 user input。分为 `
 
 对用户而言，接收的输入是模型生成的、符合特定数据结构的自然语言。而用户的输出，通常同样是自然语言（也可能会支持多模态）。
 
-![Pasted image 20260319001607](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/9fc0aa3ba4a4f0d15c34c19294e32520cfa6bbb6a33c3529331f691fe5ccc342.png)
+![Pasted image 20260319001607](./images/9fc0aa3ba4a4f0d15c34c19294e32520cfa6bbb6a33c3529331f691fe5ccc342.png)
 
 需要注意的是，有另一种交互，同样需要用户输入信息，特别容易和 HITL 混淆，但它不是 HITL。仍然以 Claude Code 举例，即是 Claude Code 输出的最终结果中要求用户输入的问句。**它本质只是 LLM 的最终输出结果。**
 
-![Pasted image 20260319001542](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/b9b9f99d0ab6cb28c246f0f9224e628685e583f911af8457cf728abf1697aa83.png)
+![Pasted image 20260319001542](./images/b9b9f99d0ab6cb28c246f0f9224e628685e583f911af8457cf728abf1697aa83.png)
 
 此时，一轮 Agent loop 已经结束，用户再次输入消息发送给 Agent，会开启下一轮的 Agent loop（同一个会话内，携带历史上下文）。**因此，这种交互不是 HITL。**
 
-![diagram-hitl](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/0f874d2515e1a5c2ba36f9f0c828f1710ef3d14db45daddcfb761b0e0acd8fda.png)
+![diagram-hitl](./images/0f874d2515e1a5c2ba36f9f0c828f1710ef3d14db45daddcfb761b0e0acd8fda.png)
 
 ### Context Engineering
 
@@ -228,7 +228,7 @@ Context Engineering，即上下文工程。
 
 即使不遵循 Skills 规范，在一个 markdown 文件里提及另一个 markdown 文件，LLM 也会在需要的情况下，读取对应的 markdown 文件，做到渐进披露上下文。
 
-![diagram-skills](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/9faecf3721a36ddb71a245922000bad4e2afa2469b1236191a2e9d70e6992748.png)
+![diagram-skills](./images/9faecf3721a36ddb71a245922000bad4e2afa2469b1236191a2e9d70e6992748.png)
 
 ### Memory
 
@@ -244,7 +244,7 @@ Memory，记忆，通常分为短期记忆和长期记忆。
 
 这样，看起来 Agent 就具备了长期记忆能力。但实际上，只是 RAG 的一种实现方式。
 
-![diagram-memory](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/4602a21c0445563f220f9f271f4b13617af939bfa12cbf655dc9dbf62c6fc553.png)
+![diagram-memory](./images/4602a21c0445563f220f9f271f4b13617af939bfa12cbf655dc9dbf62c6fc553.png)
 
 ### Sub-agents
 
@@ -266,7 +266,7 @@ Memory，记忆，通常分为短期记忆和长期记忆。
 
 其次，不同 agent 之间上下文的传递、共享，以及它们之间的交互方式，是一个复杂工程。人和人之间的沟通尚存在这么多上下文的不对齐和误解，没有合理的设计，agent 之间的上下文也会有很多 gap，导致整个系统的效果大打折扣。
 
-![diagram-subagents](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/362cd915dd0077960055eadc712a68e63145b146357259b45cd15322557282a5.png)
+![diagram-subagents](./images/362cd915dd0077960055eadc712a68e63145b146357259b45cd15322557282a5.png)
 
 ### Context Offload / Compaction
 
@@ -284,7 +284,7 @@ Memory，记忆，通常分为短期记忆和长期记忆。
 
 上下文卸载可以视为一种无损的 context window 释放方式，因为历史上下文并没有丢失，随时可以重新加入 context list 中；而上下文压缩通常是有损的，历史上下文中的一些细节，可能在总结的过程中，被丢弃掉。
 
-![diagram-offload](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/9ea57ae93ab7016f91635a1bc20499578f7ebfa5a42ecf380733dba8fd88a70e.png)
+![diagram-offload](./images/9ea57ae93ab7016f91635a1bc20499578f7ebfa5a42ecf380733dba8fd88a70e.png)
 
 ### Harness
 
@@ -294,7 +294,7 @@ Harness 相比于 Framework（框架），抽象层级更高。Framework 只提�
 
 例如 LangChain 相关的包中，LangGraph 是底层的流程控制 Framework，LangChain 是 Agent 相关的 Framework，而 DeepAgents 是 Agent Harness。DeepAgents 在 LangChain 的基础上，提供了内置 tool 以及上下文工程相关的封装，因此它是 Harness 而不是 Framework。
 
-![diagram-harness](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/bd610478cb8bc3c17adbf5b3be254e765f5a619b3907f1c5ee912ea48beccb0d.png)
+![diagram-harness](./images/bd610478cb8bc3c17adbf5b3be254e765f5a619b3907f1c5ee912ea48beccb0d.png)
 
 ### Trace & Evaluation
 
@@ -302,7 +302,7 @@ Agent 开发与传统软件开发最大的不同是，传统软件开发中，�
 
 因此，trace（追踪）& evaluation（评估）在 Agent 开发中特别重要。一次线上的问题排查，我们需要知道中间执行了哪些 tool call，其中哪些是不符合预期的；一次代码或 prompt 的变更，我们需要在上线前评估出会对 Agent 在各个方面的表现产生什么影响。
 
-![diagram-trace](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/882795327b884c8e79811d93355f8967df61926b24fd7a74728eb1e4ba0b9f0a.png)
+![diagram-trace](./images/882795327b884c8e79811d93355f8967df61926b24fd7a74728eb1e4ba0b9f0a.png)
 
 ## 一些个人思考
 
@@ -318,9 +318,9 @@ Agent 是指执行逻辑和顺序由 LLM 通过 tool call 动态控制的系统�
 
 因此，Agent 的主体代码逻辑通常很简单，以 OpenClaw 的底层依赖 pi-agent 代码为例，只有两层循环。外层循环处理等待中的 message，阻止 agent loop 结束；内存循环处理一轮 agent loop 中的 tool call 和 messages。
 
-![Pasted image 20260323110254](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/b77d667005ada0694ba20291529f60e127c6d67ad669e7a5d6cae92e1101113d.png)
+![Pasted image 20260323110254](./images/b77d667005ada0694ba20291529f60e127c6d67ad669e7a5d6cae92e1101113d.png)
 
-![diagram-workflow](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/a78f3515a35a8fa1eb296b29fd15b0702efa82631e751a61257bf9948f651d2b.png)
+![diagram-workflow](./images/a78f3515a35a8fa1eb296b29fd15b0702efa82631e751a61257bf9948f651d2b.png)
 
 ### 通用 Agent vs 垂直 Agent
 
@@ -348,4 +348,4 @@ Agent 是指执行逻辑和顺序由 LLM 通过 tool call 动态控制的系统�
 
 至于从商业视角看，应不应该自己做 Agent，这个存疑。因为截至 2025 年底，即使是 Manus 这样成功的 Agent，还是在花钱贴补用户体验 Agent 这种产品形态，至少目前做 Agent 还不算 token 低买高卖的赚钱模式。
 
-![diagram-general-vertical](https://sf-cdn.suenyiyang.com/yiyang-r2-upload/24ef905b16b571856c5aa604be165353743f0833782df367a9b4485dbaf9db80.png)
+![diagram-general-vertical](./images/24ef905b16b571856c5aa604be165353743f0833782df367a9b4485dbaf9db80.png)
