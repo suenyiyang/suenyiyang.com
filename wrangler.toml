@@ -1,3 +1,6 @@
 name = "suenyiyang-com"
 compatibility_date = "2026-05-14"
-pages_build_output_dir = "build/client"
+
+[assets]
+directory = "build/client"
+
