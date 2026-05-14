@@ -64,7 +64,7 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
           </header>
 
           {/* Article Content */}
-          <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-medium prose-headings:text-text-primary dark:prose-headings:text-text-primary-dark prose-p:text-[17px] prose-p:leading-[1.75] prose-p:text-text-body dark:prose-p:text-text-body-dark prose-a:text-text-primary dark:prose-a:text-text-primary-dark prose-a:underline prose-a:underline-offset-2 prose-code:font-mono prose-code:text-[13px] prose-pre:bg-text-primary dark:prose-pre:bg-[#1A1A1A] prose-pre:text-bg-light">
+          <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-medium prose-headings:text-text-primary dark:prose-headings:text-text-primary-dark prose-p:text-[17px] prose-p:leading-[1.75] prose-p:text-text-body dark:prose-p:text-text-body-dark prose-a:text-text-primary dark:prose-a:text-text-primary-dark prose-a:underline prose-a:underline-offset-2 prose-code:font-mono prose-code:text-[13px] prose-pre:bg-[#F5F1E8] prose-pre:text-text-primary dark:prose-pre:bg-[#1A1A1A] dark:prose-pre:text-bg-light">
             {children}
           </div>
         </article>

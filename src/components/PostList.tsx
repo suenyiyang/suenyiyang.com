@@ -108,12 +108,22 @@ export const PostList: FC<PostListProps> = ({
         <div className="space-y-12">
           {years.map((year) => (
             <div key={year}>
-              <div className="py-3 mb-6">
-                <h2 className="text-[24px] font-display font-bold text-text-primary dark:text-text-primary-dark">
-                  {year}
-                </h2>
+              <div className="py-3 mb-6 relative">
+                <div className="w-[100px] text-center">
+                  <h2 className="text-[24px] font-display font-bold text-text-primary dark:text-text-primary-dark">
+                    {year}
+                  </h2>
+                </div>
+                <span
+                  className="absolute left-[50px] -translate-x-1/2 -bottom-2 w-2 h-2 rounded-full bg-text-muted/70"
+                  aria-hidden
+                />
               </div>
-              <div>
+              <div className="relative">
+                <div
+                  className="absolute left-[50px] -translate-x-1/2 top-[-14px] bottom-0 w-px bg-text-muted/40"
+                  aria-hidden
+                />
                 {postsByYear[year].map((post) => (
                   <PostCard key={post._meta.path} post={post} variant="timeline" />
                 ))}
