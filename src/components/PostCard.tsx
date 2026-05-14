@@ -26,12 +26,14 @@ export const PostCard: FC<PostCardProps> = ({ post, variant = "default" }) => {
         className="flex gap-12 group py-6 first:pt-0"
       >
         {/* Date column - 100px fixed width */}
-        <div className="flex-shrink-0 w-[100px]">
-          <div className="text-[12px] font-mono text-text-muted uppercase">
-            {month}
-          </div>
-          <div className="text-[32px] font-display font-bold text-text-primary dark:text-text-primary-dark leading-tight">
-            {day}
+        <div className="flex-shrink-0 w-[100px] text-center">
+          <div className="relative inline-block bg-bg-light dark:bg-bg-dark px-2">
+            <div className="text-[12px] font-mono text-text-muted uppercase">
+              {month}
+            </div>
+            <div className="text-[32px] font-display font-bold text-text-primary dark:text-text-primary-dark leading-tight">
+              {day}
+            </div>
           </div>
         </div>
 

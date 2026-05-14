@@ -1,5 +1,6 @@
 import { useMDXComponents } from "@mdx-js/react";
 import type { ComponentProps } from "react";
+import { Callout } from "~/components/Callout";
 import { Hero } from "~/components/Hero";
 import { PostList } from "~/components/PostList";
 import { RecentPosts } from "~/components/RecentPosts";
@@ -11,6 +12,7 @@ type MDXComponents = Parameters<typeof useMDXComponents>["0"];
 type MdxImageProps = ComponentProps<"img">;
 
 export default {
+  Callout,
   Hero,
   PostList,
   RecentPosts,
