@@ -27,21 +27,23 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
     ? matchedPage.tags.split(",").map((t: string) => t.trim()).filter(Boolean)
     : [];
 
+  const lang = matchedPage?.lang;
+
   return (
     <>
       <PageMetadata metadata={matchedPage} />
 
       {isPost ? (
-        <article className="flex-grow">
+        <article className="flex-grow min-w-0" lang={lang}>
           {/* Article Header */}
-          <header className="text-center pb-8 mb-8">
+          <header className="text-center pb-9 mb-10 md:pb-10 md:mb-12 border-b border-border-light dark:border-border-dark">
             {/* Meta info */}
-            <div className="flex items-center justify-center gap-3 text-sm font-mono text-text-muted mb-4">
+            <div className="flex items-center justify-center gap-2.5 text-[13px] font-mono text-text-muted mb-5 tabular-nums">
               {formattedDate ? (
                 <time dateTime={matchedPage?.date}>{formattedDate}</time>
               ) : null}
               {formattedDate && readTime ? (
-                <span>&middot;</span>
+                <span aria-hidden>&middot;</span>
               ) : null}
               {readTime ? (
                 <span>{readTime} min read</span>
@@ -49,7 +51,7 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
             </div>
 
             {/* Title */}
-            <h1 className="font-display italic text-[36px] md:text-[48px] text-text-primary dark:text-text-primary-dark leading-[1.15] tracking-[-1px] mb-4">
+            <h1 className="post-title text-[2rem] leading-[1.18] md:text-[3rem] md:leading-[1.12] text-text-primary dark:text-text-primary-dark mb-5">
               {matchedPage?.title}
             </h1>
 
@@ -64,12 +66,12 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
           </header>
 
           {/* Article Content */}
-          <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-medium prose-headings:text-text-primary dark:prose-headings:text-text-primary-dark prose-p:text-[17px] prose-p:leading-[1.75] prose-p:text-text-body dark:prose-p:text-text-body-dark prose-a:text-text-primary dark:prose-a:text-text-primary-dark prose-a:underline prose-a:underline-offset-2 prose-code:font-mono prose-code:text-[13px] prose-pre:bg-[#F5F1E8] prose-pre:text-text-primary dark:prose-pre:bg-[#1A1A1A] dark:prose-pre:text-bg-light">
+          <div className="post-body">
             {children}
           </div>
         </article>
       ) : (
-        <div className="not-prose flex-grow">
+        <div className="not-prose flex-grow min-w-0">
           {children}
         </div>
       )}

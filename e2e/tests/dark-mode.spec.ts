@@ -1,7 +1,6 @@
 import { test, expect } from "../fixtures";
 import {
   expectDarkMode,
-  expectLightMode,
   getStoredTheme,
   emulateColorScheme,
   waitForThemeTransition,

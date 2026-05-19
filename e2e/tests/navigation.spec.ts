@@ -13,15 +13,15 @@ test.describe("Navigation", () => {
     await expect(page).toHaveURL("/posts");
   });
 
-  test("links link navigates to links page", async ({ homePage, page }) => {
+  test("about link navigates to about page", async ({ homePage, page }) => {
     await homePage.goto();
-    await homePage.navigateToLinks();
-    await expect(page).toHaveURL("/links");
+    await homePage.getNavLink("/about").click();
+    await expect(page).toHaveURL("/about");
   });
 
-  test("GitHub link opens in new tab", async ({ homePage }) => {
+  test("GitHub link in footer opens in new tab", async ({ homePage }) => {
     await homePage.goto();
-    const githubLink = homePage.getNavLink("https://github.com/suenyiyang");
+    const githubLink = homePage.getFooterLink("https://github.com/suenyiyang");
     await expect(githubLink).toHaveAttribute("target", "_blank");
   });
 
