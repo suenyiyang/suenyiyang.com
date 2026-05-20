@@ -14,24 +14,24 @@
 @plugin "@iconify/tailwind4";
 
 @theme {
-  --font-display: "Playfair Display Variable", Georgia, serif;
+  --font-display: "Playfair Display Variable", "Songti SC", "Source Han Serif SC", "Noto Serif SC", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
   --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Pencil Design Colors */
+  /* --- Light: warm paper --- */
   --color-bg-light: #FDFCF9;
-  --color-bg-dark: #0D0D0D;
   --color-text-primary: #1A1A1A;
-  --color-text-primary-dark: #FDFCF9;
-  --color-text-secondary: #666666;
-  --color-text-secondary-dark: #A0A0A0;
-  --color-text-muted: #999999;
-  --color-border-light: #E5E2DC;
-  --color-border-dark: #2A2A2A;
+  --color-text-secondary: #6B6862;
+  --color-text-muted: #908C84;
+  --color-text-body: #3C3A36;
+  --color-border-light: #E7E3DA;
 
-  /* Body text color for articles (darker than secondary) */
-  --color-text-body: #444444;
-  --color-text-body-dark: #B0B0B0;
+  /* --- Dark: warm near-black --- */
+  --color-bg-dark: #0E0E0E;
+  --color-text-primary-dark: #F3F1EB;
+  --color-text-secondary-dark: #9B978E;
+  --color-text-body-dark: #C7C4BC;
+  --color-border-dark: #262421;
 }
 
 :root {
@@ -39,19 +39,51 @@
   --vt-x: 50%;
   --vt-y: 50%;
   --vt-radius: 150%;
-  --font-chinese: "PingFang SC", "Source Han Serif SC", "Source Han Serif", "Noto Serif SC", "Microsoft YaHei", serif;
+
+  /* Clean CJK sans for reading — pairs with the serif display headings */
+  --font-chinese: "PingFang SC", "Source Han Sans SC", "Source Han Sans CN",
+    "Noto Sans SC", "HarmonyOS Sans SC", "Hiragino Sans GB", "Microsoft YaHei",
+    sans-serif;
+
+  /* Reading surface tokens (light) */
+  --reading-code-bg: #EEEADF;
+  --reading-code-text: #403D38;
+  --reading-quote-bar: #D8D2C4;
+  --reading-rule: #E7E3DA;
+  --reading-selection-bg: #E9E2CE;
+  --reading-selection-text: #1A1A1A;
+
   --waline-theme-color: var(--color-neutral-700) !important;
   --waline-active-color: var(--color-neutral-950) !important;
 }
 
 .dark {
+  /* Reading surface tokens (dark) */
+  --reading-code-bg: #211F1B;
+  --reading-code-text: #D8D4CB;
+  --reading-quote-bar: #3B3833;
+  --reading-rule: #262421;
+  --reading-selection-bg: #3A3528;
+  --reading-selection-text: #F3F1EB;
+
   --waline-theme-color: var(--color-neutral-300) !important;
   --waline-active-color: var(--color-neutral-50) !important;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Clear the sticky header when jumping to an anchor */
+    scroll-padding-top: 5rem;
+  }
+
   body {
-    font-family: var(--font-sans);
+    /* Latin renders in Inter, CJK falls through to the sans CJK stack
+       even before the per-page lang attribute is resolved. */
+    font-family: var(--font-sans), var(--font-chinese);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   :lang(zh),
@@ -61,6 +93,300 @@
   :lang(zh-HK) {
     font-family: var(--font-chinese);
   }
+
+  ::selection {
+    background: var(--reading-selection-bg);
+    color: var(--reading-selection-text);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ============================================================
+   Article reading surface
+   ============================================================ */
+@layer components {
+  .post-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+
+  .post-body {
+    color: var(--color-text-body);
+    font-size: 1.0625rem; /* 17px on mobile */
+    line-height: 1.8;
+    min-width: 0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  .dark .post-body {
+    color: var(--color-text-body-dark);
+  }
+
+  /* Comfortable measure + larger type on wider screens */
+  @media (min-width: 768px) {
+    .post-body {
+      font-size: 1.125rem; /* 18px */
+      line-height: 1.85;
+    }
+  }
+
+  .post-body :lang(zh) {
+    letter-spacing: 0.01em;
+  }
+
+  /* --- Block rhythm --- */
+  .post-body > * + * {
+    margin-top: 1.4em;
+  }
+
+  .post-body p {
+    text-wrap: pretty;
+  }
+
+  /* --- Headings (editorial serif) --- */
+  .post-body :is(h2, h3, h4) {
+    font-family: var(--font-display);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    scroll-margin-top: 5rem;
+  }
+  .dark .post-body :is(h2, h3, h4) {
+    color: var(--color-text-primary-dark);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin-top: 2.6em;
+    margin-bottom: 0.6em;
+  }
+  .post-body h3 {
+    font-size: 1.25rem;
+    margin-top: 2em;
+  }
+  .post-body h4 {
+    font-size: 1.075rem;
+    margin-top: 1.6em;
+  }
+  @media (min-width: 768px) {
+    .post-body h2 {
+      font-size: 1.75rem;
+    }
+    .post-body h3 {
+      font-size: 1.375rem;
+    }
+  }
+  /* First heading shouldn't push a big gap under the article header */
+  .post-body > :is(h2, h3, h4):first-child {
+    margin-top: 0;
+  }
+
+  .post-body strong {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+  .dark .post-body strong {
+    color: var(--color-text-primary-dark);
+  }
+  .post-body em {
+    font-style: italic;
+  }
+
+  /* --- Lists --- */
+  .post-body :is(ul, ol) {
+    padding-left: 1.5em;
+  }
+  .post-body ul {
+    list-style: disc;
+  }
+  .post-body ol {
+    list-style: decimal;
+  }
+  .post-body :is(ul, ol) :is(ul, ol) {
+    margin-top: 0.4em;
+  }
+  .post-body li {
+    margin-top: 0.4em;
+    padding-left: 0.25em;
+  }
+  .post-body li::marker {
+    color: var(--color-text-muted);
+  }
+  .post-body ol > li::marker {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Blockquote --- */
+  .post-body blockquote {
+    border-left: 3px solid var(--reading-quote-bar);
+    padding-left: 1.1em;
+    color: var(--color-text-secondary);
+    font-style: normal;
+  }
+  .dark .post-body blockquote {
+    color: var(--color-text-secondary-dark);
+  }
+  .post-body blockquote > * + * {
+    margin-top: 0.8em;
+  }
+
+  /* --- Links (Anchor component owns the underline treatment) --- */
+  .post-body a {
+    color: inherit;
+    font-weight: 500;
+  }
+
+  /* --- Inline code --- */
+  .post-body :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    background: var(--reading-code-bg);
+    color: var(--reading-code-text);
+    padding: 0.12em 0.4em;
+    border-radius: 5px;
+    word-break: break-word;
+  }
+  .post-body :not(pre) > code::before,
+  .post-body :not(pre) > code::after {
+    content: none;
+  }
+
+  /* --- Code blocks (Shiki dual-theme) --- */
+  .post-body pre {
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+    padding: 1.05rem 1.15rem;
+    border-radius: 10px;
+    max-width: 100%;
+    overflow-x: auto;
+    font-size: 0.84rem;
+    line-height: 1.7;
+    -webkit-overflow-scrolling: touch;
+    tab-size: 2;
+  }
+  @media (min-width: 768px) {
+    .post-body pre {
+      font-size: 0.875rem;
+      padding: 1.2rem 1.35rem;
+    }
+  }
+  .post-body pre code {
+    font-family: var(--font-mono);
+    font-size: inherit;
+    display: block;
+    background: none;
+    padding: 0;
+    border: 0;
+  }
+  /* Shiki: light is default, dark swaps via the .dark scope */
+  .post-body .shiki,
+  .post-body .shiki span {
+    color: var(--shiki-light);
+  }
+  .post-body pre.shiki {
+    background-color: var(--shiki-light-bg);
+  }
+  .dark .post-body .shiki,
+  .dark .post-body .shiki span {
+    color: var(--shiki-dark);
+  }
+  .dark .post-body pre.shiki {
+    background-color: var(--shiki-dark-bg);
+  }
+
+  /* --- Figures / images --- */
+  .post-body figure {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+  }
+  .post-body figure img,
+  .post-body > p > img,
+  .post-body > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .post-body figcaption {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    text-wrap: pretty;
+    line-height: 1.5;
+  }
+
+  /* --- Tables --- */
+  .post-body .table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .post-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  .post-body :is(th, td) {
+    padding: 0.55em 0.9em;
+    text-align: left;
+    vertical-align: top;
+  }
+  .post-body td {
+    border-bottom: 1px solid var(--reading-rule);
+  }
+  .post-body tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  .post-body th {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    border-bottom: 1.5px solid var(--reading-quote-bar);
+  }
+  .dark .post-body th {
+    color: var(--color-text-primary-dark);
+  }
+
+  /* --- Horizontal rule --- */
+  .post-body hr {
+    border: 0;
+    border-top: 1px solid var(--reading-rule);
+    margin-top: 3em;
+    margin-bottom: 3em;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Media safety net — UNLAYERED so it overrides any authored Tailwind
+   width utility (e.g. a hardcoded `max-w-md` on a <video>). Cascade
+   layers always lose to unlayered rules, so this guarantees media can
+   never force horizontal page overflow on small screens. */
+.post-body img,
+.post-body video {
+  max-width: 100%;
+  height: auto;
+}
+.post-body video {
+  display: block;
+  margin-inline: auto;
+  max-width: min(28rem, 100%);
+  border-radius: 8px;
 }
 
 ::view-transition-old(theme),

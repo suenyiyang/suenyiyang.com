@@ -4,9 +4,9 @@ import { Logo } from "../Logo";
 
 export default function Header() {
   return (
-    <header className="w-full py-4 px-5 md:py-5 md:px-16 text-text-secondary dark:text-text-secondary-dark sticky top-0 z-10 backdrop-blur-md">
+    <header className="w-full py-4 px-5 md:py-5 md:px-16 text-text-secondary dark:text-text-secondary-dark sticky top-0 z-10 backdrop-blur-md bg-bg-light/85 dark:bg-bg-dark/85">
       <div className="flex items-center justify-between">
-        <Link to="/" className="flex items-center">
+        <Link to="/" aria-label="Home" className="flex items-center">
           <Logo />
         </Link>
         <nav className="flex items-center gap-8">

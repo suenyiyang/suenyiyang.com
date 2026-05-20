@@ -12,7 +12,7 @@ export const ToggleDark = () => {
   useEffect(() => {
     // Check initial dark mode
     setIsDark(isDarkMode());
-  }, []);
+  }, [setIsDark]);
 
   const runTransition = (event: MouseEvent<HTMLDivElement>) => {
     const nextIsDark = toggleThemeWithTransition({
