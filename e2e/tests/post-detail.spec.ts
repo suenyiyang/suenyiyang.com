@@ -16,7 +16,7 @@ test.describe("Post Detail", () => {
     }
   });
 
-  test("post title is visible", async ({ postsPage, postDetailPage, page }) => {
+  test("post title is visible", async ({ postsPage, postDetailPage }) => {
     await postsPage.goto();
     const count = await postsPage.getPostCount();
 

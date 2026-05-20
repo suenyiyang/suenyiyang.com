@@ -37,7 +37,7 @@ test.describe("Responsive Design", () => {
   });
 
   test("posts page works on all viewports", async ({ postsPage, page }) => {
-    for (const [name, viewport] of Object.entries(VIEWPORTS)) {
+    for (const viewport of Object.values(VIEWPORTS)) {
       await page.setViewportSize(viewport);
       await postsPage.goto();
       await expect(postsPage.postsList).toBeVisible();

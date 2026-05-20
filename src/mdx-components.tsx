@@ -25,9 +25,16 @@ export default {
   a: Anchor,
   img: (props: MdxImageProps) => {
     return (
-      <div className="max-w-md mx-auto flex flex-col items-center gap-2 my-4">
-        <img className="mt-0 mb-0" {...props} />
-        {props.alt ? <span className="text-text-muted text-sm">{props.alt}</span> : null}
+      <figure>
+        <img decoding="async" {...props} />
+        {props.alt ? <figcaption>{props.alt}</figcaption> : null}
+      </figure>
+    );
+  },
+  table: (props: ComponentProps<"table">) => {
+    return (
+      <div className="table-scroll">
+        <table {...props} />
       </div>
     );
   },
