@@ -11,6 +11,7 @@ import remarkGfm from "remark-gfm";
 import rehypeShiki from "@shikijs/rehype";
 
 import { ENV_GA_ID, ENV_WALINE_SERVER_URL } from "./config/env";
+import { rehypeCodeWindow } from "./config/rehype-code-window";
 import { remarkMdxRelativeImages } from "./config/remark-mdx-relative-images";
 import { remarkUnwrapImages } from "./config/remark-unwrap-images";
 
@@ -32,6 +33,7 @@ export default defineConfig({
             defaultColor: false,
           },
         ],
+        rehypeCodeWindow,
       ],
       providerImportSource: "@mdx-js/react",
     }),
