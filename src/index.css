@@ -52,7 +52,6 @@
   --col-py-desktop:   3rem;
 
   --toc-rail-width:   12.5rem;
-  --toc-gap:          4rem;
   --toc-breakpoint:   80rem;
 
   /* --- Fonts: one stack each. CJK glyphs fall through automatically. --- */
@@ -435,7 +434,11 @@
       display: block;
       position: absolute;
       top: 0;
-      left: calc(0px - var(--toc-rail-width) - var(--toc-gap));
+      /* Anchor to viewport's left edge at 1rem.
+         Main is max-w-[800px] mx-auto md:px-16, so post-layout's left in
+         viewport = (100vw - 800px) / 2 + 64px. Solving for TOC's left
+         (relative to post-layout) gives: 1rem + col/2 - px-desktop - 50vw. */
+      left: calc(1rem + (var(--col-width) / 2) - var(--col-px-desktop) - 50vw);
       width: var(--toc-rail-width);
       height: 100%;
     }
