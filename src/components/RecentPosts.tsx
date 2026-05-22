@@ -8,14 +8,14 @@ export interface RecentPostsProps {
 
 export const RecentPosts: FC<RecentPostsProps> = ({ limit = 5 }) => {
   return (
-    <section className="py-8">
-      <div className="flex items-center justify-between mb-8 pt-6">
-        <h2 className="text-[11px] font-bold tracking-[2px] uppercase text-text-primary dark:text-text-primary-dark">
-          RECENT POSTS
+    <section className="border-t border-[var(--reading-rule)] pt-[var(--space-h2)] mt-8">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="font-mono text-eyebrow font-bold tracking-[0.18em] uppercase text-text-primary dark:text-text-primary-dark">
+          Recent posts
         </h2>
         <Link
           to="/posts"
-          className="font-mono text-[12px] text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
+          className="font-mono text-meta text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
         >
           View all &rarr;
         </Link>
