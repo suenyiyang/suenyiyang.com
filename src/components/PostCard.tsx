@@ -23,15 +23,15 @@ export const PostCard: FC<PostCardProps> = ({ post, variant = "default" }) => {
     return (
       <Link
         to={post._meta.path}
-        className="flex gap-12 group py-6 first:pt-0"
+        className="flex gap-10 group py-5 first:pt-0"
       >
         {/* Date column - 100px fixed width */}
         <div className="flex-shrink-0 w-[100px] text-center">
           <div className="relative inline-block bg-bg-light dark:bg-bg-dark px-2">
-            <div className="text-[12px] font-mono text-text-muted uppercase">
+            <div className="font-mono text-meta text-text-muted uppercase">
               {month}
             </div>
-            <div className="text-[32px] font-display font-bold text-text-primary dark:text-text-primary-dark leading-tight">
+            <div className="text-[1.875rem] font-display font-bold text-text-primary dark:text-text-primary-dark leading-tight">
               {day}
             </div>
           </div>
@@ -39,11 +39,11 @@ export const PostCard: FC<PostCardProps> = ({ post, variant = "default" }) => {
 
         {/* Content column */}
         <div className="flex-1 min-w-0 space-y-2">
-          <h3 className="text-[18px] font-semibold text-text-primary dark:text-text-primary-dark group-hover:text-text-secondary dark:group-hover:text-text-secondary-dark transition-colors leading-snug">
+          <h3 className="font-display text-h4 font-semibold tracking-[-0.008em] text-text-primary dark:text-text-primary-dark group-hover:text-text-secondary dark:group-hover:text-text-secondary-dark transition-colors leading-snug">
             {post.title}
           </h3>
           {post.description ? (
-            <p className="text-[14px] leading-[1.5] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
+            <p className="text-secondary leading-[1.5] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
               {post.description}
             </p>
           ) : null}
@@ -59,18 +59,18 @@ export const PostCard: FC<PostCardProps> = ({ post, variant = "default" }) => {
     );
   }
 
-  // Default variant for home page
+  // Default variant (Home > RecentPosts)
   return (
     <Link
       to={post._meta.path}
-      className="block group py-6 first:pt-0"
+      className="block group py-5 first:pt-0 border-b border-[var(--reading-rule)] last:border-b-0"
     >
       <div className="space-y-2">
-        <h3 className="text-[18px] font-semibold text-text-primary dark:text-text-primary-dark group-hover:text-text-secondary dark:group-hover:text-text-secondary-dark transition-colors">
+        <h3 className="font-display text-h3 font-semibold tracking-[-0.008em] leading-[1.3] text-text-primary dark:text-text-primary-dark group-hover:text-text-secondary dark:group-hover:text-text-secondary-dark transition-colors">
           {post.title}
         </h3>
         {post.description ? (
-          <p className="text-[14px] leading-[1.5] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
+          <p className="text-secondary leading-[1.5] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
             {post.description}
           </p>
         ) : null}
@@ -78,7 +78,7 @@ export const PostCard: FC<PostCardProps> = ({ post, variant = "default" }) => {
           {formattedDate ? (
             <time
               dateTime={post.date}
-              className="text-[12px] font-mono text-text-muted"
+              className="font-mono text-meta text-text-muted"
             >
               {formattedDate}
             </time>
@@ -96,5 +96,5 @@ export const PostCard: FC<PostCardProps> = ({ post, variant = "default" }) => {
   );
 };
 
-// Keep old export name for backwards compatibility
+// Backwards-compatible alias
 export const PostItem = PostCard;
