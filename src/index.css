@@ -14,11 +14,55 @@
 @plugin "@iconify/tailwind4";
 
 @theme {
-  --font-display: "Playfair Display Variable", "Songti SC", "Source Han Serif SC", "Noto Serif SC", Georgia, serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* --- Type scale: display + headings scale via clamp(); body + meta are fixed --- */
+  --text-display-xl: clamp(2.5rem, 7vw, 3.5rem);      /* 40 → 56px · Hero h1 only */
+  --text-display:    clamp(2.25rem, 5.5vw, 2.75rem);  /* 36 → 44px · post title, page h1 */
+  --text-h2:         clamp(1.625rem, 3vw, 1.75rem);   /* 26 → 28px */
+  --text-h3:         clamp(1.25rem, 2.2vw, 1.3125rem);/* 20 → 21px */
+  --text-h4:         1.125rem;                        /* 18px · fixed */
 
-  /* --- Light: warm paper --- */
+  --text-body:      1rem;        /* 16px */
+  --text-secondary: 0.875rem;    /* 14px */
+  --text-code:      0.875rem;    /* 14px */
+  --text-meta:      0.8125rem;   /* 13px */
+  --text-tag:       0.6875rem;   /* 11px */
+  --text-eyebrow:   0.6875rem;   /* 11px */
+
+  /* --- Line-heights --- */
+  --lh-display:   1.1;
+  --lh-heading:   1.22;
+  --lh-body:      1.7;
+  --lh-secondary: 1.55;
+  --lh-code:      1.65;
+
+  /* --- Block rhythm --- */
+  --space-block:  0.95em;
+  --space-h2:     1.85em;
+  --space-h3:     1.45em;
+  --space-h4:     1.2em;
+  --space-pre:    1.3em;
+  --space-figure: 1.6em;
+  --space-hr:     2.4em;
+
+  /* --- Container --- */
+  --col-width:        50rem;
+  --col-px-mobile:    1rem;
+  --col-px-desktop:   4rem;
+  --col-py-mobile:    2rem;
+  --col-py-desktop:   3rem;
+
+  --toc-rail-width:   12.5rem;
+  --toc-gap:          2.5rem;
+  --toc-breakpoint:   80rem;
+
+  /* --- Fonts: one stack each. CJK glyphs fall through automatically. --- */
+  --font-sans:    "Inter Variable", "PingFang SC", "Source Han Sans SC",
+                  "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display Variable", "PingFang SC", "Source Han Sans SC",
+                  "Noto Sans SC", Georgia, serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* --- Color palette (unchanged) --- */
   --color-bg-light: #FDFCF9;
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #6B6862;
@@ -26,7 +70,6 @@
   --color-text-body: #3C3A36;
   --color-border-light: #E7E3DA;
 
-  /* --- Dark: warm near-black --- */
   --color-bg-dark: #0E0E0E;
   --color-text-primary-dark: #F3F1EB;
   --color-text-secondary-dark: #9B978E;
@@ -39,11 +82,6 @@
   --vt-x: 50%;
   --vt-y: 50%;
   --vt-radius: 150%;
-
-  /* Clean CJK sans for reading — pairs with the serif display headings */
-  --font-chinese: "PingFang SC", "Source Han Sans SC", "Source Han Sans CN",
-    "Noto Sans SC", "HarmonyOS Sans SC", "Hiragino Sans GB", "Microsoft YaHei",
-    sans-serif;
 
   /* Reading surface tokens (light) */
   --reading-code-bg: #EEEADF;
@@ -82,20 +120,10 @@
   }
 
   body {
-    /* Latin renders in Inter, CJK falls through to the sans CJK stack
-       even before the per-page lang attribute is resolved. */
-    font-family: var(--font-sans), var(--font-chinese);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-  }
-
-  :lang(zh),
-  :lang(zh-CN),
-  :lang(zh-Hans),
-  :lang(zh-TW),
-  :lang(zh-HK) {
-    font-family: var(--font-chinese);
   }
 
   ::selection {
