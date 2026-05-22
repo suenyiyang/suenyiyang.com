@@ -422,6 +422,31 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  /* --- TOC layout --- */
+  .post-layout {
+    position: relative;
+  }
+  .post-toc-desktop {
+    display: none;
+  }
+  @media (min-width: 80rem) {
+    .post-toc-desktop {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: calc(0px - var(--toc-rail-width) - var(--toc-gap));
+      width: var(--toc-rail-width);
+      height: 100%;
+    }
+    .post-toc-desktop > .toc-inner {
+      position: sticky;
+      top: 4.5rem;
+    }
+    .post-toc-mobile {
+      display: none;
+    }
+  }
 }
 
 /* Media safety net — UNLAYERED so it overrides any authored Tailwind

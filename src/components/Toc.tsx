@@ -114,6 +114,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
       onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}
     >
       <summary
+        role="button"
         className="flex items-center justify-between px-3 py-2 cursor-pointer list-none font-mono text-meta text-text-secondary dark:text-text-secondary-dark"
         aria-label="Contents"
       >
