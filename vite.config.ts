@@ -9,6 +9,7 @@ import path from "node:path";
 import remarkEmoji from "remark-emoji";
 import remarkGfm from "remark-gfm";
 import rehypeShiki from "@shikijs/rehype";
+import rehypeSlug from "rehype-slug";
 
 import { ENV_GA_ID, ENV_WALINE_SERVER_URL } from "./config/env";
 import { rehypeCodeWindow } from "./config/rehype-code-window";
@@ -26,6 +27,7 @@ export default defineConfig({
         remarkUnwrapImages,
       ],
       rehypePlugins: [
+        rehypeSlug,
         [
           rehypeShiki,
           {
