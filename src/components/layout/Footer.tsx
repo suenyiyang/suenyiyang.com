@@ -3,7 +3,7 @@ import { siteConfig } from "~/config";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-6 px-5 md:py-8 md:px-16 mt-auto">
+    <footer className="w-full py-6 px-4 md:py-8 md:px-16 mt-auto">
       <div className="flex flex-col items-center justify-between gap-4 max-w-6xl mx-auto md:flex-row md:gap-0">
         <span className="font-mono text-[10px] md:text-[11px] text-text-muted dark:text-text-secondary">
           © 2026 · Built with curiosity
