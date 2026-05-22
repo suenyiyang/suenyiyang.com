@@ -36,9 +36,9 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
       {isPost ? (
         <article className="flex-grow min-w-0" lang={lang}>
           {/* Article Header */}
-          <header className="text-center pb-9 mb-10 md:pb-10 md:mb-12 border-b border-border-light dark:border-border-dark">
+          <header className="text-center pb-7 mb-8 md:pb-8 md:mb-10 border-b border-[var(--reading-rule)]">
             {/* Meta info */}
-            <div className="flex items-center justify-center gap-2.5 text-[13px] font-mono text-text-muted mb-5 tabular-nums">
+            <div className="flex items-center justify-center gap-2.5 font-mono text-meta text-text-muted mb-5 tabular-nums">
               {formattedDate ? (
                 <time dateTime={matchedPage?.date}>{formattedDate}</time>
               ) : null}
@@ -51,7 +51,7 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
             </div>
 
             {/* Title */}
-            <h1 className="post-title text-[2rem] leading-[1.18] md:text-[3rem] md:leading-[1.12] text-text-primary dark:text-text-primary-dark mb-5">
+            <h1 className="post-title text-display text-text-primary dark:text-text-primary-dark mb-5">
               {matchedPage?.title}
             </h1>
 
