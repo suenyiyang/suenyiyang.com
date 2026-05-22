@@ -17,7 +17,7 @@ export default function Header() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[13px] text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
+                className="font-mono text-meta text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
               >
                 {item.label}
               </a>
@@ -26,7 +26,7 @@ export default function Header() {
                 key={index}
                 to={item.href}
                 className={({ isActive }) =>
-                  `font-mono text-[13px] transition-colors ${
+                  `font-mono text-meta transition-colors ${
                     isActive
                       ? "font-medium text-text-primary dark:text-text-primary-dark"
                       : "text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark"
