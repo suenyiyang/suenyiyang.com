@@ -52,7 +52,7 @@
   --col-py-desktop:   3rem;
 
   --toc-rail-width:   12.5rem;
-  --toc-gap:          2.5rem;
+  --toc-gap:          4rem;
   --toc-breakpoint:   80rem;
 
   /* --- Fonts: one stack each. CJK glyphs fall through automatically. --- */

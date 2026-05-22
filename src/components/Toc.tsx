@@ -79,7 +79,8 @@ export const Toc: FC<TocProps> = ({ variant }) => {
           <li key={entry.id} className="m-0 p-0">
             <a
               href={`#${entry.id}`}
-              className={`block py-1 font-mono text-meta leading-[1.7] no-underline transition-colors ${indent} ${
+              title={entry.text}
+              className={`block truncate py-1 font-mono text-meta leading-[1.7] no-underline transition-colors ${indent} ${
                 isActive
                   ? "text-text-primary dark:text-text-primary-dark font-medium border-l-2 border-text-primary dark:border-text-primary-dark -ml-[0.6rem] pl-[0.5rem]"
                   : "text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark"

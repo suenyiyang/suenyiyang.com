@@ -31,7 +31,7 @@ export const BackToTop: FC = () => {
       aria-label="Back to top"
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
-      className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-text-primary text-bg-light shadow-[0_4px_12px_rgba(0,0,0,0.18)] transition-opacity duration-200 dark:bg-text-primary-dark dark:text-bg-dark ${
+      className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-text-primary text-bg-light shadow-[0_4px_12px_rgba(0,0,0,0.18)] transition-opacity duration-200 dark:bg-text-primary-dark dark:text-bg-dark ${
         visible
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
