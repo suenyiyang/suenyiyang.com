@@ -53,3 +53,4 @@ lerna-debug.log*
 # Content Collections
 .content-collections
 .gstack/
+.superpowers/

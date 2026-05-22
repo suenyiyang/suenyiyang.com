@@ -40,12 +40,12 @@ export const Callout: FC<CalloutProps> = ({
       className={`not-prose my-6 flex items-start gap-3 rounded-lg border px-4 py-3 ${COLOR_STYLES[color]}`}
     >
       <span
-        className="flex-shrink-0 select-none text-[18px] leading-[1.75]"
+        className="flex-shrink-0 select-none text-h4 leading-[1.75]"
         aria-hidden
       >
         {emoji}
       </span>
-      <div className="min-w-0 flex-1 text-[16px] leading-[1.75] text-text-body dark:text-text-body-dark space-y-2 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:pl-6 [&_ul]:pl-6 [&_li]:my-1 [&_code]:font-mono [&_code]:text-[13px] [&_code]:rounded [&_code]:bg-neutral-200/70 dark:[&_code]:bg-neutral-700/50 [&_code]:px-1 [&_strong]:font-semibold [&_strong]:text-text-primary dark:[&_strong]:text-text-primary-dark">
+      <div className="min-w-0 flex-1 text-body leading-[1.75] text-text-body dark:text-text-body-dark space-y-2 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:pl-6 [&_ul]:pl-6 [&_li]:my-1 [&_code]:font-mono [&_code]:text-meta [&_code]:rounded [&_code]:bg-neutral-200/70 dark:[&_code]:bg-neutral-700/50 [&_code]:px-1 [&_strong]:font-semibold [&_strong]:text-text-primary dark:[&_strong]:text-text-primary-dark">
         {children}
       </div>
     </aside>

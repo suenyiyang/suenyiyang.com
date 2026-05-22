@@ -4,7 +4,7 @@ import { Logo } from "../Logo";
 
 export default function Header() {
   return (
-    <header className="w-full py-4 px-5 md:py-5 md:px-16 text-text-secondary dark:text-text-secondary-dark sticky top-0 z-10 backdrop-blur-md bg-bg-light/85 dark:bg-bg-dark/85">
+    <header className="w-full py-4 px-4 md:py-5 md:px-16 text-text-secondary dark:text-text-secondary-dark sticky top-0 z-10 backdrop-blur-md bg-bg-light/85 dark:bg-bg-dark/85">
       <div className="flex items-center justify-between">
         <Link to="/" aria-label="Home" className="flex items-center">
           <Logo />
@@ -17,7 +17,7 @@ export default function Header() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[13px] text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
+                className="font-mono text-meta text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
               >
                 {item.label}
               </a>
@@ -26,7 +26,7 @@ export default function Header() {
                 key={index}
                 to={item.href}
                 className={({ isActive }) =>
-                  `font-mono text-[13px] transition-colors ${
+                  `font-mono text-meta transition-colors ${
                     isActive
                       ? "font-medium text-text-primary dark:text-text-primary-dark"
                       : "text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark"

@@ -13,7 +13,7 @@ test.describe("Dark Mode", () => {
     const initialDarkMode = await homePage.isDarkMode();
 
     await homePage.toggleDarkMode();
-    await waitForThemeTransition(homePage.page);
+    await waitForThemeTransition(homePage.page, initialDarkMode);
 
     const afterToggle = await homePage.isDarkMode();
     expect(afterToggle).not.toBe(initialDarkMode);
@@ -22,8 +22,9 @@ test.describe("Dark Mode", () => {
   test("theme persists in localStorage", async ({ homePage }) => {
     await homePage.goto();
 
+    const initialDarkMode = await homePage.isDarkMode();
     await homePage.toggleDarkMode();
-    await waitForThemeTransition(homePage.page);
+    await waitForThemeTransition(homePage.page, initialDarkMode);
 
     const theme = await getStoredTheme(homePage.page);
     expect(theme).not.toBeNull();
@@ -32,8 +33,9 @@ test.describe("Dark Mode", () => {
   test("theme persists after page reload", async ({ homePage, page }) => {
     await homePage.goto();
 
+    const initialDarkMode = await homePage.isDarkMode();
     await homePage.toggleDarkMode();
-    await waitForThemeTransition(page);
+    await waitForThemeTransition(page, initialDarkMode);
     const afterToggle = await homePage.isDarkMode();
 
     await page.reload();
@@ -46,8 +48,9 @@ test.describe("Dark Mode", () => {
   test("theme maintains across navigation", async ({ homePage, page }) => {
     await homePage.goto();
 
+    const initialDarkMode = await homePage.isDarkMode();
     await homePage.toggleDarkMode();
-    await waitForThemeTransition(page);
+    await waitForThemeTransition(page, initialDarkMode);
     const afterToggle = await homePage.isDarkMode();
 
     await homePage.navigateToPosts();

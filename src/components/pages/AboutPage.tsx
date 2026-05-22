@@ -8,7 +8,7 @@ export const AboutPage: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="not-prose">
       {/* Profile Section */}
-      <section className="pb-12">
+      <section className="pb-10 md:pb-12">
         <div className="flex flex-col md:flex-row gap-8 items-start">
           {/* Avatar */}
           {avatar ? (
@@ -23,7 +23,7 @@ export const AboutPage: FC<PropsWithChildren> = ({ children }) => {
 
           {/* Info */}
           <div>
-            <h1 className="font-display italic text-[36px] md:text-[42px] tracking-[-1px] text-text-primary dark:text-text-primary-dark mb-4">
+            <h1 className="font-display italic font-semibold tracking-[-0.014em] text-text-primary dark:text-text-primary-dark text-display leading-[var(--lh-display)] mb-4">
               About Me
             </h1>
             <div className="flex items-center gap-4 mb-4">
@@ -44,10 +44,10 @@ export const AboutPage: FC<PropsWithChildren> = ({ children }) => {
         </div>
       </section>
 
-      {/* Bio Section */}
+      {/* Bio Section — reuses .post-body rules so it matches article body */}
       {children ? (
-        <section className="pb-12">
-          <div className="prose prose-neutral dark:prose-invert max-w-none prose-p:text-text-body dark:prose-p:text-text-body-dark prose-p:leading-relaxed">
+        <section className="pb-10 md:pb-12">
+          <div className="post-body">
             {children}
           </div>
         </section>
@@ -56,8 +56,8 @@ export const AboutPage: FC<PropsWithChildren> = ({ children }) => {
       {/* Skills Section */}
       {skills && skills.length > 0 ? (
         <section>
-          <h2 className="text-xl font-medium text-text-primary dark:text-text-primary-dark mb-4">
-            Interests & Skills
+          <h2 className="font-display font-semibold text-h2 leading-[var(--lh-heading)] tracking-[-0.012em] text-text-primary dark:text-text-primary-dark mb-4">
+            Interests &amp; Skills
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill: string) => (

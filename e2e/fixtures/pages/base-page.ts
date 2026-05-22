@@ -11,9 +11,10 @@ export class BasePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.header = page.locator("header");
-    this.logo = page.locator('header a[aria-label="Home"]');
-    this.navContainer = page.locator("header nav");
+    // Site chrome <header> only — exclude the <header> inside <article> (post title block).
+    this.header = page.locator("body > div > header");
+    this.logo = page.locator('body > div > header a[aria-label="Home"]');
+    this.navContainer = page.locator("body > div > header nav");
     this.darkModeToggle = page.locator('[aria-label="Toggle dark mode"]');
     this.sunIcon = page.locator(".icon-\\[line-md--sunny-loop\\]");
     this.moonIcon = page.locator(".icon-\\[line-md--moon-loop\\]");
@@ -38,11 +39,11 @@ export class BasePage {
   }
 
   async navigateToPosts(): Promise<void> {
-    await this.page.locator('header a[href="/posts"]').click();
+    await this.page.locator('body > div > header a[href="/posts"]').click();
   }
 
   getNavLink(href: string): Locator {
-    return this.page.locator(`header a[href="${href}"]`);
+    return this.page.locator(`body > div > header a[href="${href}"]`);
   }
 
   getFooterLink(href: string): Locator {

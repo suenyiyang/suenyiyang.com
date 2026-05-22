@@ -21,7 +21,7 @@ test.describe("Links Page", () => {
     await linksPage.goto();
     const initialDarkMode = await linksPage.isDarkMode();
     await linksPage.toggleDarkMode();
-    await waitForThemeTransition(linksPage.page);
+    await waitForThemeTransition(linksPage.page, initialDarkMode);
     const afterToggle = await linksPage.isDarkMode();
     expect(afterToggle).not.toBe(initialDarkMode);
   });
