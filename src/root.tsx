@@ -4,6 +4,7 @@ import { Links, Meta, Outlet, Scripts } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
+import { BackToTop } from "~/components/BackToTop";
 
 import { siteConfig } from "~/config";
 import stylesheet from "~/index.css?url";
@@ -76,6 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </main>
           <Footer />
         </div>
+        <BackToTop />
         <GoogleAnalytics gaId={__INJECTED_GA_ID__} />
         <Scripts />
       </body>
