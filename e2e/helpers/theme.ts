@@ -40,7 +40,21 @@ export async function emulateColorScheme(
   await page.emulateMedia({ colorScheme: scheme });
 }
 
-export async function waitForThemeTransition(page: Page): Promise<void> {
-  // Wait for view transition to complete (or immediate for browsers without support)
-  await page.waitForTimeout(100);
+export async function waitForThemeTransition(
+  page: Page,
+  previousIsDark?: boolean
+): Promise<void> {
+  if (previousIsDark !== undefined) {
+    await page.waitForFunction(
+      (prev) => document.documentElement.classList.contains("dark") !== prev,
+      previousIsDark,
+      { timeout: 2000 }
+    );
+    return;
+  }
+  await page.waitForFunction(
+    () => !document.documentElement.hasAttribute("data-theme-transition"),
+    undefined,
+    { timeout: 2000 }
+  );
 }
