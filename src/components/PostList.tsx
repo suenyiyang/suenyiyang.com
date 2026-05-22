@@ -83,8 +83,10 @@ export const PostList: FC<PostListProps> = ({
     <div className="not-prose">
       {/* Filter row */}
       {showFilter && allTags.length > 0 ? (
-        <div className="flex flex-wrap items-center gap-3 mb-8">
-          <span className="font-mono text-[12px] text-text-muted mr-2">Filter:</span>
+        <div className="flex flex-wrap items-center gap-3 mb-10 py-3 border-t border-b border-[var(--reading-rule)]">
+          <span className="font-mono text-eyebrow font-bold tracking-[0.05em] uppercase text-text-muted mr-2">
+            Filter
+          </span>
           <Tag
             label="All"
             variant="filter"
@@ -105,12 +107,12 @@ export const PostList: FC<PostListProps> = ({
 
       {/* Posts list */}
       {variant === "timeline" ? (
-        <div className="space-y-12">
+        <div className="space-y-10">
           {years.map((year) => (
             <div key={year}>
               <div className="py-3 mb-6 relative">
                 <div className="w-[100px] text-center">
-                  <h2 className="text-[24px] font-display font-bold text-text-primary dark:text-text-primary-dark">
+                  <h2 className="font-display font-bold text-h2 text-text-primary dark:text-text-primary-dark">
                     {year}
                   </h2>
                 </div>

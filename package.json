@@ -58,6 +58,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "esno": "^4.8.0",
     "globals": "^17.6.0",
+    "rehype-slug": "^6.0.0",
     "remark-emoji": "^5.0.1",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",

@@ -4,6 +4,7 @@ import { Links, Meta, Outlet, Scripts } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
+import { BackToTop } from "~/components/BackToTop";
 
 import { siteConfig } from "~/config";
 import stylesheet from "~/index.css?url";
@@ -71,11 +72,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="bg-bg-light dark:bg-bg-dark text-text-primary dark:text-text-primary-dark font-sans">
         <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex flex-col flex-grow w-full max-w-[800px] mx-auto px-5 py-8 md:px-16 md:py-12">
+          <main className="flex flex-col flex-grow w-full max-w-[800px] mx-auto px-4 py-8 md:px-16 md:py-12">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
           <Footer />
         </div>
+        <BackToTop />
         <GoogleAnalytics gaId={__INJECTED_GA_ID__} />
         <Scripts />
       </body>

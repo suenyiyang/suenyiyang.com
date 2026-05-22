@@ -14,11 +14,54 @@
 @plugin "@iconify/tailwind4";
 
 @theme {
-  --font-display: "Playfair Display Variable", "Songti SC", "Source Han Serif SC", "Noto Serif SC", Georgia, serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* --- Type scale: display + headings scale via clamp(); body + meta are fixed --- */
+  --text-display-xl: clamp(2.5rem, 7vw, 3.5rem);      /* 40 → 56px · Hero h1 only */
+  --text-display:    clamp(2.25rem, 5.5vw, 2.75rem);  /* 36 → 44px · post title, page h1 */
+  --text-h2:         clamp(1.625rem, 3vw, 1.75rem);   /* 26 → 28px */
+  --text-h3:         clamp(1.25rem, 2.2vw, 1.3125rem);/* 20 → 21px */
+  --text-h4:         1.125rem;                        /* 18px · fixed */
 
-  /* --- Light: warm paper --- */
+  --text-body:      1rem;        /* 16px */
+  --text-secondary: 0.875rem;    /* 14px */
+  --text-code:      0.875rem;    /* 14px */
+  --text-meta:      0.8125rem;   /* 13px */
+  --text-tag:       0.6875rem;   /* 11px */
+  --text-eyebrow:   0.6875rem;   /* 11px */
+
+  /* --- Line-heights --- */
+  --lh-display:   1.1;
+  --lh-heading:   1.22;
+  --lh-body:      1.7;
+  --lh-secondary: 1.55;
+  --lh-code:      1.65;
+
+  /* --- Block rhythm --- */
+  --space-block:  0.95em;
+  --space-h2:     1.85em;
+  --space-h3:     1.45em;
+  --space-h4:     1.2em;
+  --space-pre:    1.3em;
+  --space-figure: 1.6em;
+  --space-hr:     2.4em;
+
+  /* --- Container --- */
+  --col-width:        50rem;
+  --col-px-mobile:    1rem;
+  --col-px-desktop:   4rem;
+  --col-py-mobile:    2rem;
+  --col-py-desktop:   3rem;
+
+  --toc-rail-width:   12.5rem;
+  --toc-breakpoint:   80rem;
+
+  /* --- Fonts: one stack each. CJK glyphs fall through automatically. --- */
+  --font-sans:    "Inter Variable", "PingFang SC", "Source Han Sans SC",
+                  "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display Variable", "PingFang SC", "Source Han Sans SC",
+                  "Noto Sans SC", Georgia, serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* --- Color palette (unchanged) --- */
   --color-bg-light: #FDFCF9;
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #6B6862;
@@ -26,7 +69,6 @@
   --color-text-body: #3C3A36;
   --color-border-light: #E7E3DA;
 
-  /* --- Dark: warm near-black --- */
   --color-bg-dark: #0E0E0E;
   --color-text-primary-dark: #F3F1EB;
   --color-text-secondary-dark: #9B978E;
@@ -39,11 +81,6 @@
   --vt-x: 50%;
   --vt-y: 50%;
   --vt-radius: 150%;
-
-  /* Clean CJK sans for reading — pairs with the serif display headings */
-  --font-chinese: "PingFang SC", "Source Han Sans SC", "Source Han Sans CN",
-    "Noto Sans SC", "HarmonyOS Sans SC", "Hiragino Sans GB", "Microsoft YaHei",
-    sans-serif;
 
   /* Reading surface tokens (light) */
   --reading-code-bg: #EEEADF;
@@ -82,20 +119,10 @@
   }
 
   body {
-    /* Latin renders in Inter, CJK falls through to the sans CJK stack
-       even before the per-page lang attribute is resolved. */
-    font-family: var(--font-sans), var(--font-chinese);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-  }
-
-  :lang(zh),
-  :lang(zh-CN),
-  :lang(zh-Hans),
-  :lang(zh-TW),
-  :lang(zh-HK) {
-    font-family: var(--font-chinese);
   }
 
   ::selection {
@@ -118,14 +145,16 @@
     font-family: var(--font-display);
     font-weight: 600;
     font-style: normal;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.014em;
+    line-height: var(--lh-display);
     text-wrap: balance;
   }
 
   .post-body {
     color: var(--color-text-body);
-    font-size: 1.0625rem; /* 17px on mobile */
-    line-height: 1.8;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--lh-body);
     min-width: 0;
     word-break: break-word;
     overflow-wrap: anywhere;
@@ -134,21 +163,9 @@
     color: var(--color-text-body-dark);
   }
 
-  /* Comfortable measure + larger type on wider screens */
-  @media (min-width: 768px) {
-    .post-body {
-      font-size: 1.125rem; /* 18px */
-      line-height: 1.85;
-    }
-  }
-
-  .post-body :lang(zh) {
-    letter-spacing: 0.01em;
-  }
-
   /* --- Block rhythm --- */
   .post-body > * + * {
-    margin-top: 1.4em;
+    margin-top: var(--space-block);
   }
 
   .post-body p {
@@ -160,8 +177,7 @@
     font-family: var(--font-display);
     color: var(--color-text-primary);
     font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.005em;
+    line-height: var(--lh-heading);
     text-wrap: balance;
     scroll-margin-top: 5rem;
   }
@@ -170,25 +186,18 @@
   }
 
   .post-body h2 {
-    font-size: 1.5rem;
-    margin-top: 2.6em;
-    margin-bottom: 0.6em;
+    font-size: var(--text-h2);
+    margin-top: var(--space-h2);
+    letter-spacing: -0.012em;
   }
   .post-body h3 {
-    font-size: 1.25rem;
-    margin-top: 2em;
+    font-size: var(--text-h3);
+    margin-top: var(--space-h3);
+    letter-spacing: -0.008em;
   }
   .post-body h4 {
-    font-size: 1.075rem;
-    margin-top: 1.6em;
-  }
-  @media (min-width: 768px) {
-    .post-body h2 {
-      font-size: 1.75rem;
-    }
-    .post-body h3 {
-      font-size: 1.375rem;
-    }
+    font-size: var(--text-h4);
+    margin-top: var(--space-h4);
   }
   /* First heading shouldn't push a big gap under the article header */
   .post-body > :is(h2, h3, h4):first-child {
@@ -208,7 +217,8 @@
 
   /* --- Lists --- */
   .post-body :is(ul, ol) {
-    padding-left: 1.5em;
+    padding-left: 1.4em;
+    margin-top: var(--space-block);
   }
   .post-body ul {
     list-style: disc;
@@ -217,10 +227,10 @@
     list-style: decimal;
   }
   .post-body :is(ul, ol) :is(ul, ol) {
-    margin-top: 0.4em;
+    margin-top: 0.3em;
   }
   .post-body li {
-    margin-top: 0.4em;
+    margin-top: 0.3em;
     padding-left: 0.25em;
   }
   .post-body li::marker {
@@ -234,6 +244,7 @@
   .post-body blockquote {
     border-left: 3px solid var(--reading-quote-bar);
     padding-left: 1.1em;
+    margin-top: var(--space-block);
     color: var(--color-text-secondary);
     font-style: normal;
   }
@@ -241,7 +252,7 @@
     color: var(--color-text-secondary-dark);
   }
   .post-body blockquote > * + * {
-    margin-top: 0.8em;
+    margin-top: 0.6em;
   }
 
   /* --- Links (Anchor component owns the underline treatment) --- */
@@ -295,14 +306,14 @@
   .post-body .code-window__dot:nth-child(3) { background-color: #28c840; }
 
   .post-body pre {
-    margin-top: 1.6em;
-    margin-bottom: 1.6em;
+    margin-top: var(--space-pre);
+    margin-bottom: var(--space-pre);
     padding: 1.05rem 1.15rem;
     border-radius: 10px;
     max-width: 100%;
     overflow-x: auto;
-    font-size: 0.84rem;
-    line-height: 1.7;
+    font-size: var(--text-code);
+    line-height: var(--lh-code);
     -webkit-overflow-scrolling: touch;
     tab-size: 2;
   }
@@ -312,7 +323,6 @@
   }
   @media (min-width: 768px) {
     .post-body pre {
-      font-size: 0.875rem;
       padding: 1.2rem 1.35rem;
     }
   }
@@ -342,12 +352,12 @@
 
   /* --- Figures / images --- */
   .post-body figure {
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin-top: var(--space-figure);
+    margin-bottom: var(--space-figure);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6em;
+    gap: 0.5em;
   }
   .post-body figure img,
   .post-body > p > img,
@@ -358,11 +368,13 @@
     border-radius: 8px;
   }
   .post-body figcaption {
-    font-size: 0.8125rem;
+    font-family: var(--font-sans);
+    font-size: 0.78125rem;
     color: var(--color-text-muted);
     text-align: center;
-    text-wrap: pretty;
-    line-height: 1.5;
+    text-wrap: balance;
+    line-height: var(--lh-secondary);
+    margin-top: 0;
   }
 
   /* --- Tables --- */
@@ -374,8 +386,10 @@
   .post-body table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    font-family: var(--font-sans);
+    font-size: var(--text-secondary);
+    line-height: 1.55;
+    margin-top: var(--space-block);
   }
   .post-body :is(th, td) {
     padding: 0.55em 0.9em;
@@ -401,11 +415,40 @@
   .post-body hr {
     border: 0;
     border-top: 1px solid var(--reading-rule);
-    margin-top: 3em;
-    margin-bottom: 3em;
-    width: 40%;
+    margin-top: var(--space-hr);
+    margin-bottom: var(--space-hr);
+    width: 36%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  /* --- TOC layout --- */
+  .post-layout {
+    position: relative;
+  }
+  .post-toc-desktop {
+    display: none;
+  }
+  @media (min-width: 80rem) {
+    .post-toc-desktop {
+      display: block;
+      position: absolute;
+      top: 0;
+      /* Anchor to viewport's left edge at 4rem (64px), flush with the header
+         logo. Main is max-w-[800px] mx-auto md:px-16, so post-layout's left in
+         viewport = (100vw - 800px) / 2 + 64px. Setting TOC's viewport-left to
+         64px → relative-left = 64px - post-layout-left = col/2 - 50vw. */
+      left: calc((var(--col-width) / 2) - 50vw);
+      width: var(--toc-rail-width);
+      height: 100%;
+    }
+    .post-toc-desktop > .toc-inner {
+      position: sticky;
+      top: 4.5rem;
+    }
+    .post-toc-mobile {
+      display: none;
+    }
   }
 }
 
