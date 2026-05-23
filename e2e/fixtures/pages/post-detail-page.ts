@@ -26,6 +26,16 @@ export class PostDetailPage extends BasePage {
   async allImagesLoaded(): Promise<boolean> {
     const images = await this.images.all();
     for (const img of images) {
+      // Post images use loading="lazy"; scroll each into view so the fetch starts,
+      // then wait for the actual load before checking naturalWidth.
+      await img.scrollIntoViewIfNeeded();
+      await img.evaluate((el: HTMLImageElement) => {
+        if (el.complete && el.naturalWidth > 0) return;
+        return new Promise<void>((resolve, reject) => {
+          el.addEventListener("load", () => resolve(), { once: true });
+          el.addEventListener("error", () => reject(new Error("img error")), { once: true });
+        });
+      });
       const naturalWidth = await img.evaluate(
         (el: HTMLImageElement) => el.naturalWidth
       );
