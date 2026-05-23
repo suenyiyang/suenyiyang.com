@@ -518,6 +518,115 @@
   }
 }
 
+/* Lightbox modal */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(20, 18, 16, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: lightbox-fade-in 200ms ease-out;
+}
+
+.lightbox-card {
+  position: relative;
+  max-width: min(90vw, 1200px);
+  max-height: 90vh;
+  background: var(--reading-surface, #fbf8f1);
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: lightbox-card-in 200ms ease-out;
+}
+
+.lightbox-image {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f1ea;
+}
+
+.lightbox-image picture,
+.lightbox-image picture img,
+.lightbox-image > img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(90vh - 5rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lightbox-meta {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.875rem;
+  color: var(--reading-meta, #666);
+}
+
+.lightbox-caption {
+  color: var(--reading-text, #222);
+  margin-bottom: 0.125rem;
+}
+
+.lightbox-source {
+  font-size: 0.8125rem;
+  opacity: 0.8;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #f0ece4;
+  border: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.lightbox-close:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+@media (max-width: 480px) {
+  .lightbox-backdrop {
+    padding: 1rem;
+  }
+  .lightbox-source {
+    display: none;
+  }
+}
+
+@keyframes lightbox-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes lightbox-card-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox-backdrop,
+  .lightbox-card {
+    animation: none;
+  }
+}
+
 ::view-transition-old(theme),
 ::view-transition-new(theme) {
   animation: none;
