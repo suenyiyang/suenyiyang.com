@@ -601,6 +601,37 @@
   background: rgba(0, 0, 0, 0.65);
 }
 
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #f0ece4;
+  border: 0;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.lightbox-nav:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+
+@media (max-width: 640px) {
+  .lightbox-nav {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+  }
+}
+
 @media (max-width: 480px) {
   .lightbox-backdrop {
     padding: 1rem;

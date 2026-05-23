@@ -71,13 +71,29 @@ export const Lightbox = ({ containerRef, postTitle }: LightboxProps) => {
     };
   }, [activeIndex]);
 
+  const total = galleryRef.current.length;
+  const go = (delta: number) => {
+    if (activeIndex === null || total === 0) return;
+    setActiveIndex(((activeIndex + delta) % total + total) % total);
+  };
+
   useEffect(() => {
     if (activeIndex === null) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveIndex(null);
+      if (e.key === "Escape") {
+        setActiveIndex(null);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        go(1);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        go(-1);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+    // go closes over activeIndex/total; effect re-registers when activeIndex changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
 
   if (!mounted || activeIndex === null) return null;
@@ -102,6 +118,26 @@ export const Lightbox = ({ containerRef, postTitle }: LightboxProps) => {
       >
         ×
       </button>
+      {total > 1 ? (
+        <>
+          <button
+            type="button"
+            className="lightbox-nav lightbox-prev"
+            aria-label="Previous image"
+            onClick={() => go(-1)}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="lightbox-nav lightbox-next"
+            aria-label="Next image"
+            onClick={() => go(1)}
+          >
+            ›
+          </button>
+        </>
+      ) : null}
       <article className="lightbox-card">
         <div
           className="lightbox-image"
