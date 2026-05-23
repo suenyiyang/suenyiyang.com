@@ -20,6 +20,8 @@ export const Lightbox = ({ containerRef, postTitle }: LightboxProps) => {
   const [mounted, setMounted] = useState(false);
   const galleryRef = useRef<GalleryItem[]>([]);
   const lastTriggerRef = useRef<HTMLElement | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -88,12 +90,41 @@ export const Lightbox = ({ containerRef, postTitle }: LightboxProps) => {
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         go(-1);
+      } else if (e.key === "Tab") {
+        const root = document.querySelector(".lightbox-backdrop");
+        if (!root) return;
+        const focusables = Array.from(
+          root.querySelectorAll<HTMLElement>("button:not([disabled])")
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // go closes over activeIndex/total; effect re-registers when activeIndex changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex]);
+
+  useEffect(() => {
+    if (activeIndex === null) return;
+    const container = containerRef.current;
+    if (!container) return;
+    container.setAttribute("inert", "");
+    return () => container.removeAttribute("inert");
+  }, [activeIndex, containerRef]);
+
+  useEffect(() => {
+    if (activeIndex === null) return;
+    closeRef.current?.focus();
   }, [activeIndex]);
 
   if (!mounted || activeIndex === null) return null;
@@ -111,6 +142,7 @@ export const Lightbox = ({ containerRef, postTitle }: LightboxProps) => {
       }}
     >
       <button
+        ref={closeRef}
         type="button"
         className="lightbox-close"
         aria-label="Close image preview"
@@ -138,7 +170,26 @@ export const Lightbox = ({ containerRef, postTitle }: LightboxProps) => {
           </button>
         </>
       ) : null}
-      <article className="lightbox-card">
+      <article
+        className="lightbox-card"
+        onTouchStart={(e) => {
+          const t = e.changedTouches[0];
+          touchStartRef.current = { x: t.clientX, y: t.clientY };
+        }}
+        onTouchEnd={(e) => {
+          const start = touchStartRef.current;
+          if (!start) return;
+          const t = e.changedTouches[0];
+          const dx = t.clientX - start.x;
+          const dy = t.clientY - start.y;
+          touchStartRef.current = null;
+          if (Math.abs(dx) > 50 && Math.abs(dy) < 30) {
+            go(dx < 0 ? 1 : -1);
+          } else if (dy > 80 && Math.abs(dx) < 60) {
+            setActiveIndex(null);
+          }
+        }}
+      >
         <div
           className="lightbox-image"
           dangerouslySetInnerHTML={{ __html: item.pictureHtml }}
