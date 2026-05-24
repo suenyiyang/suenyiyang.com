@@ -1,43 +1,48 @@
+export type ThemeMode = "light" | "dark" | "auto";
+
 export type ThemeToggleTrigger = {
   clientX?: number;
   clientY?: number;
 };
 
-const persistPreference = (htmlElement: HTMLElement) => {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-  const darkIsActive = htmlElement.classList.contains("dark");
-
-  if ((prefersDark && darkIsActive) || (prefersLight && !darkIsActive)) {
-    localStorage.setItem("color-scheme", "auto");
-  } else if (prefersDark && !darkIsActive) {
-    localStorage.setItem("color-scheme", "light");
-  } else {
-    localStorage.setItem("color-scheme", "dark");
-  }
-};
-
 export const isDarkMode = () =>
   document.documentElement.classList.contains("dark");
 
-export const toggleThemeWithTransition = (
+export const getStoredThemeMode = (): ThemeMode => {
+  if (typeof window === "undefined") return "auto";
+  const stored = window.localStorage.getItem("color-scheme");
+  if (stored === "light" || stored === "dark" || stored === "auto") {
+    return stored;
+  }
+  return "auto";
+};
+
+const resolveIsDark = (mode: ThemeMode): boolean => {
+  if (mode === "dark") return true;
+  if (mode === "light") return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+};
+
+export const setThemeWithTransition = (
+  mode: ThemeMode,
   trigger?: ThemeToggleTrigger
 ): boolean => {
   const htmlElement = document.documentElement;
   const currentIsDark = htmlElement.classList.contains("dark");
-  const nextIsDark = !currentIsDark;
+  const nextIsDark = resolveIsDark(mode);
   const prefersReducedMotion =
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const supportsViewTransition =
     "startViewTransition" in document && !prefersReducedMotion;
+  const visualChange = nextIsDark !== currentIsDark;
 
-  const runToggle = () => {
+  const applyChange = () => {
     htmlElement.classList.toggle("dark", nextIsDark);
-    persistPreference(htmlElement);
+    window.localStorage.setItem("color-scheme", mode);
   };
 
-  if (!supportsViewTransition) {
-    runToggle();
+  if (!supportsViewTransition || !visualChange) {
+    applyChange();
     return nextIsDark;
   }
 
@@ -54,7 +59,7 @@ export const toggleThemeWithTransition = (
   htmlElement.dataset.themeTransition = nextIsDark ? "to-dark" : "to-light";
 
   (document as any).startViewTransition(() => {
-    runToggle();
+    applyChange();
   })?.finished.finally(() => {
     htmlElement.style.removeProperty("--vt-x");
     htmlElement.style.removeProperty("--vt-y");
