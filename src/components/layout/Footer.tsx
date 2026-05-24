@@ -1,4 +1,3 @@
-import { ToggleDark } from "../ToggleDark";
 import { siteConfig } from "~/config";
 
 export default function Footer() {
@@ -20,7 +19,6 @@ export default function Footer() {
               {link.label}
             </a>
           ))}
-          <ToggleDark />
         </div>
       </div>
     </footer>
