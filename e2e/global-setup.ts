@@ -10,20 +10,24 @@
 export default async function globalSetup() {
   const baseURL = "http://localhost:5173";
 
-  // Fetch /playground to trigger Vite's lazy compilation of Three.js / R3F.
-  // Then poll until the page HTML changes from a loading state, confirming
-  // that the bundle compilation is complete.
-  console.log("[global-setup] pre-warming /playground bundle...");
-  try {
-    const res = await fetch(`${baseURL}/playground`);
-    console.log(`[global-setup] /playground → ${res.status}`);
-  } catch (err) {
-    console.log(`[global-setup] /playground not reachable: ${err}`);
-  }
+  // Pre-warm every route the test suite touches. Vite compiles per-route
+  // bundles lazily; without this, parallel workers race on first-request
+  // compilation, causing flaky timeouts (especially for /playground which
+  // pulls in Three.js + R3F).
+  const routes = ["/", "/posts", "/about", "/links", "/playground"];
+  console.log("[global-setup] pre-warming routes...");
+  await Promise.all(
+    routes.map(async (route) => {
+      try {
+        const res = await fetch(`${baseURL}${route}`);
+        console.log(`[global-setup] ${route} → ${res.status}`);
+      } catch (err) {
+        console.log(`[global-setup] ${route} not reachable: ${err}`);
+      }
+    })
+  );
 
-  // Give Vite time to compile Three.js / R3F in the background.
-  // The compilation is triggered by the fetch above and runs asynchronously.
-  // 20 seconds is usually enough; the actual tests have their own timeout.
-  await new Promise((resolve) => setTimeout(resolve, 20000));
-  console.log("[global-setup] done waiting for Vite bundle compilation");
+  // Settle window for any post-response async compilation (Three.js / R3F).
+  await new Promise((resolve) => setTimeout(resolve, 8000));
+  console.log("[global-setup] done warming");
 }
