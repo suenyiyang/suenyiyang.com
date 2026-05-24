@@ -518,6 +518,34 @@
   }
 }
 
+/* Side-by-side images. Each item's flex-grow is its aspect ratio
+   (set via --col-grow), so widths distribute to make all images
+   render at the same height. Stacks vertically on narrow screens. */
+.post-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--col-gap, 0.75rem);
+  margin: 1.75rem 0;
+}
+.post-columns__item {
+  flex: var(--col-grow, 1) 1 0;
+  min-width: 0;
+}
+.post-columns__item > .post-figure {
+  margin: 0;
+  width: 100%;
+  align-items: stretch;
+}
+@media (max-width: 40rem) {
+  .post-columns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .post-columns__item {
+    flex: 0 0 auto;
+  }
+}
+
 /* Lightbox modal */
 .lightbox-backdrop {
   position: fixed;
