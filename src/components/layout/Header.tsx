@@ -1,6 +1,7 @@
 import { siteConfig } from "~/config";
 import { NavLink, Link } from "react-router";
 import { Logo } from "../Logo";
+import { ThemeSwitch } from "../ThemeSwitch";
 
 export default function Header() {
   return (
@@ -9,7 +10,7 @@ export default function Header() {
         <Link to="/" aria-label="Home" className="flex items-center">
           <Logo />
         </Link>
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-6 md:gap-8">
           {siteConfig.navItems.map((item, index) => (
             item.target === "_blank" ? (
               <a
@@ -38,6 +39,7 @@ export default function Header() {
               </NavLink>
             )
           ))}
+          <ThemeSwitch />
         </nav>
       </div>
     </header>
