@@ -3,12 +3,14 @@ import { HomePage } from "./pages/home-page";
 import { PostsPage } from "./pages/posts-page";
 import { PostDetailPage } from "./pages/post-detail-page";
 import { LinksPage } from "./pages/links-page";
+import { PlaygroundPage } from "./pages/playground-page";
 
 type Fixtures = {
   homePage: HomePage;
   postsPage: PostsPage;
   postDetailPage: PostDetailPage;
   linksPage: LinksPage;
+  playgroundPage: PlaygroundPage;
 };
 
 export const test = base.extend<Fixtures>({
@@ -23,6 +25,9 @@ export const test = base.extend<Fixtures>({
   },
   linksPage: async ({ page }, use) => {
     await use(new LinksPage(page));
+  },
+  playgroundPage: async ({ page }, use) => {
+    await use(new PlaygroundPage(page));
   },
 });
 

@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import { activeModalAtom } from "~/stores/playground";
 import { ChatPanel } from "./ChatPanel";
 import { MobileNotice } from "./MobileNotice";
@@ -16,6 +16,20 @@ function SceneSkeleton() {
   );
 }
 
+class SceneErrorBoundary extends Component<{ children: ReactNode }, { errored: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { errored: false };
+  }
+  static getDerivedStateFromError() {
+    return { errored: true };
+  }
+  render() {
+    if (this.state.errored) return <SceneSkeleton />;
+    return this.props.children;
+  }
+}
+
 export function Playground() {
   const [mounted, setMounted] = useState(false);
   const activeModal = useAtomValue(activeModalAtom);
@@ -27,9 +41,11 @@ export function Playground() {
   return (
     <div className="relative w-full h-[min(80vh,720px)] rounded-lg overflow-hidden border border-[var(--reading-rule)] bg-[#dac7a8]">
       {mounted ? (
-        <Suspense fallback={<SceneSkeleton />}>
-          <Scene />
-        </Suspense>
+        <SceneErrorBoundary>
+          <Suspense fallback={<SceneSkeleton />}>
+            <Scene />
+          </Suspense>
+        </SceneErrorBoundary>
       ) : (
         <SceneSkeleton />
       )}
