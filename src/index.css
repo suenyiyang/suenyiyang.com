@@ -178,7 +178,7 @@
     color: var(--color-text-primary);
     font-weight: 600;
     line-height: var(--lh-heading);
-    text-wrap: balance;
+    text-wrap: pretty;
     scroll-margin-top: 5rem;
   }
   .dark .post-body :is(h2, h3, h4) {
