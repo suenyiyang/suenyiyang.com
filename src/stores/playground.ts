@@ -39,12 +39,3 @@ export const activeModalAtom = atom<ActiveModal>(null);
 export const chatMessagesAtom = atom<ChatMessage[]>([]);
 export const geminiStateAtom = atom<GeminiState>("checking");
 export const geminiDownloadProgressAtom = atom<number>(0);
-
-export function resetPlaygroundAtoms(set: <T>(a: ReturnType<typeof atom<T>>, value: T) => void) {
-  set(playerPosAtom, PLAYER_SPAWN);
-  set(nearbyTriggerAtom, null);
-  set(activeModalAtom, null);
-  set(chatMessagesAtom, []);
-  set(geminiStateAtom, "checking");
-  set(geminiDownloadProgressAtom, 0);
-}
