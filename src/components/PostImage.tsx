@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PictureMetadata } from "~/types/image";
 
 interface PostImageProps {
@@ -10,12 +10,24 @@ interface PostImageProps {
 
 export const PostImage = ({ src, "data-lqip": lqip, alt, title }: PostImageProps) => {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // On hydration, the <img> may already be cached and complete BEFORE the
+  // onLoad listener attaches — in that case the event never fires and the
+  // blur sticks. Check the ref synchronously after mount.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, []);
 
   if (typeof src === "string") {
     return (
       <figure className="post-figure" data-zoomable>
         <div className={`post-figure-media ${loaded ? "loaded" : ""}`}>
           <img
+            ref={imgRef}
             src={src}
             alt={alt ?? ""}
             loading="lazy"
@@ -39,6 +51,7 @@ export const PostImage = ({ src, "data-lqip": lqip, alt, title }: PostImageProps
             <source key={format} srcSet={srcset} type={`image/${format}`} />
           ))}
           <img
+            ref={imgRef}
             src={src.img.src}
             width={src.img.w}
             height={src.img.h}
