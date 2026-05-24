@@ -54,3 +54,6 @@ lerna-debug.log*
 .content-collections
 .gstack/
 .superpowers/
+
+# Git worktrees
+.worktrees/

@@ -1,5 +1,10 @@
 # Posts updates
 
+## 2026-05-24
+
+- Feature: Click-to-zoom card-modal lightbox for post images with gallery navigation.
+- Optimize: Picture pipeline (AVIF/WebP/PNG with srcset), LQIP blur-up placeholders, lazy loading.
+
 ## 2025-12-08
 
 - Feature: Add Waline comment system to blog.

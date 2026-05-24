@@ -5,6 +5,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 import contentCollections from "@content-collections/remix-vite";
+import { imagetools } from "vite-imagetools";
 import path from "node:path";
 import remarkEmoji from "remark-emoji";
 import remarkGfm from "remark-gfm";
@@ -40,6 +41,7 @@ export default defineConfig({
       providerImportSource: "@mdx-js/react",
     }),
     tailwindcss(),
+    imagetools(),
     reactRouter(),
     svgr({
       include: "**/*.svg",

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useRef } from "react";
 import { useLocation } from "react-router";
 import { format } from "date-fns";
 import { useMatchedPageLogic } from "~/logic/useMatchedPageLogic";
@@ -6,6 +6,7 @@ import { PageMetadata } from "../PageMetadata";
 import { WalineComment } from "../WalineComment";
 import { Tag } from "../Tag";
 import { Toc } from "../Toc";
+import { Lightbox } from "../Lightbox";
 
 // Estimate read time based on content length (roughly 200 words per minute)
 const estimateReadTime = (content: string): number => {
@@ -15,6 +16,7 @@ const estimateReadTime = (content: string): number => {
 
 export const PostWrapper: FC<PropsWithChildren> = (props) => {
   const { children } = props;
+  const postBodyRef = useRef<HTMLDivElement>(null);
 
   const location = useLocation();
   const matchedPage = useMatchedPageLogic(location);
@@ -69,11 +71,12 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
             </header>
 
             {/* Article Content */}
-            <div className="post-body">
+            <div className="post-body" ref={postBodyRef}>
               <Toc variant="mobile" />
               {children}
             </div>
           </article>
+          <Lightbox containerRef={postBodyRef} postTitle={matchedPage?.title ?? ""} />
         </div>
       ) : (
         <div className="not-prose flex-grow min-w-0">
