@@ -92,8 +92,10 @@ export function useGeminiNano(opts: UseGeminiNanoOpts) {
     const session = await window.LanguageModel.create({
       initialPrompts: [{ role: "system", content: SYSTEM_PROMPT }],
       tools: [makeFindPostTool((p) => optsRef.current.onFindPost(p))],
-      expectedInputs: [{ type: "text", languages: ["zh", "en"] }],
-      expectedOutputs: [{ type: "text", languages: ["zh", "en"] }],
+      // No expectedInputs/expectedOutputs language hints: Chrome 138's Prompt API
+      // only accepts [en, es, ja] for that field and rejects calls that pass
+      // anything else. The Chinese system prompt + the model's multilingual
+      // weights handle CN/EN responses without explicit hinting.
       monitor(target) {
         target.addEventListener("downloadprogress", ((e: Event) => {
           const ev = e as Event & { loaded?: number };
