@@ -11,6 +11,18 @@ import {
 } from "~/stores/playground";
 import { useGeminiNano } from "./useGeminiNano";
 
+function usePrefersReducedMotion() {
+  const [reduce, setReduce] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduce(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduce(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return reduce;
+}
+
 function StateDot({ state }: { state: string }) {
   const color =
     state === "available" ? "#5ca06e" :
@@ -22,7 +34,7 @@ function StateDot({ state }: { state: string }) {
   );
 }
 
-function Message({ msg }: { msg: ChatMessage }) {
+function Message({ msg, reduce }: { msg: ChatMessage; reduce: boolean }) {
   const isUser = msg.role === "user";
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-3`}>
@@ -34,7 +46,7 @@ function Message({ msg }: { msg: ChatMessage }) {
         }`}
       >
         {msg.text}
-        {msg.streaming && <span className="ml-0.5 animate-pulse">▍</span>}
+        {msg.streaming && !reduce && <span className="ml-0.5 animate-pulse">▍</span>}
         {msg.postCard && (
           <Link
             to={msg.postCard.url}
@@ -60,6 +72,8 @@ export function ChatPanel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
+  const reduce = usePrefersReducedMotion();
+  const bufferedTextRef = useRef("");
 
   const close = () => setActiveModal(null);
 
@@ -72,20 +86,30 @@ export function ChatPanel() {
   }, []);
 
   const { send } = useGeminiNano({
-    onAssistantStart: () =>
+    onAssistantStart: () => {
+      bufferedTextRef.current = "";
       setMessages((prev) => [
         ...prev,
         { id: nanoid(), role: "assistant", text: "", streaming: true },
-      ]),
-    onAssistantChunk: (chunk) =>
-      setMessages((prev) =>
-        prev.map((m, i) =>
-          i === prev.length - 1 ? { ...m, text: m.text + chunk } : m
-        )
-      ),
+      ]);
+    },
+    onAssistantChunk: (chunk) => {
+      bufferedTextRef.current += chunk;
+      if (!reduce) {
+        setMessages((prev) =>
+          prev.map((m, i) =>
+            i === prev.length - 1 ? { ...m, text: m.text + chunk } : m
+          )
+        );
+      }
+    },
     onAssistantEnd: () =>
       setMessages((prev) =>
-        prev.map((m, i) => (i === prev.length - 1 ? { ...m, streaming: false } : m))
+        prev.map((m, i) =>
+          i === prev.length - 1
+            ? { ...m, text: reduce ? bufferedTextRef.current : m.text, streaming: false }
+            : m
+        )
       ),
     onError: (err) =>
       setMessages((prev) => {
@@ -185,7 +209,7 @@ export function ChatPanel() {
             </div>
           )}
           {messages.map((m) => (
-            <Message key={m.id} msg={m} />
+            <Message key={m.id} msg={m} reduce={reduce} />
           ))}
         </div>
         <form onSubmit={onSubmit} className="border-t border-[var(--reading-rule)] p-3 flex gap-2">

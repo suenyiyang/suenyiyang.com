@@ -1,6 +1,12 @@
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { Component, lazy, Suspense, useEffect, useState, type ReactNode } from "react";
-import { activeModalAtom } from "~/stores/playground";
+import {
+  activeModalAtom,
+  chatMessagesAtom,
+  nearbyTriggerAtom,
+  playerPosAtom,
+  PLAYER_SPAWN,
+} from "~/stores/playground";
 import { ChatPanel } from "./ChatPanel";
 import { MobileNotice } from "./MobileNotice";
 import { PostsModal } from "./PostsModal";
@@ -33,10 +39,23 @@ class SceneErrorBoundary extends Component<{ children: ReactNode }, { errored: b
 export function Playground() {
   const [mounted, setMounted] = useState(false);
   const activeModal = useAtomValue(activeModalAtom);
+  const setPlayerPos = useSetAtom(playerPosAtom);
+  const setNearby = useSetAtom(nearbyTriggerAtom);
+  const setActiveModal = useSetAtom(activeModalAtom);
+  const setChatMessages = useSetAtom(chatMessagesAtom);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      setPlayerPos(PLAYER_SPAWN);
+      setNearby(null);
+      setActiveModal(null);
+      setChatMessages([]);
+    };
+  }, [setPlayerPos, setNearby, setActiveModal, setChatMessages]);
 
   return (
     <div className="relative w-full h-[min(80vh,720px)] rounded-lg overflow-hidden border border-[var(--reading-rule)] bg-[#dac7a8]">

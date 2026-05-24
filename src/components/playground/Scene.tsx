@@ -78,7 +78,12 @@ function SceneContents() {
 
 export default function Scene() {
   return (
-    <Canvas dpr={[1, 2]} gl={{ antialias: true }}>
+    <Canvas
+      dpr={[1, 2]}
+      gl={{ antialias: true }}
+      role="application"
+      aria-label="交互式小院子，使用 WASD 或方向键移动，按 E 触发交互"
+    >
       <SceneContents />
     </Canvas>
   );
