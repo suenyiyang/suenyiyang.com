@@ -242,8 +242,8 @@ interface CushionMatProps {
 }
 
 /**
- * A small woven cushion mat that goes under the YiyangAvatar billboard so the
- * photo doesn't float on the tiles. The herringbone pattern is drawn into a
+ * A small woven cushion mat that goes under the YiyangAvatar so the seated
+ * chibi has something to perch on. The herringbone pattern is drawn into a
  * canvas so it reads clearly from the iso camera.
  */
 function makeMatTexture(): THREE.CanvasTexture {

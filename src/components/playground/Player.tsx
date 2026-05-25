@@ -5,6 +5,12 @@ import * as THREE from "three";
 import { PLAYER_SPAWN, playerPosAtom } from "~/stores/playground";
 import { useKeyboardMovement } from "./useKeyboardMovement";
 
+// How fast the character turns to face the movement direction. Higher = snappier.
+const TURN_RESPONSE = 12;
+// Below this per-frame XZ displacement the player is treated as standing still
+// and we hold the previous facing instead of snapping to a noisy direction.
+const MOVE_EPSILON_SQ = 1e-5;
+
 /**
  * The player is a small chibi character — body, head, tuft of hair, scarf —
  * driven by a ref-and-useFrame loop so atom updates from `useKeyboardMovement`
@@ -14,14 +20,38 @@ export function Player() {
   useKeyboardMovement();
   const store = useStore();
   const groupRef = useRef<THREE.Group>(null);
+  // Previous frame's XZ position, used to derive a heading from actual motion.
+  const lastXZ = useRef<[number, number]>([PLAYER_SPAWN[0], PLAYER_SPAWN[2]]);
+  // Target yaw the group is smoothly rotating toward.
+  const targetYaw = useRef(0);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     const group = groupRef.current;
     if (!group) return;
     const [x, y, z] = store.get(playerPosAtom);
     // The position atom centers on the old capsule's middle (y≈0.45). Anchor
     // the group at the ground beneath it so character offsets read clean.
     group.position.set(x, y - 0.45, z);
+
+    // Derive facing from the displacement since the last frame so it tracks
+    // both keyboard WASD and click-to-move targeting without a separate code
+    // path for each. atan2(dx, dz) maps +Z (the model's natural forward) to
+    // yaw=0, then rotates clockwise around Y in the usual three.js sense.
+    const dx = x - lastXZ.current[0];
+    const dz = z - lastXZ.current[1];
+    if (dx * dx + dz * dz > MOVE_EPSILON_SQ) {
+      targetYaw.current = Math.atan2(dx, dz);
+    }
+    lastXZ.current[0] = x;
+    lastXZ.current[1] = z;
+
+    // Smooth rotate toward target yaw, wrapping the diff into [-π, π] so the
+    // character always takes the short way around (no full spin past 180°).
+    let diff = targetYaw.current - group.rotation.y;
+    if (diff > Math.PI) diff -= Math.PI * 2;
+    else if (diff < -Math.PI) diff += Math.PI * 2;
+    const t = Math.min(1, delta * TURN_RESPONSE);
+    group.rotation.y += diff * t;
   });
 
   return (
