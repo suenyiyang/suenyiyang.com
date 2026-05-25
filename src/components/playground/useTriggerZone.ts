@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { nearbyTriggerAtom, playerPosAtom, type Vec3 } from "~/stores/playground";
 
 export interface TriggerZone {
@@ -28,6 +28,7 @@ function xzDistance(a: Vec3, b: Vec3): number {
 export function useTriggerZones(zones: TriggerZone[]) {
   const playerPos = useAtomValue(playerPosAtom);
   const setNearby = useSetAtom(nearbyTriggerAtom);
+  const lastPropIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     let best: TriggerZone | null = null;
@@ -39,6 +40,12 @@ export function useTriggerZones(zones: TriggerZone[]) {
         bestDist = d;
       }
     }
+    // Only push to the atom when the active prop actually changes — otherwise
+    // every keyboard-driven position tick would allocate a new object and
+    // re-render every subscriber.
+    const nextPropId = best?.propId ?? null;
+    if (nextPropId === lastPropIdRef.current) return;
+    lastPropIdRef.current = nextPropId;
     setNearby(best
       ? { propId: best.propId, label: best.label, onActivate: best.onActivate }
       : null);

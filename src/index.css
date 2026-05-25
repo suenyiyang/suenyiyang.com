@@ -83,6 +83,10 @@
   --vt-radius: 150%;
 
   /* Reading surface tokens (light) */
+  --reading-paper: #FDFCF9;
+  --reading-text-primary: #1A1A1A;
+  --reading-text-secondary: #6B6862;
+  --reading-text-muted: #908C84;
   --reading-code-bg: #EEEADF;
   --reading-code-text: #403D38;
   --reading-quote-bar: #D8D2C4;
@@ -98,6 +102,10 @@
 
 .dark {
   /* Reading surface tokens (dark) */
+  --reading-paper: #161513;
+  --reading-text-primary: #F3F1EB;
+  --reading-text-secondary: #9B978E;
+  --reading-text-muted: #6B6862;
   --reading-code-bg: #211F1B;
   --reading-code-text: #D8D4CB;
   --reading-quote-bar: #3B3833;

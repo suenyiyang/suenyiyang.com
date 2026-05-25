@@ -43,18 +43,39 @@ export function PostsModal() {
       <div
         ref={panelRef}
         tabIndex={-1}
-        className="relative w-[min(600px,90vw)] max-h-[min(560px,85vh)] overflow-auto rounded-lg bg-[var(--reading-paper)] text-[var(--reading-text-primary)] shadow-xl outline-none"
+        className="relative flex flex-col w-[min(640px,92vw)] max-h-[min(620px,88vh)] rounded-xl bg-[var(--reading-paper)] text-[var(--reading-text-primary)] shadow-[0_20px_60px_-15px_rgba(20,15,8,0.45)] border border-[var(--reading-rule)] outline-none overflow-hidden"
       >
-        <div className="flex items-center justify-between border-b border-[var(--reading-rule)] px-5 py-3">
-          <h2 id="posts-modal-title" className="font-mono text-eyebrow font-bold tracking-[0.18em] uppercase">
-            Recent posts
-          </h2>
-          <Link to="/posts" className="font-mono text-meta text-text-secondary hover:text-text-primary">
-            View all &rarr;
-          </Link>
-        </div>
-        <div className="p-5">
-          <PostList variant="default" />
+        <header className="flex items-end justify-between gap-4 border-b border-[var(--reading-rule)] px-6 pt-5 pb-4">
+          <div>
+            <div className="font-mono text-eyebrow font-bold tracking-[0.18em] uppercase text-[var(--reading-text-muted)] mb-1">
+              Newspaper Stand
+            </div>
+            <h2
+              id="posts-modal-title"
+              className="font-display italic text-h2 leading-none text-[var(--reading-text-primary)]"
+            >
+              Recent posts
+            </h2>
+          </div>
+          <div className="flex items-center gap-3 pb-1">
+            <Link
+              to="/posts"
+              className="font-mono text-meta text-[var(--reading-text-secondary)] hover:text-[var(--reading-text-primary)] transition-colors"
+            >
+              View all →
+            </Link>
+            <button
+              type="button"
+              aria-label="Close"
+              onClick={close}
+              className="font-mono text-meta text-[var(--reading-text-muted)] hover:text-[var(--reading-text-primary)] transition-colors px-2 py-1 rounded -mr-2"
+            >
+              ✕
+            </button>
+          </div>
+        </header>
+        <div className="flex-1 overflow-auto px-6 py-2">
+          <PostList variant="default" limit={6} />
         </div>
       </div>
     </div>

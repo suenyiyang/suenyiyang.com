@@ -1,5 +1,5 @@
 import { Billboard } from "@react-three/drei";
-import { useLoader } from "@react-three/fiber";
+import { useLoader, type ThreeEvent } from "@react-three/fiber";
 import { Component, Suspense, type ReactNode } from "react";
 import * as THREE from "three";
 import { siteConfig } from "~/config";
@@ -10,14 +10,21 @@ export interface YiyangAvatarProps {
   onClick: () => void;
 }
 
+function stopAnd(onClick: () => void) {
+  return (event: ThreeEvent<MouseEvent>) => {
+    event.stopPropagation();
+    onClick();
+  };
+}
+
 function AvatarMesh({ position, onClick }: YiyangAvatarProps) {
   const texture = useLoader(
     THREE.TextureLoader,
     siteConfig.about?.avatar ?? ""
   );
   return (
-    <Billboard position={position} onClick={onClick}>
-      <mesh>
+    <Billboard position={position} onClick={stopAnd(onClick)}>
+      <mesh castShadow>
         <planeGeometry args={[1.0, 1.5]} />
         <meshBasicMaterial
           map={texture as THREE.Texture}
@@ -33,8 +40,8 @@ function AvatarMesh({ position, onClick }: YiyangAvatarProps) {
 /** Fallback silhouette when the avatar texture can't be loaded (e.g. CORS). */
 function AvatarFallback({ position, onClick }: YiyangAvatarProps) {
   return (
-    <Billboard position={position} onClick={onClick}>
-      <mesh>
+    <Billboard position={position} onClick={stopAnd(onClick)}>
+      <mesh castShadow>
         <planeGeometry args={[1.0, 1.5]} />
         <meshBasicMaterial color="#a8b8c8" transparent opacity={0.8} side={THREE.DoubleSide} />
       </mesh>
