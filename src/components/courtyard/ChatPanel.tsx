@@ -10,7 +10,7 @@ import {
   geminiStateAtom,
   modelConsentAtom,
   type ChatMessage,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 import { useGeminiNano } from "./useGeminiNano";
 
 function usePrefersReducedMotion() {

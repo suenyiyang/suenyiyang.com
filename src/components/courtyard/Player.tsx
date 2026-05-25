@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { useStore } from "jotai";
 import { useRef } from "react";
 import * as THREE from "three";
-import { PLAYER_SPAWN, playerPosAtom } from "~/stores/playground";
+import { PLAYER_SPAWN, playerPosAtom } from "~/stores/courtyard";
 import { useKeyboardMovement } from "./useKeyboardMovement";
 
 // How fast the character turns to face the movement direction. Higher = snappier.

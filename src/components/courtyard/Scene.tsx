@@ -9,7 +9,7 @@ import {
   playerPosAtom,
   playerTargetAtom,
   type Vec3,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 import { ClickIndicator } from "./ClickIndicator";
 import { Fence } from "./Fence";
 import { Ground } from "./Ground";

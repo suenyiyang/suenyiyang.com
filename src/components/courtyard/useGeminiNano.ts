@@ -4,7 +4,7 @@ import {
   geminiDownloadProgressAtom,
   geminiStateAtom,
   type GeminiState,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 import { postsForPrompt, SYSTEM_PROMPT, type PostMeta } from "./posts-context";
 
 interface UseGeminiNanoOpts {

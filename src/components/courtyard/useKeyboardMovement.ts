@@ -7,7 +7,7 @@ import {
   playerPosAtom,
   playerTargetAtom,
   type Vec3,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 
 export const SPEED = 2.5;
 export const BOUNDS_MIN_X = -4.5;

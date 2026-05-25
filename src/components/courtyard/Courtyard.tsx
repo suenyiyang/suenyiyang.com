@@ -7,7 +7,7 @@ import {
   playerPosAtom,
   playerTargetAtom,
   PLAYER_SPAWN,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 import { ChatPanel } from "./ChatPanel";
 import { MobileNotice } from "./MobileNotice";
 import { PostsModal } from "./PostsModal";
@@ -37,7 +37,7 @@ class SceneErrorBoundary extends Component<{ children: ReactNode }, { errored: b
   }
 }
 
-export function Playground() {
+export function Courtyard() {
   const [mounted, setMounted] = useState(false);
   const activeModal = useAtomValue(activeModalAtom);
   const setPlayerPos = useSetAtom(playerPosAtom);

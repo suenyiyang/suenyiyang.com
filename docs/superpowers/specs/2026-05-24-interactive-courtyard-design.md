@@ -1,15 +1,15 @@
-# Interactive Playground (MVP) — Design Spec
+# Interactive Courtyard (MVP) — Design Spec
 
 **Date:** 2026-05-24
 **Status:** Draft, pending user review
-**Scope:** A new `/playground` route — a 2.5D 3D courtyard the visitor walks around in, with two interactive props: a chibi avatar of the blog author (Yiyang) backed by Chrome's built-in Gemini Nano, and a newspaper stand that surfaces the article index.
+**Scope:** A new `/courtyard` route — a 2.5D 3D courtyard the visitor walks around in, with two interactive props: a chibi avatar of the blog author (Yiyang) backed by Chrome's built-in Gemini Nano, and a newspaper stand that surfaces the article index.
 
 ---
 
 ## 1. Goals
 
 1. **Validate the interaction loop end-to-end.** Prove that a fixed-camera isometric courtyard + WASD movement + trigger-zone interactions + Chrome's Prompt API (Gemini Nano) hangs together in real browsers, with real assets, on real devices. Visual polish is explicitly deferred.
-2. **Single self-contained route.** Nothing about the playground may regress the rest of the site. The route lazy-loads its 3D dependencies; the rest of the site's bundle does not grow.
+2. **Single self-contained route.** Nothing about the courtyard may regress the rest of the site. The route lazy-loads its 3D dependencies; the rest of the site's bundle does not grow.
 3. **Graceful degradation.** A visitor on a browser without the Prompt API can still walk around and read the newspaper stand. The chat panel disables itself with a clear explanation; nothing else breaks.
 4. **Foundations the next iteration can build on.** The component boundaries, jotai store, content-collections integration, and tool-call contract must hold up when we later swap the billboard sprite for a real chibi model, add more interactive props, and harden the asset pipeline.
 
@@ -23,7 +23,7 @@
 - **No persistence.** No conversation history saved across page reloads. No visitor identity.
 - **No audio.** No music, no SFX.
 - **No nav-menu entry.** Discoverable via a single hidden link from the About page and (separately) the Home page Hero. Surfaced more prominently only after iteration.
-- **No analytics events for the playground in MVP.** GA pageviews suffice; custom event taxonomy comes later.
+- **No analytics events for the courtyard in MVP.** GA pageviews suffice; custom event taxonomy comes later.
 
 ## 3. Tech stack additions
 
@@ -33,7 +33,7 @@
 | `@react-three/fiber` | React reconciler for three.js | ~30 KB |
 | `@react-three/drei` | Cameras, ContactShadows, Billboard, KeyboardControls helpers | ~50 KB (tree-shaken to what we use) |
 
-These three packages add to the **`/playground` route bundle only**. The rest of the site does not import them. React Router v7 SSG must split this route — see §13 below.
+These three packages add to the **`/courtyard` route bundle only**. The rest of the site does not import them. React Router v7 SSG must split this route — see §13 below.
 
 No new TypeScript devDeps. `three` ships its own types.
 
@@ -43,10 +43,10 @@ The Chrome Prompt API (`LanguageModel`) is a runtime-only browser global; no npm
 
 ```
 pages/
-  playground.mdx                               NEW · thin MDX route, renders <Playground />
+  courtyard.mdx                               NEW · thin MDX route, renders <Courtyard />
 
-src/components/playground/
-  Playground.tsx                               NEW · top-level wrapper; pageshell, Suspense fallback, banner, mounts <Scene>
+src/components/courtyard/
+  Courtyard.tsx                               NEW · top-level wrapper; pageshell, Suspense fallback, banner, mounts <Scene>
   Scene.tsx                                    NEW · R3F <Canvas>, lighting, camera, ContactShadows
   Ground.tsx                                   NEW · 10×10 plane + procedural tile texture
   Fence.tsx                                    NEW · ring of programmatic posts around the ground
@@ -64,23 +64,23 @@ src/components/playground/
   posts-context.ts                             NEW · build-time export of post metadata for system prompt
   index.ts                                     NEW · barrel re-export for cleaner imports
 
-src/stores/playground.ts                       NEW · jotai atoms (see §10)
+src/stores/courtyard.ts                       NEW · jotai atoms (see §10)
 src/types/prompt-api.d.ts                      NEW · ambient types for window LanguageModel
 ```
 
-The directory `src/components/playground/` is **the only place** that imports `three`, `@react-three/fiber`, `@react-three/drei`. Other components must not pull from it. This boundary keeps tree-shaking honest.
+The directory `src/components/courtyard/` is **the only place** that imports `three`, `@react-three/fiber`, `@react-three/drei`. Other components must not pull from it. This boundary keeps tree-shaking honest.
 
-`pages/playground.mdx` content is intentionally tiny:
+`pages/courtyard.mdx` content is intentionally tiny:
 
 ```mdx
 ---
 comment: false
-title: Playground
+title: Courtyard
 ---
 
-import { Playground } from "~/components/playground";
+import { Courtyard } from "~/components/courtyard";
 
-<Playground />
+<Courtyard />
 ```
 
 ## 5. Scene composition
@@ -231,7 +231,7 @@ Radii: Yiyang `1.3`, Newspaper `1.3`, Tree `0` (not interactive — no hook regi
 
 ## 7. UI overlays (chat, posts, hint, banner)
 
-All overlay UIs are **DOM siblings of the Canvas**, not R3F children. They're absolutely positioned over the canvas inside the `Playground` wrapper.
+All overlay UIs are **DOM siblings of the Canvas**, not R3F children. They're absolutely positioned over the canvas inside the `Courtyard` wrapper.
 
 Shared rules:
 - Background: `rgba(0, 0, 0, 0.4)` backdrop, `backdrop-filter: blur(4px)`.
@@ -245,7 +245,7 @@ Shared rules:
 - Body: scrollable message list.
   - User messages: right-aligned, mint accent background.
   - Assistant messages: left-aligned, paper background, body type.
-  - When the assistant invokes the `findPost` tool, the message renders an inline **post card** (title in display font, description in secondary, "去阅读 →" link). The card is a real `<Link to={post.url}>` — clicking it leaves `/playground` and lands on the article.
+  - When the assistant invokes the `findPost` tool, the message renders an inline **post card** (title in display font, description in secondary, "去阅读 →" link). The card is a real `<Link to={post.url}>` — clicking it leaves `/courtyard` and lands on the article.
 - Streaming: assistant messages tick in token-by-token via `promptStreaming()`. A trailing `▍` cursor pulses while streaming.
 - Footer: textarea (auto-grow up to 4 lines) + send button. `Enter` to send, `Shift+Enter` for newline.
 - States:
@@ -309,7 +309,7 @@ async function ensureSession() {
 }
 ```
 
-The session is reused across subsequent messages until the playground unmounts. On unmount, `session.destroy()` (and the abort controller for any in-flight stream is fired).
+The session is reused across subsequent messages until the courtyard unmounts. On unmount, `session.destroy()` (and the abort controller for any in-flight stream is fired).
 
 **State / input enablement matrix:**
 
@@ -340,7 +340,7 @@ const postsForPrompt = allPosts
     url: p._meta.path,
   }));
 
-export const SYSTEM_PROMPT = `你是 Yiyang Suen —— 一名常驻中国的前端开发者，关注 AI 工具、前端、设计与 UX。访客在博客的 playground 页面遇到了你的 3D 形象。
+export const SYSTEM_PROMPT = `你是 Yiyang Suen —— 一名常驻中国的前端开发者，关注 AI 工具、前端、设计与 UX。访客在博客的 courtyard 页面遇到了你的 3D 形象。
 
 你的回答应该：
 - 简短、口语化（控制在 2–4 句）
@@ -438,28 +438,28 @@ If the corpus grows past ~20 posts and the system prompt approaches the limit, t
 
 ## 9. Navigation and discoverability
 
-The playground is not in the main nav. Two entry points, both added at the **page level** (not by modifying the shared `Hero` component):
+The courtyard is not in the main nav. Two entry points, both added at the **page level** (not by modifying the shared `Hero` component):
 
-1. **About page (`pages/about.mdx`)** — append a single sentence at the end of the existing bio: *"也可以到 [小院子](/playground) 找我聊聊。"* Single inline MDX link, inherits AboutPage prose styles.
-2. **Home page (`pages/index.mdx`)** — after `<Hero ... />` and before `<RecentPosts />`, insert a small centered link line: *"或者去[小院子](/playground)走走 →"*. Wrap in a `<p>` with `--text-meta` mono, color text-secondary, top margin to clear the Hero. **Do not modify `Hero.tsx`** — keep the component's contract intact.
+1. **About page (`pages/about.mdx`)** — append a single sentence at the end of the existing bio: *"也可以到 [小院子](/courtyard) 找我聊聊。"* Single inline MDX link, inherits AboutPage prose styles.
+2. **Home page (`pages/index.mdx`)** — after `<Hero ... />` and before `<RecentPosts />`, insert a small centered link line: *"或者去[小院子](/courtyard)走走 →"*. Wrap in a `<p>` with `--text-meta` mono, color text-secondary, top margin to clear the Hero. **Do not modify `Hero.tsx`** — keep the component's contract intact.
 
-Both links are deliberately subdued — the playground is a discoverable easter egg, not a featured product surface.
+Both links are deliberately subdued — the courtyard is a discoverable easter egg, not a featured product surface.
 
-The `/playground` route itself is real, indexable, and listed in the sitemap (no special exclusion). If someone shares the URL it just works.
+The `/courtyard` route itself is real, indexable, and listed in the sitemap (no special exclusion). If someone shares the URL it just works.
 
 ## 10. State management (jotai)
 
-Atoms live in `src/stores/playground.ts`:
+Atoms live in `src/stores/courtyard.ts`:
 
 | Atom | Type | Default | Purpose |
 |---|---|---|---|
 | `playerPosAtom` | `[number, number, number]` | `[0, 0.45, 3.5]` | Player capsule position; updated every frame by `useKeyboardMovement` |
 | `nearbyTriggerAtom` | `{ propId, label, onActivate } \| null` | `null` | The currently-active trigger zone; read by `TriggerHint` |
-| `activeModalAtom` | `'chat' \| 'posts' \| null` | `null` | Which modal is open; read by `Playground` to render the right overlay; read by `useKeyboardMovement` to disable input |
+| `activeModalAtom` | `'chat' \| 'posts' \| null` | `null` | Which modal is open; read by `Courtyard` to render the right overlay; read by `useKeyboardMovement` to disable input |
 | `chatMessagesAtom` | `Message[]` | `[]` | Chat history for the current session |
 | `geminiStateAtom` | `'checking' \| 'unavailable' \| 'downloadable' \| 'downloading' \| 'available' \| 'error'` | `'checking'` | Mirrors `useGeminiNano` state for the banner + ChatPanel to read |
 
-All atoms are reset on `Playground` unmount.
+All atoms are reset on `Courtyard` unmount.
 
 ## 11. Browser support
 
@@ -509,13 +509,13 @@ If Chrome's eventual shipping API differs from this ambient declaration, only th
 
 ## 13. Performance and build impact
 
-- `pages/playground.mdx` and everything under `src/components/playground/` must end up in a **separate chunk** in the build output. React Router v7's route-based code splitting handles this automatically since `playground.mdx` is its own route — verify in `pnpm build` output that `playground-*.js` is its own asset and that `three` does not appear in any other chunk.
-- The MDX route uses `React.lazy` implicitly via React Router's loader; the heavy `<Playground>` import inside the MDX file is what triggers the split.
-- **SSG / prerender:** The site is statically prerendered with no client SSR. The `Playground` component must guard against running in node — at the top of `Playground.tsx` return a placeholder skeleton if `typeof window === 'undefined'`, and load the heavy `<Scene>` (which imports R3F + three) via `React.lazy(() => import('./Scene'))` so the Canvas only mounts in the browser. The prerendered HTML therefore contains the skeleton; hydration replaces it with the live scene.
+- `pages/courtyard.mdx` and everything under `src/components/courtyard/` must end up in a **separate chunk** in the build output. React Router v7's route-based code splitting handles this automatically since `courtyard.mdx` is its own route — verify in `pnpm build` output that `courtyard-*.js` is its own asset and that `three` does not appear in any other chunk.
+- The MDX route uses `React.lazy` implicitly via React Router's loader; the heavy `<Courtyard>` import inside the MDX file is what triggers the split.
+- **SSG / prerender:** The site is statically prerendered with no client SSR. The `Courtyard` component must guard against running in node — at the top of `Courtyard.tsx` return a placeholder skeleton if `typeof window === 'undefined'`, and load the heavy `<Scene>` (which imports R3F + three) via `React.lazy(() => import('./Scene'))` so the Canvas only mounts in the browser. The prerendered HTML therefore contains the skeleton; hydration replaces it with the live scene.
 - Avatar texture: 32 KB (`avatar.jpeg`), already on CDN. Loaded once via `useLoader(TextureLoader, '...')`.
 - Procedural ground tile texture: ~5 KB equivalent, generated on the client.
 - Target frame time: ≤ 16ms on a 2020-era MacBook Air on Chrome. Single InstancedMesh fence + ContactShadows is well within budget.
-- Bundle target: playground route ≤ 280 KB gzipped (three 150 + R3F 30 + drei 50 + our code ~30 + textures ~20).
+- Bundle target: courtyard route ≤ 280 KB gzipped (three 150 + R3F 30 + drei 50 + our code ~30 + textures ~20).
 
 ## 14. Accessibility
 
@@ -532,28 +532,28 @@ If Chrome's eventual shipping API differs from this ambient declaration, only th
 ## 15. Files affected
 
 ```
-pages/playground.mdx                                  NEW
-src/components/playground/Playground.tsx              NEW
-src/components/playground/Scene.tsx                   NEW
-src/components/playground/Ground.tsx                  NEW
-src/components/playground/Fence.tsx                   NEW
-src/components/playground/Tree.tsx                    NEW
-src/components/playground/Player.tsx                  NEW
-src/components/playground/YiyangAvatar.tsx            NEW
-src/components/playground/NewspaperStand.tsx          NEW
-src/components/playground/TriggerHint.tsx             NEW
-src/components/playground/ChatPanel.tsx               NEW
-src/components/playground/PostsModal.tsx              NEW
-src/components/playground/MobileNotice.tsx            NEW
-src/components/playground/useKeyboardMovement.ts      NEW
-src/components/playground/useTriggerZone.ts           NEW
-src/components/playground/useGeminiNano.ts            NEW
-src/components/playground/posts-context.ts            NEW
-src/components/playground/index.ts                    NEW
-src/stores/playground.ts                              NEW
+pages/courtyard.mdx                                  NEW
+src/components/courtyard/Courtyard.tsx              NEW
+src/components/courtyard/Scene.tsx                   NEW
+src/components/courtyard/Ground.tsx                  NEW
+src/components/courtyard/Fence.tsx                   NEW
+src/components/courtyard/Tree.tsx                    NEW
+src/components/courtyard/Player.tsx                  NEW
+src/components/courtyard/YiyangAvatar.tsx            NEW
+src/components/courtyard/NewspaperStand.tsx          NEW
+src/components/courtyard/TriggerHint.tsx             NEW
+src/components/courtyard/ChatPanel.tsx               NEW
+src/components/courtyard/PostsModal.tsx              NEW
+src/components/courtyard/MobileNotice.tsx            NEW
+src/components/courtyard/useKeyboardMovement.ts      NEW
+src/components/courtyard/useTriggerZone.ts           NEW
+src/components/courtyard/useGeminiNano.ts            NEW
+src/components/courtyard/posts-context.ts            NEW
+src/components/courtyard/index.ts                    NEW
+src/stores/courtyard.ts                              NEW
 src/types/prompt-api.d.ts                             NEW
-pages/index.mdx                                       EDIT — append playground link line between Hero and RecentPosts
-pages/about.mdx                                       EDIT — append single-line link to playground
+pages/index.mdx                                       EDIT — append courtyard link line between Hero and RecentPosts
+pages/about.mdx                                       EDIT — append single-line link to courtyard
 package.json                                          EDIT — add three / @react-three/fiber / @react-three/drei
 ```
 

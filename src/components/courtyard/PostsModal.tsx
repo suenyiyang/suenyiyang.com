@@ -2,7 +2,7 @@ import { useSetAtom } from "jotai";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { PostList } from "~/components/PostList";
-import { activeModalAtom } from "~/stores/playground";
+import { activeModalAtom } from "~/stores/courtyard";
 
 export function PostsModal() {
   const setActiveModal = useSetAtom(activeModalAtom);

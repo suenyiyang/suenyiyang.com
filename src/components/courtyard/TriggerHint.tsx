@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
-import { nearbyTriggerAtom } from "~/stores/playground";
+import { nearbyTriggerAtom } from "~/stores/courtyard";
 
 function usePrefersReducedMotion() {
   const [reduce, setReduce] = useState(false);

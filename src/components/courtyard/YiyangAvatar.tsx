@@ -1,6 +1,6 @@
 import { type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
-import { type Vec3 } from "~/stores/playground";
+import { type Vec3 } from "~/stores/courtyard";
 
 export interface YiyangAvatarProps {
   position: Vec3;

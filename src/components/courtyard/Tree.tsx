@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import * as THREE from "three";
-import { type Vec3 } from "~/stores/playground";
+import { type Vec3 } from "~/stores/courtyard";
 
 /**
  * Stylized plum-blossom tree: a curving warm trunk with a couple of branches

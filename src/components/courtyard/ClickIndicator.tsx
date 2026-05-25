@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { useStore } from "jotai";
 import { useRef } from "react";
 import * as THREE from "three";
-import { playerTargetAtom } from "~/stores/playground";
+import { playerTargetAtom } from "~/stores/courtyard";
 
 /**
  * A small ring that pulses at the click-to-move destination while the player

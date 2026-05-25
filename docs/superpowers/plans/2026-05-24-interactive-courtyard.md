@@ -1,14 +1,14 @@
-# Interactive Playground (MVP) Implementation Plan
+# Interactive Courtyard (MVP) Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build the `/playground` route — a 2.5D R3F courtyard the visitor walks around with WASD, with a billboard avatar of Yiyang backed by Chrome's Prompt API (Gemini Nano) and a newspaper stand that surfaces the post index.
+**Goal:** Build the `/courtyard` route — a 2.5D R3F courtyard the visitor walks around with WASD, with a billboard avatar of Yiyang backed by Chrome's Prompt API (Gemini Nano) and a newspaper stand that surfaces the post index.
 
-**Architecture:** A single React Router v7 MDX route loads a client-only `<Playground>` wrapper. Inside, a lazy-loaded `<Scene>` renders the R3F canvas (orthographic camera, programmatic ground/fence/props, billboard avatar). Movement updates a jotai atom; trigger-zone hooks watch player↔prop distance and surface a DOM overlay. DOM overlay modals (chat, posts) sit above the canvas. The chat panel calls a `useGeminiNano` hook that wraps `window.LanguageModel`, registers a `findPost` tool, and gracefully degrades when the API isn't present.
+**Architecture:** A single React Router v7 MDX route loads a client-only `<Courtyard>` wrapper. Inside, a lazy-loaded `<Scene>` renders the R3F canvas (orthographic camera, programmatic ground/fence/props, billboard avatar). Movement updates a jotai atom; trigger-zone hooks watch player↔prop distance and surface a DOM overlay. DOM overlay modals (chat, posts) sit above the canvas. The chat panel calls a `useGeminiNano` hook that wraps `window.LanguageModel`, registers a `findPost` tool, and gracefully degrades when the API isn't present.
 
 **Tech Stack:** React 19 + React Router v7 SSG + Vite + Tailwind 4 + jotai (existing). New: `three` + `@react-three/fiber` + `@react-three/drei`. Tests: Playwright (existing). No unit-test framework is introduced — verification is dev-server + e2e.
 
-**Spec:** `docs/superpowers/specs/2026-05-24-interactive-playground-design.md`
+**Spec:** `docs/superpowers/specs/2026-05-24-interactive-courtyard-design.md`
 
 ---
 
@@ -16,32 +16,32 @@
 
 | File | Responsibility |
 |---|---|
-| `pages/playground.mdx` | Thin MDX route shell, mounts `<Playground />` |
-| `src/components/playground/Playground.tsx` | Top-level wrapper, SSG guard, lazy `<Scene>`, mounts overlays |
-| `src/components/playground/Scene.tsx` | R3F Canvas, camera, lighting, scene constants, ContactShadows |
-| `src/components/playground/Ground.tsx` | 10×10 plane + procedural tile texture |
-| `src/components/playground/Fence.tsx` | Programmatic ring of fence posts (InstancedMesh) |
-| `src/components/playground/Tree.tsx` | Background-filler tree (cone + cylinder) |
-| `src/components/playground/Player.tsx` | Capsule mesh, reads `playerPosAtom`, wires `useKeyboardMovement` |
-| `src/components/playground/YiyangAvatar.tsx` | `<Billboard>` plane with `avatar.jpeg` texture |
-| `src/components/playground/NewspaperStand.tsx` | Base box + sign plane with procedural label |
-| `src/components/playground/TriggerHint.tsx` | DOM overlay capsule reading `nearbyTriggerAtom` |
-| `src/components/playground/ChatPanel.tsx` | Gemini Nano chat modal |
-| `src/components/playground/PostsModal.tsx` | Newspaper modal, reuses existing `PostList` |
-| `src/components/playground/MobileNotice.tsx` | "Best on desktop" overlay for narrow viewports |
-| `src/components/playground/useKeyboardMovement.ts` | Hook: WASD/arrow input, bounds-clamped movement |
-| `src/components/playground/useTriggerZone.ts` | Hook: distance check; closest-wins trigger |
-| `src/components/playground/useGeminiNano.ts` | Hook: availability, lazy session, streaming, tool factory |
-| `src/components/playground/posts-context.ts` | Build-time post metadata + `SYSTEM_PROMPT` string |
-| `src/components/playground/index.ts` | Barrel re-export of `Playground` |
-| `src/stores/playground.ts` | Five jotai atoms (player pos, nearby trigger, active modal, chat messages, gemini state) |
+| `pages/courtyard.mdx` | Thin MDX route shell, mounts `<Courtyard />` |
+| `src/components/courtyard/Courtyard.tsx` | Top-level wrapper, SSG guard, lazy `<Scene>`, mounts overlays |
+| `src/components/courtyard/Scene.tsx` | R3F Canvas, camera, lighting, scene constants, ContactShadows |
+| `src/components/courtyard/Ground.tsx` | 10×10 plane + procedural tile texture |
+| `src/components/courtyard/Fence.tsx` | Programmatic ring of fence posts (InstancedMesh) |
+| `src/components/courtyard/Tree.tsx` | Background-filler tree (cone + cylinder) |
+| `src/components/courtyard/Player.tsx` | Capsule mesh, reads `playerPosAtom`, wires `useKeyboardMovement` |
+| `src/components/courtyard/YiyangAvatar.tsx` | `<Billboard>` plane with `avatar.jpeg` texture |
+| `src/components/courtyard/NewspaperStand.tsx` | Base box + sign plane with procedural label |
+| `src/components/courtyard/TriggerHint.tsx` | DOM overlay capsule reading `nearbyTriggerAtom` |
+| `src/components/courtyard/ChatPanel.tsx` | Gemini Nano chat modal |
+| `src/components/courtyard/PostsModal.tsx` | Newspaper modal, reuses existing `PostList` |
+| `src/components/courtyard/MobileNotice.tsx` | "Best on desktop" overlay for narrow viewports |
+| `src/components/courtyard/useKeyboardMovement.ts` | Hook: WASD/arrow input, bounds-clamped movement |
+| `src/components/courtyard/useTriggerZone.ts` | Hook: distance check; closest-wins trigger |
+| `src/components/courtyard/useGeminiNano.ts` | Hook: availability, lazy session, streaming, tool factory |
+| `src/components/courtyard/posts-context.ts` | Build-time post metadata + `SYSTEM_PROMPT` string |
+| `src/components/courtyard/index.ts` | Barrel re-export of `Courtyard` |
+| `src/stores/courtyard.ts` | Five jotai atoms (player pos, nearby trigger, active modal, chat messages, gemini state) |
 | `src/types/prompt-api.d.ts` | Ambient global types for `window.LanguageModel` |
-| `pages/index.mdx` | EDIT — append playground link between Hero and RecentPosts |
-| `pages/about.mdx` | EDIT — append single-line link to playground |
+| `pages/index.mdx` | EDIT — append courtyard link between Hero and RecentPosts |
+| `pages/about.mdx` | EDIT — append single-line link to courtyard |
 | `package.json` | EDIT — add three / @react-three/fiber / @react-three/drei |
-| `e2e/fixtures/index.ts` | EDIT — register `PlaygroundPage` fixture |
-| `e2e/fixtures/pages/playground-page.ts` | NEW — Page Object Model for playground |
-| `e2e/tests/playground.spec.ts` | NEW — e2e tests (page loads, canvas visible, modals open, banner shows) |
+| `e2e/fixtures/index.ts` | EDIT — register `CourtyardPage` fixture |
+| `e2e/fixtures/pages/courtyard-page.ts` | NEW — Page Object Model for courtyard |
+| `e2e/tests/courtyard.spec.ts` | NEW — e2e tests (page loads, canvas visible, modals open, banner shows) |
 
 ---
 
@@ -145,12 +145,12 @@ git commit -m "feat: add three/R3F/drei deps + Prompt API ambient types"
 ## Task 2: posts-context module (build-time post metadata for system prompt)
 
 **Files:**
-- Create: `src/components/playground/posts-context.ts`
-- Test: `e2e/tests/playground.spec.ts` (smoke check inline, no separate test file yet)
+- Create: `src/components/courtyard/posts-context.ts`
+- Test: `e2e/tests/courtyard.spec.ts` (smoke check inline, no separate test file yet)
 
 - [ ] **Step 1: Create the module**
 
-Create `src/components/playground/posts-context.ts`:
+Create `src/components/courtyard/posts-context.ts`:
 
 ```ts
 import { allPosts } from "content-collections/generated";
@@ -188,7 +188,7 @@ export const postsForPrompt: PostMeta[] = allPosts
   .sort((a, b) => b.url.localeCompare(a.url))
   .slice(0, MAX_POSTS_IN_PROMPT);
 
-export const SYSTEM_PROMPT = `你是 Yiyang Suen —— 一名常驻中国的前端开发者，关注 AI 工具、前端、设计与 UX。访客在博客的 playground 页面遇到了你的 3D 形象。
+export const SYSTEM_PROMPT = `你是 Yiyang Suen —— 一名常驻中国的前端开发者，关注 AI 工具、前端、设计与 UX。访客在博客的 courtyard 页面遇到了你的 3D 形象。
 
 你的回答应该：
 - 简短、口语化（控制在 2–4 句）
@@ -212,7 +212,7 @@ Expected: both PASS. The build must produce non-empty `postsForPrompt` (4 posts 
 
 - [ ] **Step 3: Sanity-check the output by adding a temporary log**
 
-Temporarily add to `src/components/playground/posts-context.ts`:
+Temporarily add to `src/components/courtyard/posts-context.ts`:
 ```ts
 console.log("[posts-context]", postsForPrompt.map((p) => p.slug));
 ```
@@ -224,8 +224,8 @@ Then **remove the console.log line**.
 - [ ] **Step 4: Commit**
 
 ```bash
-git add src/components/playground/posts-context.ts
-git commit -m "feat(playground): build-time post metadata + system prompt"
+git add src/components/courtyard/posts-context.ts
+git commit -m "feat(courtyard): build-time post metadata + system prompt"
 ```
 
 ---
@@ -233,11 +233,11 @@ git commit -m "feat(playground): build-time post metadata + system prompt"
 ## Task 3: Jotai store with all five atoms
 
 **Files:**
-- Create: `src/stores/playground.ts`
+- Create: `src/stores/courtyard.ts`
 
 - [ ] **Step 1: Create the store**
 
-Create `src/stores/playground.ts`:
+Create `src/stores/courtyard.ts`:
 
 ```ts
 import { atom } from "jotai";
@@ -282,7 +282,7 @@ export const chatMessagesAtom = atom<ChatMessage[]>([]);
 export const geminiStateAtom = atom<GeminiState>("checking");
 export const geminiDownloadProgressAtom = atom<number>(0);
 
-export function resetPlaygroundAtoms(set: <T>(a: ReturnType<typeof atom<T>>, value: T) => void) {
+export function resetCourtyardAtoms(set: <T>(a: ReturnType<typeof atom<T>>, value: T) => void) {
   set(playerPosAtom, PLAYER_SPAWN);
   set(nearbyTriggerAtom, null);
   set(activeModalAtom, null);
@@ -303,8 +303,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/stores/playground.ts
-git commit -m "feat(playground): jotai store for player, trigger, modal, chat, gemini state"
+git add src/stores/courtyard.ts
+git commit -m "feat(courtyard): jotai store for player, trigger, modal, chat, gemini state"
 ```
 
 ---
@@ -312,20 +312,20 @@ git commit -m "feat(playground): jotai store for player, trigger, modal, chat, g
 ## Task 4: useKeyboardMovement hook with bounds clamping
 
 **Files:**
-- Create: `src/components/playground/useKeyboardMovement.ts`
+- Create: `src/components/courtyard/useKeyboardMovement.ts`
 
 This hook will be unit-tested via Playwright in Task 18 by driving real keyboard events on the live page. No standalone test harness.
 
 - [ ] **Step 1: Create the hook**
 
-Create `src/components/playground/useKeyboardMovement.ts`:
+Create `src/components/courtyard/useKeyboardMovement.ts`:
 
 ```ts
 import { useFrame } from "@react-three/fiber";
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { activeModalAtom, playerPosAtom, type Vec3 } from "~/stores/playground";
+import { activeModalAtom, playerPosAtom, type Vec3 } from "~/stores/courtyard";
 
 export const SPEED = 2.5;
 export const BOUNDS_MIN_X = -4.5;
@@ -404,8 +404,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/useKeyboardMovement.ts
-git commit -m "feat(playground): keyboard movement hook with bounds clamping"
+git add src/components/courtyard/useKeyboardMovement.ts
+git commit -m "feat(courtyard): keyboard movement hook with bounds clamping"
 ```
 
 ---
@@ -413,16 +413,16 @@ git commit -m "feat(playground): keyboard movement hook with bounds clamping"
 ## Task 5: useTriggerZone hook (closest-wins distance check)
 
 **Files:**
-- Create: `src/components/playground/useTriggerZone.ts`
+- Create: `src/components/courtyard/useTriggerZone.ts`
 
 - [ ] **Step 1: Create the hook**
 
-Create `src/components/playground/useTriggerZone.ts`:
+Create `src/components/courtyard/useTriggerZone.ts`:
 
 ```ts
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
-import { nearbyTriggerAtom, playerPosAtom, type Vec3 } from "~/stores/playground";
+import { nearbyTriggerAtom, playerPosAtom, type Vec3 } from "~/stores/courtyard";
 
 export interface TriggerZone {
   propId: string;
@@ -469,7 +469,7 @@ export function useTriggerZones(zones: TriggerZone[]) {
 
 /**
  * Listens for E / Enter and invokes the currently-active trigger's onActivate.
- * Must be mounted somewhere in the Playground tree (Scene is a good place).
+ * Must be mounted somewhere in the Courtyard tree (Scene is a good place).
  */
 export function useTriggerActivation() {
   const nearby = useAtomValue(nearbyTriggerAtom);
@@ -498,8 +498,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/useTriggerZone.ts
-git commit -m "feat(playground): trigger-zone hook with closest-wins detection"
+git add src/components/courtyard/useTriggerZone.ts
+git commit -m "feat(courtyard): trigger-zone hook with closest-wins detection"
 ```
 
 ---
@@ -507,11 +507,11 @@ git commit -m "feat(playground): trigger-zone hook with closest-wins detection"
 ## Task 6: useGeminiNano hook (state machine + lazy session + tool factory)
 
 **Files:**
-- Create: `src/components/playground/useGeminiNano.ts`
+- Create: `src/components/courtyard/useGeminiNano.ts`
 
 - [ ] **Step 1: Create the hook**
 
-Create `src/components/playground/useGeminiNano.ts`:
+Create `src/components/courtyard/useGeminiNano.ts`:
 
 ```ts
 import { useSetAtom } from "jotai";
@@ -520,7 +520,7 @@ import {
   geminiDownloadProgressAtom,
   geminiStateAtom,
   type GeminiState,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 import { postsForPrompt, SYSTEM_PROMPT, type PostMeta } from "./posts-context";
 
 interface UseGeminiNanoOpts {
@@ -662,8 +662,8 @@ Expected: PASS. The hook uses the ambient `LanguageModel*` types from Task 1.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/useGeminiNano.ts
-git commit -m "feat(playground): Gemini Nano hook with lazy session + findPost tool"
+git add src/components/courtyard/useGeminiNano.ts
+git commit -m "feat(courtyard): Gemini Nano hook with lazy session + findPost tool"
 ```
 
 ---
@@ -671,11 +671,11 @@ git commit -m "feat(playground): Gemini Nano hook with lazy session + findPost t
 ## Task 7: Ground component with procedural tile texture
 
 **Files:**
-- Create: `src/components/playground/Ground.tsx`
+- Create: `src/components/courtyard/Ground.tsx`
 
 - [ ] **Step 1: Create the ground**
 
-Create `src/components/playground/Ground.tsx`:
+Create `src/components/courtyard/Ground.tsx`:
 
 ```tsx
 import { useMemo } from "react";
@@ -740,8 +740,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/Ground.tsx
-git commit -m "feat(playground): ground plane with procedural tile texture"
+git add src/components/courtyard/Ground.tsx
+git commit -m "feat(courtyard): ground plane with procedural tile texture"
 ```
 
 ---
@@ -749,11 +749,11 @@ git commit -m "feat(playground): ground plane with procedural tile texture"
 ## Task 8: Fence component (programmatic InstancedMesh ring)
 
 **Files:**
-- Create: `src/components/playground/Fence.tsx`
+- Create: `src/components/courtyard/Fence.tsx`
 
 - [ ] **Step 1: Create the fence**
 
-Create `src/components/playground/Fence.tsx`:
+Create `src/components/courtyard/Fence.tsx`:
 
 ```tsx
 import { useMemo, useRef } from "react";
@@ -826,8 +826,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/Fence.tsx
-git commit -m "feat(playground): fence ring as InstancedMesh"
+git add src/components/courtyard/Fence.tsx
+git commit -m "feat(courtyard): fence ring as InstancedMesh"
 ```
 
 ---
@@ -835,14 +835,14 @@ git commit -m "feat(playground): fence ring as InstancedMesh"
 ## Task 9: Tree component (cone foliage + cylinder trunk)
 
 **Files:**
-- Create: `src/components/playground/Tree.tsx`
+- Create: `src/components/courtyard/Tree.tsx`
 
 - [ ] **Step 1: Create the tree**
 
-Create `src/components/playground/Tree.tsx`:
+Create `src/components/courtyard/Tree.tsx`:
 
 ```tsx
-import { type Vec3 } from "~/stores/playground";
+import { type Vec3 } from "~/stores/courtyard";
 
 export function Tree({ position }: { position: Vec3 }) {
   const [x, , z] = position;
@@ -872,8 +872,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/Tree.tsx
-git commit -m "feat(playground): tree filler prop"
+git add src/components/courtyard/Tree.tsx
+git commit -m "feat(courtyard): tree filler prop"
 ```
 
 ---
@@ -881,16 +881,16 @@ git commit -m "feat(playground): tree filler prop"
 ## Task 10: NewspaperStand component with procedural sign label
 
 **Files:**
-- Create: `src/components/playground/NewspaperStand.tsx`
+- Create: `src/components/courtyard/NewspaperStand.tsx`
 
 - [ ] **Step 1: Create the stand**
 
-Create `src/components/playground/NewspaperStand.tsx`:
+Create `src/components/courtyard/NewspaperStand.tsx`:
 
 ```tsx
 import { useMemo } from "react";
 import * as THREE from "three";
-import { type Vec3 } from "~/stores/playground";
+import { type Vec3 } from "~/stores/courtyard";
 
 function makeSignTexture(): THREE.CanvasTexture {
   const c = document.createElement("canvas");
@@ -945,8 +945,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/NewspaperStand.tsx
-git commit -m "feat(playground): newspaper stand prop with procedural sign"
+git add src/components/courtyard/NewspaperStand.tsx
+git commit -m "feat(courtyard): newspaper stand prop with procedural sign"
 ```
 
 ---
@@ -954,18 +954,18 @@ git commit -m "feat(playground): newspaper stand prop with procedural sign"
 ## Task 11: YiyangAvatar billboard sprite
 
 **Files:**
-- Create: `src/components/playground/YiyangAvatar.tsx`
+- Create: `src/components/courtyard/YiyangAvatar.tsx`
 
 - [ ] **Step 1: Create the avatar**
 
-Create `src/components/playground/YiyangAvatar.tsx`:
+Create `src/components/courtyard/YiyangAvatar.tsx`:
 
 ```tsx
 import { Billboard } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { siteConfig } from "~/config";
-import { type Vec3 } from "~/stores/playground";
+import { type Vec3 } from "~/stores/courtyard";
 
 export interface YiyangAvatarProps {
   position: Vec3;
@@ -1001,8 +1001,8 @@ Expected: PASS. The component sources the avatar URL from `siteConfig` (existing
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/YiyangAvatar.tsx
-git commit -m "feat(playground): Yiyang billboard sprite using avatar URL"
+git add src/components/courtyard/YiyangAvatar.tsx
+git commit -m "feat(courtyard): Yiyang billboard sprite using avatar URL"
 ```
 
 ---
@@ -1010,15 +1010,15 @@ git commit -m "feat(playground): Yiyang billboard sprite using avatar URL"
 ## Task 12: Player capsule that consumes movement + atom
 
 **Files:**
-- Create: `src/components/playground/Player.tsx`
+- Create: `src/components/courtyard/Player.tsx`
 
 - [ ] **Step 1: Create the player**
 
-Create `src/components/playground/Player.tsx`:
+Create `src/components/courtyard/Player.tsx`:
 
 ```tsx
 import { useAtomValue } from "jotai";
-import { playerPosAtom } from "~/stores/playground";
+import { playerPosAtom } from "~/stores/courtyard";
 import { useKeyboardMovement } from "./useKeyboardMovement";
 
 export function Player() {
@@ -1044,8 +1044,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/Player.tsx
-git commit -m "feat(playground): player capsule + keyboard movement wiring"
+git add src/components/courtyard/Player.tsx
+git commit -m "feat(courtyard): player capsule + keyboard movement wiring"
 ```
 
 ---
@@ -1053,18 +1053,18 @@ git commit -m "feat(playground): player capsule + keyboard movement wiring"
 ## Task 13: Scene assembly (Canvas + camera + lighting + props + trigger zones)
 
 **Files:**
-- Create: `src/components/playground/Scene.tsx`
+- Create: `src/components/courtyard/Scene.tsx`
 
 - [ ] **Step 1: Create the scene**
 
-Create `src/components/playground/Scene.tsx`:
+Create `src/components/courtyard/Scene.tsx`:
 
 ```tsx
 import { ContactShadows, OrthographicCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useSetAtom } from "jotai";
 import { useMemo } from "react";
-import { activeModalAtom } from "~/stores/playground";
+import { activeModalAtom } from "~/stores/courtyard";
 import { Fence } from "./Fence";
 import { Ground } from "./Ground";
 import { NewspaperStand } from "./NewspaperStand";
@@ -1158,8 +1158,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/Scene.tsx
-git commit -m "feat(playground): scene assembly with camera, lighting, props, triggers"
+git add src/components/courtyard/Scene.tsx
+git commit -m "feat(courtyard): scene assembly with camera, lighting, props, triggers"
 ```
 
 ---
@@ -1167,16 +1167,16 @@ git commit -m "feat(playground): scene assembly with camera, lighting, props, tr
 ## Task 14: TriggerHint overlay (DOM capsule)
 
 **Files:**
-- Create: `src/components/playground/TriggerHint.tsx`
+- Create: `src/components/courtyard/TriggerHint.tsx`
 
 - [ ] **Step 1: Create the overlay**
 
-Create `src/components/playground/TriggerHint.tsx`:
+Create `src/components/courtyard/TriggerHint.tsx`:
 
 ```tsx
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
-import { nearbyTriggerAtom } from "~/stores/playground";
+import { nearbyTriggerAtom } from "~/stores/courtyard";
 
 function usePrefersReducedMotion() {
   const [reduce, setReduce] = useState(false);
@@ -1220,8 +1220,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/TriggerHint.tsx
-git commit -m "feat(playground): trigger hint overlay capsule"
+git add src/components/courtyard/TriggerHint.tsx
+git commit -m "feat(courtyard): trigger hint overlay capsule"
 ```
 
 ---
@@ -1229,18 +1229,18 @@ git commit -m "feat(playground): trigger hint overlay capsule"
 ## Task 15: PostsModal (newspaper stand result)
 
 **Files:**
-- Create: `src/components/playground/PostsModal.tsx`
+- Create: `src/components/courtyard/PostsModal.tsx`
 
 - [ ] **Step 1: Create the modal**
 
-Create `src/components/playground/PostsModal.tsx`:
+Create `src/components/courtyard/PostsModal.tsx`:
 
 ```tsx
 import { useSetAtom } from "jotai";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { PostList } from "~/components/PostList";
-import { activeModalAtom } from "~/stores/playground";
+import { activeModalAtom } from "~/stores/courtyard";
 
 export function PostsModal() {
   const setActiveModal = useSetAtom(activeModalAtom);
@@ -1311,8 +1311,8 @@ Expected: PASS.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add src/components/playground/PostsModal.tsx
-git commit -m "feat(playground): posts modal reusing existing PostList"
+git add src/components/courtyard/PostsModal.tsx
+git commit -m "feat(courtyard): posts modal reusing existing PostList"
 ```
 
 ---
@@ -1320,11 +1320,11 @@ git commit -m "feat(playground): posts modal reusing existing PostList"
 ## Task 16: ChatPanel (Gemini Nano UI)
 
 **Files:**
-- Create: `src/components/playground/ChatPanel.tsx`
+- Create: `src/components/courtyard/ChatPanel.tsx`
 
 - [ ] **Step 1: Create the panel**
 
-Create `src/components/playground/ChatPanel.tsx`:
+Create `src/components/courtyard/ChatPanel.tsx`:
 
 ```tsx
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
@@ -1337,7 +1337,7 @@ import {
   chatMessagesAtom,
   geminiStateAtom,
   type ChatMessage,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 import { useGeminiNano } from "./useGeminiNano";
 
 function StateDot({ state }: { state: string }) {
@@ -1565,22 +1565,22 @@ Expected: PASS.
 - [ ] **Step 4: Commit**
 
 ```bash
-git add package.json pnpm-lock.yaml src/components/playground/ChatPanel.tsx
-git commit -m "feat(playground): chat panel UI with Gemini Nano integration"
+git add package.json pnpm-lock.yaml src/components/courtyard/ChatPanel.tsx
+git commit -m "feat(courtyard): chat panel UI with Gemini Nano integration"
 ```
 
 ---
 
-## Task 17: MobileNotice + barrel + Playground wrapper (SSG-safe, lazy Scene)
+## Task 17: MobileNotice + barrel + Courtyard wrapper (SSG-safe, lazy Scene)
 
 **Files:**
-- Create: `src/components/playground/MobileNotice.tsx`
-- Create: `src/components/playground/Playground.tsx`
-- Create: `src/components/playground/index.ts`
+- Create: `src/components/courtyard/MobileNotice.tsx`
+- Create: `src/components/courtyard/Courtyard.tsx`
+- Create: `src/components/courtyard/index.ts`
 
 - [ ] **Step 1: Create MobileNotice**
 
-Create `src/components/playground/MobileNotice.tsx`:
+Create `src/components/courtyard/MobileNotice.tsx`:
 
 ```tsx
 import { Link } from "react-router";
@@ -1603,14 +1603,14 @@ export function MobileNotice() {
 }
 ```
 
-- [ ] **Step 2: Create the Playground wrapper**
+- [ ] **Step 2: Create the Courtyard wrapper**
 
-Create `src/components/playground/Playground.tsx`:
+Create `src/components/courtyard/Courtyard.tsx`:
 
 ```tsx
 import { useAtomValue } from "jotai";
 import { lazy, Suspense, useEffect, useState } from "react";
-import { activeModalAtom } from "~/stores/playground";
+import { activeModalAtom } from "~/stores/courtyard";
 import { ChatPanel } from "./ChatPanel";
 import { MobileNotice } from "./MobileNotice";
 import { PostsModal } from "./PostsModal";
@@ -1626,7 +1626,7 @@ function SceneSkeleton() {
   );
 }
 
-export function Playground() {
+export function Courtyard() {
   const [mounted, setMounted] = useState(false);
   const activeModal = useAtomValue(activeModalAtom);
 
@@ -1656,10 +1656,10 @@ export function Playground() {
 
 - [ ] **Step 3: Create barrel export**
 
-Create `src/components/playground/index.ts`:
+Create `src/components/courtyard/index.ts`:
 
 ```ts
-export { Playground } from "./Playground";
+export { Courtyard } from "./Courtyard";
 ```
 
 - [ ] **Step 4: Verify compile**
@@ -1673,8 +1673,8 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/components/playground/MobileNotice.tsx src/components/playground/Playground.tsx src/components/playground/index.ts
-git commit -m "feat(playground): top-level wrapper with SSG guard, lazy Scene, modal mounts"
+git add src/components/courtyard/MobileNotice.tsx src/components/courtyard/Courtyard.tsx src/components/courtyard/index.ts
+git commit -m "feat(courtyard): top-level wrapper with SSG guard, lazy Scene, modal mounts"
 ```
 
 ---
@@ -1682,23 +1682,23 @@ git commit -m "feat(playground): top-level wrapper with SSG guard, lazy Scene, m
 ## Task 18: Wire up the MDX route + Home/About entry links
 
 **Files:**
-- Create: `pages/playground.mdx`
+- Create: `pages/courtyard.mdx`
 - Modify: `pages/index.mdx`
 - Modify: `pages/about.mdx`
 
 - [ ] **Step 1: Create the route**
 
-Create `pages/playground.mdx`:
+Create `pages/courtyard.mdx`:
 
 ```mdx
 ---
-title: Playground
+title: Courtyard
 comment: false
 ---
 
-import { Playground } from "~/components/playground";
+import { Courtyard } from "~/components/courtyard";
 
-<Playground />
+<Courtyard />
 ```
 
 - [ ] **Step 2: Append link to the About page**
@@ -1718,7 +1718,7 @@ Currently, I'm working at ByteDance, where I focus on building user interfaces a
 
 This blog is where I share my thoughts on frontend development, AI exploration, and the intersection of technology and creativity.
 
-也可以到 [小院子](/playground) 找我聊聊。
+也可以到 [小院子](/courtyard) 找我聊聊。
 
 </AboutPage>
 ```
@@ -1739,20 +1739,20 @@ comment: false
 />
 
 <p className="font-mono text-meta text-text-secondary mt-2">
-  或者去 <a href="/playground" className="underline">小院子</a> 走走 →
+  或者去 <a href="/courtyard" className="underline">小院子</a> 走走 →
 </p>
 
 <RecentPosts />
 ```
 
-- [ ] **Step 4: Run the dev server and visit `/playground`**
+- [ ] **Step 4: Run the dev server and visit `/courtyard`**
 
 Run:
 ```bash
 pnpm dev
 ```
 
-In a browser, visit `http://localhost:5173/playground`. You should see:
+In a browser, visit `http://localhost:5173/courtyard`. You should see:
 - A 2.5D courtyard with a tan ground, fence, tree, Yiyang sprite, newspaper stand, and a mint capsule player
 - WASD or arrow keys move the capsule (bounded inside the ground)
 - Walking near the avatar shows `[E] 与 Yiyang 聊聊` capsule
@@ -1761,7 +1761,7 @@ In a browser, visit `http://localhost:5173/playground`. You should see:
 - Pressing `E` opens the posts modal listing the 4 posts
 - `Escape` closes any open modal
 
-Also visit `/` and `/about` and verify the playground link is present.
+Also visit `/` and `/about` and verify the courtyard link is present.
 
 - [ ] **Step 5: Verify lint and build**
 
@@ -1775,8 +1775,8 @@ Expected: both PASS.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add pages/playground.mdx pages/index.mdx pages/about.mdx
-git commit -m "feat(playground): /playground route + Home/About entry links"
+git add pages/courtyard.mdx pages/index.mdx pages/about.mdx
+git commit -m "feat(courtyard): /courtyard route + Home/About entry links"
 ```
 
 ---
@@ -1784,20 +1784,20 @@ git commit -m "feat(playground): /playground route + Home/About entry links"
 ## Task 19: E2E tests + Page Object Model
 
 **Files:**
-- Create: `e2e/fixtures/pages/playground-page.ts`
+- Create: `e2e/fixtures/pages/courtyard-page.ts`
 - Modify: `e2e/fixtures/index.ts`
 - Modify: `e2e/fixtures/test-base.ts`
-- Create: `e2e/tests/playground.spec.ts`
+- Create: `e2e/tests/courtyard.spec.ts`
 
 - [ ] **Step 1: Create the Page Object Model**
 
-Create `e2e/fixtures/pages/playground-page.ts`:
+Create `e2e/fixtures/pages/courtyard-page.ts`:
 
 ```ts
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base-page";
 
-export class PlaygroundPage extends BasePage {
+export class CourtyardPage extends BasePage {
   readonly canvas: Locator;
   readonly triggerHint: Locator;
   readonly postsModal: Locator;
@@ -1814,7 +1814,7 @@ export class PlaygroundPage extends BasePage {
   }
 
   async goto(): Promise<void> {
-    await super.goto("/playground");
+    await super.goto("/courtyard");
     await this.page.waitForLoadState("networkidle");
   }
 
@@ -1852,7 +1852,7 @@ export { PostsPage } from "./pages/posts-page";
 export { PostDetailPage } from "./pages/post-detail-page";
 export { LinksPage } from "./pages/links-page";
 export { BasePage } from "./pages/base-page";
-export { PlaygroundPage } from "./pages/playground-page";
+export { CourtyardPage } from "./pages/courtyard-page";
 ```
 
 Modify `e2e/fixtures/test-base.ts` — add the import and fixture entry:
@@ -1863,14 +1863,14 @@ import { HomePage } from "./pages/home-page";
 import { PostsPage } from "./pages/posts-page";
 import { PostDetailPage } from "./pages/post-detail-page";
 import { LinksPage } from "./pages/links-page";
-import { PlaygroundPage } from "./pages/playground-page";
+import { CourtyardPage } from "./pages/courtyard-page";
 
 type Fixtures = {
   homePage: HomePage;
   postsPage: PostsPage;
   postDetailPage: PostDetailPage;
   linksPage: LinksPage;
-  playgroundPage: PlaygroundPage;
+  courtyardPage: CourtyardPage;
 };
 
 export const test = base.extend<Fixtures>({
@@ -1886,8 +1886,8 @@ export const test = base.extend<Fixtures>({
   linksPage: async ({ page }, use) => {
     await use(new LinksPage(page));
   },
-  playgroundPage: async ({ page }, use) => {
-    await use(new PlaygroundPage(page));
+  courtyardPage: async ({ page }, use) => {
+    await use(new CourtyardPage(page));
   },
 });
 
@@ -1896,72 +1896,72 @@ export { expect } from "@playwright/test";
 
 - [ ] **Step 3: Write the e2e tests**
 
-Create `e2e/tests/playground.spec.ts`:
+Create `e2e/tests/courtyard.spec.ts`:
 
 ```ts
 import { test, expect } from "../fixtures";
 
-test.describe("Playground", () => {
-  test("page loads with canvas on desktop", async ({ playgroundPage }) => {
-    await playgroundPage.goto();
-    await expect(playgroundPage.canvas).toBeVisible();
+test.describe("Courtyard", () => {
+  test("page loads with canvas on desktop", async ({ courtyardPage }) => {
+    await courtyardPage.goto();
+    await expect(courtyardPage.canvas).toBeVisible();
   });
 
   test("walking toward Yiyang shows chat hint and Escape closes panel", async ({
-    playgroundPage,
+    courtyardPage,
   }) => {
     // Yiyang at [-1.8, 0.75, 0]; player spawn at [0, 0.45, 3.5].
     // Diagonal NW walk (W + A) approaches: dx ≈ -1.8, dz ≈ -3.5,
     // distance ≈ 3.94; at 2.5 units/s, ~1.6s to enter the 1.3 radius.
-    await playgroundPage.goto();
-    await playgroundPage.canvas.click();
-    await playgroundPage.holdKeys(["KeyW", "KeyA"], 1800);
-    await expect(playgroundPage.triggerHint).toBeVisible();
-    await expect(playgroundPage.triggerHint).toContainText("Yiyang");
-    await playgroundPage.pressActivate();
-    await expect(playgroundPage.chatPanel).toBeVisible();
-    await playgroundPage.pressEscape();
-    await expect(playgroundPage.chatPanel).not.toBeVisible();
+    await courtyardPage.goto();
+    await courtyardPage.canvas.click();
+    await courtyardPage.holdKeys(["KeyW", "KeyA"], 1800);
+    await expect(courtyardPage.triggerHint).toBeVisible();
+    await expect(courtyardPage.triggerHint).toContainText("Yiyang");
+    await courtyardPage.pressActivate();
+    await expect(courtyardPage.chatPanel).toBeVisible();
+    await courtyardPage.pressEscape();
+    await expect(courtyardPage.chatPanel).not.toBeVisible();
   });
 
   test("walking toward newspaper opens posts modal listing posts", async ({
-    playgroundPage,
+    courtyardPage,
   }) => {
     // Newspaper at [2.2, 0, 1.2]; player spawn at [0, 0.45, 3.5].
     // Diagonal NE walk (W + D): dx ≈ 2.2, dz ≈ -2.3, distance ≈ 3.2;
     // ~1.3s to enter the 1.3 radius.
-    await playgroundPage.goto();
-    await playgroundPage.canvas.click();
-    await playgroundPage.holdKeys(["KeyW", "KeyD"], 1500);
-    await expect(playgroundPage.triggerHint).toBeVisible();
-    await expect(playgroundPage.triggerHint).toContainText("文章");
-    await playgroundPage.pressActivate();
-    await expect(playgroundPage.postsModal).toBeVisible();
+    await courtyardPage.goto();
+    await courtyardPage.canvas.click();
+    await courtyardPage.holdKeys(["KeyW", "KeyD"], 1500);
+    await expect(courtyardPage.triggerHint).toBeVisible();
+    await expect(courtyardPage.triggerHint).toContainText("文章");
+    await courtyardPage.pressActivate();
+    await expect(courtyardPage.postsModal).toBeVisible();
     await expect(
-      playgroundPage.postsModal.locator("a[href^='/posts/']")
+      courtyardPage.postsModal.locator("a[href^='/posts/']")
     ).not.toHaveCount(0);
   });
 
   test("chat panel shows unavailable banner in non-Chrome browsers", async ({
-    playgroundPage,
+    courtyardPage,
     browserName,
   }) => {
     test.skip(
       browserName === "chromium",
       "Chromium may ship Prompt API; this test only asserts the fallback path"
     );
-    await playgroundPage.goto();
-    await playgroundPage.canvas.click();
-    await playgroundPage.holdKeys(["KeyW", "KeyA"], 1800);
-    await playgroundPage.pressActivate();
-    await expect(playgroundPage.chatPanel).toBeVisible();
-    await expect(playgroundPage.chatPanel).toContainText("Chrome 138+");
+    await courtyardPage.goto();
+    await courtyardPage.canvas.click();
+    await courtyardPage.holdKeys(["KeyW", "KeyA"], 1800);
+    await courtyardPage.pressActivate();
+    await expect(courtyardPage.chatPanel).toBeVisible();
+    await expect(courtyardPage.chatPanel).toContainText("Chrome 138+");
   });
 
-  test("home page links to playground", async ({ homePage }) => {
+  test("home page links to courtyard", async ({ homePage }) => {
     await homePage.goto();
     await expect(
-      homePage.page.locator('a[href="/playground"]')
+      homePage.page.locator('a[href="/courtyard"]')
     ).toBeVisible();
   });
 
@@ -1970,7 +1970,7 @@ test.describe("Playground", () => {
       viewport: { width: 375, height: 667 },
     });
     const page = await context.newPage();
-    await page.goto("/playground");
+    await page.goto("/courtyard");
     await expect(page.locator('text="本页面建议使用桌面浏览器访问。"')).toBeVisible();
     await context.close();
   });
@@ -1983,15 +1983,15 @@ Run:
 ```bash
 pnpm test:e2e --project=chromium
 ```
-Expected: all 6 tests in the Playground describe PASS in chromium. Some assertions (chat hint text, posts modal posts count) depend on the dev server being warm — Playwright's `webServer` config in `playwright.config.ts` handles startup.
+Expected: all 6 tests in the Courtyard describe PASS in chromium. Some assertions (chat hint text, posts modal posts count) depend on the dev server being warm — Playwright's `webServer` config in `playwright.config.ts` handles startup.
 
 If the canvas takes longer than expected to mount, increase `goto`'s wait or add `await page.waitForSelector("main canvas")`. Adjust hold-key durations if the player overshoots/undershoots (movement is `SPEED=2.5 units/sec`, distances are ~2 units from spawn).
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add e2e/fixtures/index.ts e2e/fixtures/test-base.ts e2e/fixtures/pages/playground-page.ts e2e/tests/playground.spec.ts
-git commit -m "test(playground): e2e coverage for load, triggers, modals, mobile notice"
+git add e2e/fixtures/index.ts e2e/fixtures/test-base.ts e2e/fixtures/pages/courtyard-page.ts e2e/tests/courtyard.spec.ts
+git commit -m "test(courtyard): e2e coverage for load, triggers, modals, mobile notice"
 ```
 
 ---
@@ -2009,13 +2009,13 @@ pnpm build
 ```
 Expected: build succeeds with no errors.
 
-- [ ] **Step 2: Confirm a dedicated playground chunk exists and is the only place `three` lives**
+- [ ] **Step 2: Confirm a dedicated courtyard chunk exists and is the only place `three` lives**
 
 Run:
 ```bash
-ls build/client/assets | grep -i playground
+ls build/client/assets | grep -i courtyard
 ```
-Expected output: at least one file matching `playground-*.js` (and possibly a `.css` sibling).
+Expected output: at least one file matching `courtyard-*.js` (and possibly a `.css` sibling).
 
 Then:
 ```bash
@@ -2025,18 +2025,18 @@ for f in build/client/assets/*.js; do
   fi
 done
 ```
-Expected: the matches should be limited to the `playground-*.js` chunk (and possibly chunks it imports). If any non-playground entry chunk shows up, dynamic-import boundary is wrong — go back to `Playground.tsx` and confirm `Scene` is `React.lazy`-imported.
+Expected: the matches should be limited to the `courtyard-*.js` chunk (and possibly chunks it imports). If any non-courtyard entry chunk shows up, dynamic-import boundary is wrong — go back to `Courtyard.tsx` and confirm `Scene` is `React.lazy`-imported.
 
 - [ ] **Step 3: Spot-check route is statically prerendered**
 
 Run:
 ```bash
-ls build/client/playground
+ls build/client/courtyard
 ```
 Expected: an `index.html` exists. Open it:
 
 ```bash
-grep -l "Loading" build/client/playground/index.html
+grep -l "Loading" build/client/courtyard/index.html
 ```
 Expected: the file contains the `Loading…` skeleton placeholder (proves SSG ran, since the Suspense fallback is what rendered server-side).
 
@@ -2046,7 +2046,7 @@ Run:
 ```bash
 pnpm serve &
 sleep 2
-curl -sf http://localhost:3000/playground > /dev/null && echo OK || echo FAIL
+curl -sf http://localhost:3000/courtyard > /dev/null && echo OK || echo FAIL
 kill %1
 ```
 Expected: `OK`.
@@ -2056,8 +2056,8 @@ Expected: `OK`.
 If Step 2 forced you to adjust the lazy boundary, commit the fix:
 
 ```bash
-git add src/components/playground/Playground.tsx
-git commit -m "fix(playground): ensure three.js is isolated to the playground chunk"
+git add src/components/courtyard/Courtyard.tsx
+git commit -m "fix(courtyard): ensure three.js is isolated to the courtyard chunk"
 ```
 
 Otherwise this task is verification-only and produces no commit.
@@ -2067,7 +2067,7 @@ Otherwise this task is verification-only and produces no commit.
 ## Done
 
 After Task 20, the MVP is shippable:
-- `/playground` is a self-contained route that lazy-loads R3F and three.js
+- `/courtyard` is a self-contained route that lazy-loads R3F and three.js
 - The rest of the site bundle is untouched
 - WASD movement, trigger zones, both modals, Gemini Nano integration with graceful fallback all work
 - E2E coverage in chromium plus a webkit fallback assertion

@@ -1,7 +1,7 @@
 import { type ThreeEvent } from "@react-three/fiber";
 import { useMemo } from "react";
 import * as THREE from "three";
-import { type Vec3 } from "~/stores/playground";
+import { type Vec3 } from "~/stores/courtyard";
 
 /**
  * The hanging sign texture. Reads "POSTS" in italic serif inside a double-rule

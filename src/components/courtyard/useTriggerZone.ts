@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useRef } from "react";
-import { nearbyTriggerAtom, playerPosAtom, type Vec3 } from "~/stores/playground";
+import { nearbyTriggerAtom, playerPosAtom, type Vec3 } from "~/stores/courtyard";
 
 export interface TriggerZone {
   propId: string;
@@ -54,7 +54,7 @@ export function useTriggerZones(zones: TriggerZone[]) {
 
 /**
  * Listens for E / Enter and invokes the currently-active trigger's onActivate.
- * Must be mounted somewhere in the Playground tree (Scene is a good place).
+ * Must be mounted somewhere in the Courtyard tree (Scene is a good place).
  */
 export function useTriggerActivation() {
   const nearby = useAtomValue(nearbyTriggerAtom);

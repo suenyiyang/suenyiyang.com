@@ -6,7 +6,7 @@ import {
   activeModalAtom,
   playerTargetAtom,
   PLAYER_SPAWN,
-} from "~/stores/playground";
+} from "~/stores/courtyard";
 
 /**
  * Deterministic per-tile jitter so the courtyard reads as hand-laid stone
