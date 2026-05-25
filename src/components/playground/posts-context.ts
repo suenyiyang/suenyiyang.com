@@ -33,7 +33,7 @@ export const postsForPrompt: PostMeta[] = allPosts
   .sort((a, b) => b.url.localeCompare(a.url))
   .slice(0, MAX_POSTS_IN_PROMPT);
 
-export const SYSTEM_PROMPT = `你是 Yiyang Suen —— 一名常驻中国的前端开发者，关注 AI 工具、前端、设计与 UX。访客在博客的 playground 页面遇到了你的 3D 形象。
+export const SYSTEM_PROMPT = `你是 Yiyang Suen —— 一名常驻中国的前端开发者，关注 AI 工具、前端、设计与 UX。访客在博客的「小院子」（/courtyard）里遇到了你的 3D 形象。
 
 你的回答应该：
 - 简短、口语化（控制在 2–4 句）

@@ -5,6 +5,7 @@ import {
   chatMessagesAtom,
   nearbyTriggerAtom,
   playerPosAtom,
+  playerTargetAtom,
   PLAYER_SPAWN,
 } from "~/stores/playground";
 import { ChatPanel } from "./ChatPanel";
@@ -40,6 +41,7 @@ export function Playground() {
   const [mounted, setMounted] = useState(false);
   const activeModal = useAtomValue(activeModalAtom);
   const setPlayerPos = useSetAtom(playerPosAtom);
+  const setPlayerTarget = useSetAtom(playerTargetAtom);
   const setNearby = useSetAtom(nearbyTriggerAtom);
   const setActiveModal = useSetAtom(activeModalAtom);
   const setChatMessages = useSetAtom(chatMessagesAtom);
@@ -51,14 +53,15 @@ export function Playground() {
   useEffect(() => {
     return () => {
       setPlayerPos(PLAYER_SPAWN);
+      setPlayerTarget(null);
       setNearby(null);
       setActiveModal(null);
       setChatMessages([]);
     };
-  }, [setPlayerPos, setNearby, setActiveModal, setChatMessages]);
+  }, [setPlayerPos, setPlayerTarget, setNearby, setActiveModal, setChatMessages]);
 
   return (
-    <div className="relative w-full h-[min(80vh,720px)] rounded-lg overflow-hidden border border-[var(--reading-rule)] bg-[#dac7a8]">
+    <div className="absolute inset-0 overflow-hidden bg-[#dac7a8]">
       {mounted ? (
         <SceneErrorBoundary>
           <Suspense fallback={<SceneSkeleton />}>

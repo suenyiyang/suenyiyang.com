@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base-page";
 
-export class PlaygroundPage extends BasePage {
+export class CourtyardPage extends BasePage {
   readonly canvas: Locator;
   readonly triggerHint: Locator;
   readonly postsModal: Locator;
@@ -18,7 +18,7 @@ export class PlaygroundPage extends BasePage {
   }
 
   async goto(): Promise<void> {
-    await super.goto("/playground");
+    await super.goto("/courtyard");
     await this.page.waitForLoadState("networkidle");
     // Scene is lazily loaded and rendered by React Three Fiber client-side.
     // Vite compiles Three.js + R3F bundles lazily on first request, which can
