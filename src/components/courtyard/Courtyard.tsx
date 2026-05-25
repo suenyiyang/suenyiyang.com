@@ -9,7 +9,6 @@ import {
   PLAYER_SPAWN,
 } from "~/stores/courtyard";
 import { ChatPanel } from "./ChatPanel";
-import { MobileNotice } from "./MobileNotice";
 import { PostsModal } from "./PostsModal";
 import { TriggerHint } from "./TriggerHint";
 
@@ -17,8 +16,10 @@ const Scene = lazy(() => import("./Scene"));
 
 function SceneSkeleton() {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-[#e8dfd0]">
-      <div className="font-mono text-meta text-text-secondary">Loading…</div>
+    <div className="w-full h-full flex items-center justify-center bg-bg-light dark:bg-bg-dark">
+      <div className="font-mono text-meta text-text-secondary dark:text-text-secondary-dark">
+        Loading…
+      </div>
     </div>
   );
 }
@@ -61,7 +62,7 @@ export function Courtyard() {
   }, [setPlayerPos, setPlayerTarget, setNearby, setActiveModal, setChatMessages]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#dac7a8]">
+    <div className="absolute inset-0 overflow-hidden bg-bg-light dark:bg-bg-dark touch-none">
       {mounted ? (
         <SceneErrorBoundary>
           <Suspense fallback={<SceneSkeleton />}>
@@ -73,7 +74,6 @@ export function Courtyard() {
       )}
 
       <TriggerHint />
-      <MobileNotice />
 
       {activeModal === "chat" && <ChatPanel />}
       {activeModal === "posts" && <PostsModal />}

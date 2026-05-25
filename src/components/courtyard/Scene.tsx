@@ -1,5 +1,5 @@
 import { ContactShadows, OrthographicCamera } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { useSetAtom, useStore } from "jotai";
 import { useCallback, useMemo } from "react";
 import * as THREE from "three";
@@ -17,6 +17,7 @@ import { NewspaperStand } from "./NewspaperStand";
 import { Player } from "./Player";
 import { CushionMat, GardenProps } from "./SceneProps";
 import { Tree } from "./Tree";
+import { useIsDark } from "./useIsDark";
 import { useTriggerActivation, useTriggerZones, type TriggerZone } from "./useTriggerZone";
 import { YiyangAvatar } from "./YiyangAvatar";
 
@@ -25,7 +26,83 @@ const NEWSPAPER_POS: [number, number, number] = [2.2, 0, 1.2];
 const TREE_POS: [number, number, number] = [-3.2, 0, -3];
 const TRIGGER_RADIUS = 1.3;
 
-function SceneContents() {
+// We want the courtyard to fill roughly the same fraction of every viewport.
+// At zoom = WORLD_FIT_AXIS / 12, the shorter screen axis shows ~12 world units —
+// just enough for the fence-to-fence box plus a little breathing room.
+const ZOOM_VISIBLE_UNITS = 12.5;
+const ZOOM_MIN = 42;
+const ZOOM_MAX = 160;
+
+interface Palette {
+  bg: string;
+  fogNear: number;
+  fogFar: number;
+  hemiSky: string;
+  hemiGround: string;
+  hemiIntensity: number;
+  keyColor: string;
+  keyIntensity: number;
+  fillColor: string;
+  fillIntensity: number;
+  shadowColor: string;
+  shadowOpacity: number;
+}
+
+// Match the blog's bg-light / bg-dark tokens (src/index.css) so the canvas
+// blends edge-to-edge with the rest of the site. Fog is pushed well past
+// the visible scene so the courtyard's floor edges stay crisp instead of
+// bleaching into the paper bg.
+const LIGHT_PALETTE: Palette = {
+  bg: "#FDFCF9",
+  fogNear: 28,
+  fogFar: 70,
+  hemiSky: "#fff6e2",
+  hemiGround: "#a89878",
+  hemiIntensity: 0.62,
+  keyColor: "#ffe6c2",
+  keyIntensity: 1.2,
+  fillColor: "#cad6e4",
+  fillIntensity: 0.32,
+  shadowColor: "#2a1e10",
+  shadowOpacity: 0.28,
+};
+
+const DARK_PALETTE: Palette = {
+  bg: "#0E0E0E",
+  fogNear: 28,
+  fogFar: 70,
+  hemiSky: "#5a5570",
+  hemiGround: "#181318",
+  hemiIntensity: 0.42,
+  keyColor: "#d9c79c",
+  keyIntensity: 0.95,
+  fillColor: "#6b7488",
+  fillIntensity: 0.28,
+  shadowColor: "#000000",
+  shadowOpacity: 0.55,
+};
+
+function ResponsiveCamera() {
+  const size = useThree((s) => s.size);
+  const zoom = useMemo(() => {
+    const shorter = Math.min(size.width, size.height);
+    const raw = shorter / ZOOM_VISIBLE_UNITS;
+    return Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, raw));
+  }, [size.width, size.height]);
+
+  return (
+    <OrthographicCamera
+      makeDefault
+      position={[10, 10, 10]}
+      zoom={zoom}
+      near={0.1}
+      far={100}
+      onUpdate={(self) => self.lookAt(0, 0, 0)}
+    />
+  );
+}
+
+function SceneContents({ palette }: { palette: Palette }) {
   const setActiveModal = useSetAtom(activeModalAtom);
   const store = useStore();
 
@@ -80,25 +157,20 @@ function SceneContents() {
 
   return (
     <>
-      <color attach="background" args={["#ead9b9"]} />
-      <fog attach="fog" args={["#ead9b9", 14, 28]} />
+      <color attach="background" args={[palette.bg]} />
+      <fog attach="fog" args={[palette.bg, palette.fogNear, palette.fogFar]} />
 
-      <OrthographicCamera
-        makeDefault
-        position={[10, 10, 10]}
-        zoom={60}
-        near={0.1}
-        far={100}
-        onUpdate={(self) => self.lookAt(0, 0, 0)}
-      />
+      <ResponsiveCamera />
 
       {/* Sky ↔ ground bounce gives every surface a warm-over-cool gradient. */}
-      <hemisphereLight args={["#fff1d6", "#9c8458", 0.55]} />
+      <hemisphereLight
+        args={[palette.hemiSky, palette.hemiGround, palette.hemiIntensity]}
+      />
 
       {/* Key light: warm sun, casts the courtyard's primary shadow. */}
       <directionalLight
-        color="#ffe6c2"
-        intensity={1.25}
+        color={palette.keyColor}
+        intensity={palette.keyIntensity}
         position={[6, 9, 4]}
         castShadow
         shadow-mapSize-width={1024}
@@ -114,16 +186,20 @@ function SceneContents() {
       />
 
       {/* Cool fill from the opposite side adds dimensionality without flattening shadows. */}
-      <directionalLight color="#b8c8d8" intensity={0.35} position={[-5, 4, -3]} />
+      <directionalLight
+        color={palette.fillColor}
+        intensity={palette.fillIntensity}
+        position={[-5, 4, -3]}
+      />
 
       <ContactShadows
         position={[0, 0.012, 0]}
-        opacity={0.32}
+        opacity={palette.shadowOpacity}
         scale={12}
         blur={2.8}
         far={4}
         resolution={512}
-        color="#3a2a18"
+        color={palette.shadowColor}
       />
 
       <Ground />
@@ -146,6 +222,9 @@ function SceneContents() {
 }
 
 export default function Scene() {
+  const isDark = useIsDark();
+  const palette = isDark ? DARK_PALETTE : LIGHT_PALETTE;
+
   return (
     <Canvas
       dpr={[1, 1.5]}
@@ -157,9 +236,9 @@ export default function Scene() {
         toneMappingExposure: 1.05,
       }}
       role="application"
-      aria-label="交互式小院子，使用 WASD 或方向键移动，按 E 触发交互"
+      aria-label="交互式小院子，使用 WASD 或方向键移动，按 E 触发交互，或在屏幕上点按"
     >
-      <SceneContents />
+      <SceneContents palette={palette} />
     </Canvas>
   );
 }

@@ -7,6 +7,7 @@ import {
   playerTargetAtom,
   PLAYER_SPAWN,
 } from "~/stores/courtyard";
+import { useIsDark } from "./useIsDark";
 
 /**
  * Deterministic per-tile jitter so the courtyard reads as hand-laid stone
@@ -17,24 +18,46 @@ function tileNoise(x: number, y: number): number {
   return v - Math.floor(v);
 }
 
-function makeTileTexture(): THREE.CanvasTexture {
+interface TilePalette {
+  grout: string;
+  tiles: string[];
+  highlight: string;
+  grain: string;
+  base: string;
+}
+
+const LIGHT_TILES: TilePalette = {
+  grout: "#c1a87f",
+  // Toned down from the saturated cream of the v1 ground so it harmonizes
+  // with the blog's #FDFCF9 paper background.
+  tiles: ["#ecdcc1", "#e6d4b5", "#e8d8ba", "#ebd6b3"],
+  highlight: "rgba(255, 247, 224, 0.16)",
+  grain: "rgba(80, 50, 20, 0.07)",
+  base: "#e7d4ae",
+};
+
+const DARK_TILES: TilePalette = {
+  grout: "#1b1820",
+  tiles: ["#2c2730", "#332b38", "#28232e", "#352d3a"],
+  highlight: "rgba(220, 200, 240, 0.05)",
+  grain: "rgba(0, 0, 0, 0.18)",
+  base: "#2e2832",
+};
+
+function makeTileTexture(p: TilePalette): THREE.CanvasTexture {
   const size = 512;
   const c = document.createElement("canvas");
   c.width = size;
   c.height = size;
   const ctx = c.getContext("2d")!;
 
-  // Grout / between-tile mortar — slightly darker and warmer than the tiles.
-  ctx.fillStyle = "#bda079";
+  ctx.fillStyle = p.grout;
   ctx.fillRect(0, 0, size, size);
 
   const grid = 8;
   const cell = size / grid;
   const gap = 5;
   const radius = 8;
-
-  // Two warm cream tones we'll mix per tile for organic variation.
-  const tileColors = ["#ecd7b0", "#e4cda3", "#e8d3a8", "#ead2a4"];
 
   for (let y = 0; y < grid; y++) {
     for (let x = 0; x < grid; x++) {
@@ -44,7 +67,7 @@ function makeTileTexture(): THREE.CanvasTexture {
       const h = cell - gap * 2;
 
       const n = tileNoise(x, y);
-      ctx.fillStyle = tileColors[Math.floor(n * tileColors.length)];
+      ctx.fillStyle = p.tiles[Math.floor(n * p.tiles.length)];
 
       ctx.beginPath();
       ctx.moveTo(px + radius, py);
@@ -65,20 +88,20 @@ function makeTileTexture(): THREE.CanvasTexture {
         py + h * 0.35,
         Math.max(w, h) * 0.8
       );
-      grad.addColorStop(0, "rgba(255, 245, 220, 0.18)");
-      grad.addColorStop(1, "rgba(255, 245, 220, 0)");
+      grad.addColorStop(0, p.highlight);
+      grad.addColorStop(1, p.highlight.replace(/[\d.]+\)$/, "0)"));
       ctx.fillStyle = grad;
       ctx.fill();
     }
   }
 
-  // A thin film of warm paper-grain noise pulls everything together.
+  // A thin film of noise pulls everything together.
   const grainPasses = 1400;
   for (let i = 0; i < grainPasses; i++) {
     const gx = Math.random() * size;
     const gy = Math.random() * size;
     const alpha = Math.random() * 0.07;
-    ctx.fillStyle = `rgba(80, 50, 20, ${alpha})`;
+    ctx.fillStyle = p.grain.replace(/[\d.]+\)$/, `${alpha})`);
     ctx.fillRect(gx, gy, 1, 1);
   }
 
@@ -91,7 +114,11 @@ function makeTileTexture(): THREE.CanvasTexture {
 }
 
 export function Ground() {
-  const texture = useMemo(() => makeTileTexture(), []);
+  const isDark = useIsDark();
+  const palette = isDark ? DARK_TILES : LIGHT_TILES;
+  // Regenerate the canvas texture when the theme flips so the courtyard
+  // doesn't stay daylight-cream on a dark page.
+  const texture = useMemo(() => makeTileTexture(palette), [palette]);
   const store = useStore();
 
   // Left-click on the ground sets a walk target (LoL-style click-to-move).
@@ -120,7 +147,7 @@ export function Ground() {
       <planeGeometry args={[10, 10]} />
       <meshStandardMaterial
         map={texture}
-        color="#e8d3a8"
+        color={palette.base}
         roughness={0.92}
         metalness={0}
       />
