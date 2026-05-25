@@ -71,15 +71,15 @@ const DARK_PALETTE: Palette = {
   bg: "#0E0E0E",
   fogNear: 28,
   fogFar: 70,
-  hemiSky: "#5a5570",
-  hemiGround: "#181318",
-  hemiIntensity: 0.42,
-  keyColor: "#d9c79c",
-  keyIntensity: 0.95,
-  fillColor: "#6b7488",
-  fillIntensity: 0.28,
+  hemiSky: "#9a90b8",
+  hemiGround: "#2a2230",
+  hemiIntensity: 0.95,
+  keyColor: "#e8d6a8",
+  keyIntensity: 1.6,
+  fillColor: "#8a96b4",
+  fillIntensity: 0.55,
   shadowColor: "#000000",
-  shadowOpacity: 0.55,
+  shadowOpacity: 0.5,
 };
 
 function ResponsiveCamera() {
@@ -102,7 +102,7 @@ function ResponsiveCamera() {
   );
 }
 
-function SceneContents({ palette }: { palette: Palette }) {
+function SceneContents({ palette, night }: { palette: Palette; night: boolean }) {
   const setActiveModal = useSetAtom(activeModalAtom);
   const store = useStore();
 
@@ -202,10 +202,26 @@ function SceneContents({ palette }: { palette: Palette }) {
         color={palette.shadowColor}
       />
 
+      {/* Night-only stylistic accents: a soft pink sakura uplight (not from a
+          lamp — magical) and a gentle ambient lift so crushed-black corners
+          read. The four lanterns supply the rest. */}
+      {night && (
+        <>
+          <pointLight
+            position={[TREE_POS[0], 1.6, TREE_POS[2]]}
+            intensity={1.6}
+            distance={5.5}
+            decay={1.6}
+            color="#f7b8c6"
+          />
+          <ambientLight intensity={0.22} color="#8c8aae" />
+        </>
+      )}
+
       <Ground />
       <ClickIndicator />
       <Fence />
-      <GardenProps />
+      <GardenProps night={night} />
       <Tree position={TREE_POS} />
       <CushionMat position={[YIYANG_POS[0], 0, YIYANG_POS[2]]} rotationY={0.1} />
       <YiyangAvatar
@@ -238,7 +254,7 @@ export default function Scene() {
       role="application"
       aria-label="交互式小院子，使用 WASD 或方向键移动，按 E 触发交互，或在屏幕上点按"
     >
-      <SceneContents palette={palette} />
+      <SceneContents palette={palette} night={isDark} />
     </Canvas>
   );
 }

@@ -37,11 +37,11 @@ const LIGHT_TILES: TilePalette = {
 };
 
 const DARK_TILES: TilePalette = {
-  grout: "#1b1820",
-  tiles: ["#2c2730", "#332b38", "#28232e", "#352d3a"],
-  highlight: "rgba(220, 200, 240, 0.05)",
-  grain: "rgba(0, 0, 0, 0.18)",
-  base: "#2e2832",
+  grout: "#3d3550",
+  tiles: ["#8a7fa0", "#9789ad", "#7d7295", "#9183a8"],
+  highlight: "rgba(230, 215, 250, 0.14)",
+  grain: "rgba(20, 10, 30, 0.14)",
+  base: "#9486ab",
 };
 
 function makeTileTexture(p: TilePalette): THREE.CanvasTexture {

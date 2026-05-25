@@ -162,7 +162,13 @@ function Shrubs() {
  * housing with paper window, roof, and a finial. Lit very softly from inside
  * so the paper windows glow.
  */
-function StoneLantern({ position }: { position: [number, number, number] }) {
+function StoneLantern({
+  position,
+  night = false,
+}: {
+  position: [number, number, number];
+  night?: boolean;
+}) {
   const [x, , z] = position;
   return (
     <group position={[x, 0, z]}>
@@ -181,13 +187,14 @@ function StoneLantern({ position }: { position: [number, number, number] }) {
         <boxGeometry args={[0.34, 0.06, 0.34]} />
         <meshStandardMaterial color="#b8aa92" roughness={0.95} flatShading />
       </mesh>
-      {/* Light housing — slightly emissive cream so paper windows glow. */}
+      {/* Light housing — emissive cream paper that glows. At night it's
+          cranked up so the lantern reads as the active light source. */}
       <mesh position={[0, 0.82, 0]} castShadow receiveShadow>
         <boxGeometry args={[0.28, 0.3, 0.28]} />
         <meshStandardMaterial
-          color="#f5e6c0"
-          emissive="#f0c878"
-          emissiveIntensity={0.22}
+          color="#fff2cd"
+          emissive={night ? "#ffd07a" : "#f0c878"}
+          emissiveIntensity={night ? 2.2 : 0.22}
           roughness={0.7}
         />
       </mesh>
@@ -224,14 +231,28 @@ function StoneLantern({ position }: { position: [number, number, number] }) {
         <sphereGeometry args={[0.045, 10, 8]} />
         <meshStandardMaterial color="#3b1810" roughness={0.6} />
       </mesh>
-      {/* Soft warm point light so the housing actually casts a faint glow on
-          nearby surfaces — barely noticeable in daylight but adds atmosphere. */}
+      {/* Warm point light from inside the housing. At night it's the primary
+          source illuminating nearby props. */}
       <pointLight
         position={[0, 0.82, 0]}
-        intensity={0.4}
-        distance={2.4}
+        intensity={night ? 6 : 0.4}
+        distance={night ? 7 : 2.4}
+        decay={1.6}
         color="#ffd99a"
+        castShadow={night}
       />
+      {/* At night, a second wide-radius "spillover" light fakes the lantern's
+          warm bloom reaching the rest of the courtyard so the chibis read as
+          standing in the lamp's glow, not in pitch black. */}
+      {night && (
+        <pointLight
+          position={[0, 1.4, 0]}
+          intensity={2.4}
+          distance={16}
+          decay={1.4}
+          color="#ffc97e"
+        />
+      )}
     </group>
   );
 }
@@ -302,13 +323,19 @@ export function CushionMat({ position, rotationY = 0 }: CushionMatProps) {
   );
 }
 
-export function GardenProps() {
+export function GardenProps({ night = false }: { night?: boolean }) {
   return (
     <group>
       <SteppingStones />
       <Rocks />
       <Shrubs />
-      <StoneLantern position={[3.2, 0, -2.4]} />
+      {/* Back-right corner: the original anchor lantern. */}
+      <StoneLantern position={[3.2, 0, -2.4]} night={night} />
+      {/* Mid-left, away from the tree: lights the cushion side. */}
+      <StoneLantern position={[-3.6, 0, -0.6]} night={night} />
+      {/* Flanking the south gate so visitors enter between two lit lamps. */}
+      <StoneLantern position={[-2.0, 0, 3.9]} night={night} />
+      <StoneLantern position={[2.0, 0, 3.9]} night={night} />
     </group>
   );
 }
