@@ -19,6 +19,12 @@ coverage
 *.tsbuildinfo
 next-env.d.ts
 
+# Accidental tsc output next to .ts sources at the repo root and in /config
+/vite.config.js
+/vite.config.d.ts
+/config/*.js
+/config/*.d.ts
+
 # IDE
 .vscode/*
 !.vscode/extensions.json
