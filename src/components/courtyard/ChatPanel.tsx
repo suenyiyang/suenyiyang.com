@@ -90,7 +90,7 @@ const Message = memo(function Message({
         className={`max-w-[82%] rounded-2xl px-4 py-2.5 text-body leading-[1.55] whitespace-pre-wrap ${
           isUser
             ? "bg-[#1a3a2a] text-[#f3eedb]"
-            : "bg-[#f4efe3] text-[var(--reading-text-primary)]"
+            : "bg-[var(--reading-code-bg)] text-[var(--reading-text-primary)]"
         }`}
       >
         {isThinking ? <ThinkingDots reduce={reduce} /> : msg.text}
@@ -122,7 +122,7 @@ const Message = memo(function Message({
 
 function InfoPanel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-[var(--reading-rule)] bg-[#f4efe3] p-4 mb-3">
+    <div className="rounded-lg border border-[var(--reading-rule)] bg-[var(--reading-code-bg)] p-4 mb-3">
       {children}
     </div>
   );
@@ -463,7 +463,7 @@ export function ChatPanel() {
             disabled={!canSend}
             rows={1}
             placeholder={placeholder}
-            className="flex-1 resize-none rounded-md border border-[var(--reading-rule)] bg-[#f4efe3] text-[var(--reading-text-primary)] placeholder:text-[var(--reading-text-muted)] px-3 py-2 text-body leading-[1.5] focus:outline-none focus:border-[#1a3a2a] focus:bg-[var(--reading-paper)] transition-colors disabled:opacity-60"
+            className="flex-1 resize-none rounded-md border border-[var(--reading-rule)] bg-[var(--reading-code-bg)] text-[var(--reading-text-primary)] placeholder:text-[var(--reading-text-muted)] px-3 py-2 text-body leading-[1.5] focus:outline-none focus:border-[#1a3a2a] focus:bg-[var(--reading-paper)] transition-colors disabled:opacity-60"
           />
           <button
             type="submit"
