@@ -7,6 +7,7 @@ export const siteConfig: SiteConfig = {
   navItems: [
     { label: "Home", href: "/" },
     { label: "Posts", href: "/posts" },
+    { label: "Courtyard", href: "/courtyard" },
     { label: "About", href: "/about" },
   ],
   socialLinks: [

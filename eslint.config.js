@@ -12,6 +12,7 @@ export default tseslint.config(
       "node_modules/**",
       ".react-router/**",
       ".content-collections/**",
+      ".worktrees/**",
       "e2e/snapshots/**",
       "playwright-report/**",
       "test-results/**",

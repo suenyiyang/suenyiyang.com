@@ -1,6 +1,6 @@
 import Header from "~/components/layout/Header";
 import Footer from "~/components/layout/Footer";
-import { Links, Meta, Outlet, Scripts } from "react-router";
+import { Links, Meta, Outlet, Scripts, useLocation } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
@@ -8,6 +8,18 @@ import { BackToTop } from "~/components/BackToTop";
 
 import { siteConfig } from "~/config";
 import stylesheet from "~/index.css?url";
+
+/**
+ * Routes that should render edge-to-edge with no 800px max-width, no footer,
+ * and a viewport-sized main area (e.g., the interactive courtyard scene).
+ */
+const FULLSCREEN_ROUTES = ["/courtyard"];
+
+function isFullscreenRoute(pathname: string) {
+  return FULLSCREEN_ROUTES.some(
+    (r) => pathname === r || pathname.startsWith(`${r}/`)
+  );
+}
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   if (error.status === 404) {
@@ -70,18 +82,40 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body className="bg-bg-light dark:bg-bg-dark text-text-primary dark:text-text-primary-dark font-sans">
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex flex-col flex-grow w-full max-w-[800px] mx-auto px-4 py-8 md:px-16 md:py-12">
-            <MDXProvider components={components}>{children}</MDXProvider>
-          </main>
-          <Footer />
-        </div>
-        <BackToTop />
+        <LayoutShell>{children}</LayoutShell>
         <GoogleAnalytics gaId={__INJECTED_GA_ID__} />
         <Scripts />
       </body>
     </html>
+  );
+}
+
+function LayoutShell({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
+  const fullscreen = isFullscreenRoute(pathname);
+
+  if (fullscreen) {
+    return (
+      <div className="flex flex-col h-screen overflow-hidden">
+        <Header />
+        <main className="relative flex-1 w-full overflow-hidden">
+          <MDXProvider components={components}>{children}</MDXProvider>
+        </main>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex flex-col flex-grow w-full max-w-[800px] mx-auto px-4 py-8 md:px-16 md:py-12">
+          <MDXProvider components={components}>{children}</MDXProvider>
+        </main>
+        <Footer />
+      </div>
+      <BackToTop />
+    </>
   );
 }
 
