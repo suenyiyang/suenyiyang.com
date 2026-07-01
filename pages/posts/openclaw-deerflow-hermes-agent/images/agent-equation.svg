@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="588" viewBox="50 0 960 588" role="img">
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1e1e1e"/></marker></defs>
+<rect x="50" y="0" width="960" height="588" fill="#fff"/>
+<rect x="80" y="160" width="240" height="140" rx="10" ry="10" fill="#ffd8a8" stroke="#f59e0b" stroke-width="2"/>
+<rect x="410" y="160" width="240" height="140" rx="10" ry="10" fill="#e5dbff" stroke="#8b5cf6" stroke-width="2"/>
+<rect x="740" y="160" width="240" height="140" rx="10" ry="10" fill="#b2f2bb" stroke="#16a34a" stroke-width="2"/>
+<rect x="110" y="425" width="340" height="28" rx="10" ry="10" fill="#f3f0ff" stroke="#8b5cf6" stroke-width="1.5"/>
+<rect x="110" y="460" width="340" height="28" rx="10" ry="10" fill="#f3f0ff" stroke="#8b5cf6" stroke-width="1.5"/>
+<rect x="110" y="495" width="340" height="28" rx="10" ry="10" fill="#f3f0ff" stroke="#8b5cf6" stroke-width="1.5"/>
+<rect x="110" y="530" width="340" height="28" rx="10" ry="10" fill="#f3f0ff" stroke="#8b5cf6" stroke-width="1.5"/>
+<text x="435.6" y="58" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" fill="#1e1e1e" text-anchor="middle">
+<tspan x="435.6" dy="0">Agent 等式</tspan>
+</text>
+<text x="412.40000000000003" y="91" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#757575" text-anchor="middle">
+<tspan x="412.40000000000003" dy="0">Agent = Harness + LLM</tspan>
+</text>
+<text x="200.0" y="224.0" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24" fill="#1e1e1e" text-anchor="middle">
+<tspan x="200.0" dy="0">Agent</tspan>
+<tspan x="200.0" dy="30.0">(整体)</tspan>
+</text>
+<text x="363.2" y="253" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" fill="#1e1e1e" text-anchor="middle">
+<tspan x="363.2" dy="0">=</tspan>
+</text>
+<text x="530.0" y="224.0" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24" fill="#1e1e1e" text-anchor="middle">
+<tspan x="530.0" dy="0">Harness</tspan>
+<tspan x="530.0" dy="30.0">(缰绳)</tspan>
+</text>
+<text x="693.2" y="253" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" fill="#1e1e1e" text-anchor="middle">
+<tspan x="693.2" dy="0">+</tspan>
+</text>
+<text x="860.0" y="224.0" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24" fill="#1e1e1e" text-anchor="middle">
+<tspan x="860.0" dy="0">LLM</tspan>
+<tspan x="860.0" dy="30.0">(马)</tspan>
+</text>
+<text x="90" y="334" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#757575" text-anchor="start">
+<tspan x="90" dy="0">Agent System 的全部</tspan>
+</text>
+<text x="420" y="334" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#757575" text-anchor="start">
+<tspan x="420" dy="0">Agent 中除 LLM 外的一切代码</tspan>
+</text>
+<text x="775" y="334" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#757575" text-anchor="start">
+<tspan x="775" dy="0">推理引擎 (Reasoning)</tspan>
+</text>
+<text x="80" y="406" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#1e1e1e" text-anchor="start">
+<tspan x="80" dy="0">例如 (以 Claude Agent 为例)：</tspan>
+</text>
+<text x="280.0" y="444.25" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+<tspan x="280.0" dy="0">askUserQuestion tool</tspan>
+</text>
+<text x="280.0" y="479.25" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+<tspan x="280.0" dy="0">MCP client</tspan>
+</text>
+<text x="280.0" y="514.25" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+<tspan x="280.0" dy="0">Skill tool</tspan>
+</text>
+<text x="280.0" y="549.25" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="14" fill="#1e1e1e" text-anchor="middle">
+<tspan x="280.0" dy="0">提供上下文 / 约束的代码</tspan>
+</text>
+<text x="460" y="506" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="16" fill="#6d28d9" text-anchor="start">
+<tspan x="460" dy="0">都属于 Harness</tspan>
+</text>
+</svg>
