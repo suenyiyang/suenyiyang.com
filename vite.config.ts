@@ -16,6 +16,8 @@ import { ENV_GA_ID, ENV_WALINE_SERVER_URL } from "./config/env";
 import { rehypeCodeWindow } from "./config/rehype-code-window";
 import { remarkMdxRelativeImages } from "./config/remark-mdx-relative-images";
 import { remarkUnwrapImages } from "./config/remark-unwrap-images";
+import { remarkTwitterEmbeds } from "./config/remark-twitter-embeds";
+import { remarkYoutubeEmbeds } from "./config/remark-youtube-embeds";
 
 export default defineConfig({
   plugins: [
@@ -24,6 +26,8 @@ export default defineConfig({
         remarkFrontmatter,
         remarkGfm,
         remarkEmoji,
+        remarkYoutubeEmbeds,
+        remarkTwitterEmbeds,
         remarkMdxRelativeImages,
         remarkUnwrapImages,
       ],

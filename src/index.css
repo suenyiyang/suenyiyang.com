@@ -263,6 +263,32 @@
     margin-top: 0.6em;
   }
 
+  .post-body .twitter-tweet {
+    width: min(550px, 100%);
+    max-width: 550px;
+    margin-right: auto;
+    margin-left: auto;
+    border-left: 0;
+    padding-left: 0;
+    color: inherit;
+    font-size: var(--text-body);
+  }
+
+  .post-body iframe.twitter-tweet,
+  .post-body .twitter-tweet-rendered {
+    display: block !important;
+    width: min(550px, 100%) !important;
+    max-width: 550px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .post-body .twitter-tweet-rendered > iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
   /* --- Links (Anchor component owns the underline treatment) --- */
   .post-body a {
     color: inherit;
@@ -474,6 +500,39 @@
   margin-inline: auto;
   max-width: min(28rem, 100%);
   border-radius: 8px;
+}
+
+.embed-youtube-figure {
+  margin: 1.75rem 0;
+}
+
+.embed-youtube {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.75rem 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+}
+
+.embed-youtube-figure > .embed-youtube {
+  margin: 0;
+}
+
+.embed-youtube > iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.embed-youtube-figure > figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--reading-meta, #666);
+  text-align: center;
 }
 
 /* Post images — blur-up reveal.
