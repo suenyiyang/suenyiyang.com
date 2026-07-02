@@ -5,10 +5,9 @@ interface PostImageProps {
   src: PictureMetadata | string;
   "data-lqip"?: string;
   alt?: string;
-  title?: string;
 }
 
-export const PostImage = ({ src, "data-lqip": lqip, alt, title }: PostImageProps) => {
+export const PostImage = ({ src, "data-lqip": lqip, alt }: PostImageProps) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -21,6 +20,8 @@ export const PostImage = ({ src, "data-lqip": lqip, alt, title }: PostImageProps
       setLoaded(true);
     }
   }, []);
+
+  const caption = alt?.trim();
 
   if (typeof src === "string") {
     return (
@@ -35,7 +36,7 @@ export const PostImage = ({ src, "data-lqip": lqip, alt, title }: PostImageProps
             onLoad={() => setLoaded(true)}
           />
         </div>
-        {title ? <figcaption>{title}</figcaption> : null}
+        {caption ? <figcaption>{caption}</figcaption> : null}
       </figure>
     );
   }
@@ -62,7 +63,7 @@ export const PostImage = ({ src, "data-lqip": lqip, alt, title }: PostImageProps
           />
         </picture>
       </div>
-      {title ? <figcaption>{title}</figcaption> : null}
+      {caption ? <figcaption>{caption}</figcaption> : null}
     </figure>
   );
 };
