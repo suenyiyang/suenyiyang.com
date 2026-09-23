@@ -12,7 +12,7 @@ export const Anchor: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = (
       {...rest}
       target={isExternal ? "_blank" : undefined}
       href={href}
-      className={`${className ?? ""} no-underline border-b border-b-neutral-400/70 hover:border-b-text-primary dark:border-b-neutral-500/70 dark:hover:border-b-text-primary-dark transition-colors duration-200 ease-in-out`}
+      className={`${className ?? ""} underline decoration-1 underline-offset-[0.28em] decoration-accent/55 hover:text-accent hover:decoration-accent dark:decoration-accent-dark/55 dark:hover:text-accent-dark dark:hover:decoration-accent-dark transition-colors duration-200 ease-in-out`}
     >
       {children}
     </a>
