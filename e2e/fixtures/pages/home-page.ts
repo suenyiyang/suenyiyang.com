@@ -3,13 +3,13 @@ import { BasePage } from "./base-page";
 
 export class HomePage extends BasePage {
   readonly heading: Locator;
-  readonly introText: Locator;
+  readonly postLinks: Locator;
   readonly mainContent: Locator;
 
   constructor(page: Page) {
     super(page);
     this.heading = page.locator("h1").first();
-    this.introText = page.locator("main p").first();
+    this.postLinks = page.locator("main a[href^='/posts/']");
     this.mainContent = page.locator("main");
   }
 

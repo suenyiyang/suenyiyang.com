@@ -4,7 +4,6 @@ import { PostCard } from "./PostCard";
 import { Tag } from "./Tag";
 
 interface PostListProps {
-  variant?: "default" | "timeline";
   showFilter?: boolean;
   limit?: number;
 }
@@ -36,11 +35,7 @@ const groupPostsByYear = (posts: Post[]): Record<string, Post[]> => {
   return groups;
 };
 
-export const PostList: FC<PostListProps> = ({
-  variant = "default",
-  showFilter = false,
-  limit,
-}) => {
+export const PostList: FC<PostListProps> = ({ showFilter = false, limit }) => {
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
   const sortedPosts = useMemo(() => {
@@ -105,41 +100,23 @@ export const PostList: FC<PostListProps> = ({
         </div>
       ) : null}
 
-      {/* Posts list */}
-      {variant === "timeline" ? (
-        <div className="space-y-10">
-          {years.map((year) => (
-            <div key={year}>
-              <div className="py-3 mb-6 relative">
-                <div className="w-[100px] text-center">
-                  <h2 className="font-display font-bold text-h2 text-text-primary dark:text-text-primary-dark">
-                    {year}
-                  </h2>
-                </div>
-                <span
-                  className="absolute left-[50px] -translate-x-1/2 -bottom-2 w-2 h-2 rounded-full bg-text-muted/70"
-                  aria-hidden
-                />
-              </div>
-              <div className="relative">
-                <div
-                  className="absolute left-[50px] -translate-x-1/2 top-[-14px] bottom-0 w-px bg-text-muted/40"
-                  aria-hidden
-                />
-                {postsByYear[year].map((post) => (
-                  <PostCard key={post._meta.path} post={post} variant="timeline" />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>
-          {filteredPosts.map((post) => (
-            <PostCard key={post._meta.path} post={post} variant="default" />
-          ))}
-        </div>
-      )}
+      {/* Posts list, grouped by year */}
+      <div className="flex flex-col gap-11 sm:gap-14">
+        {years.map((year) => (
+          <section key={year}>
+            <h2 className="font-mono text-meta font-medium tracking-[0.04em] text-text-muted dark:text-text-muted-dark pb-3.5 border-b border-[var(--reading-rule)]">
+              {year}
+            </h2>
+            <ol className="list-none m-0 p-0 divide-y divide-[var(--reading-rule)]">
+              {postsByYear[year].map((post) => (
+                <li key={post._meta.path}>
+                  <PostCard post={post} />
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))}
+      </div>
     </div>
   );
 };

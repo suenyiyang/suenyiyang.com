@@ -23,7 +23,7 @@ export const AboutPage: FC<PropsWithChildren> = ({ children }) => {
 
           {/* Info */}
           <div>
-            <h1 className="font-display italic font-semibold tracking-[-0.014em] text-text-primary dark:text-text-primary-dark text-display leading-[var(--lh-display)] mb-4">
+            <h1 className="post-title text-display text-text-primary dark:text-text-primary-dark mb-4">
               About Me
             </h1>
             <div className="flex items-center gap-4 mb-4">
@@ -56,7 +56,7 @@ export const AboutPage: FC<PropsWithChildren> = ({ children }) => {
       {/* Skills Section */}
       {skills && skills.length > 0 ? (
         <section>
-          <h2 className="font-display font-semibold text-h2 leading-[var(--lh-heading)] tracking-[-0.012em] text-text-primary dark:text-text-primary-dark mb-4">
+          <h2 className="font-semibold text-h2 leading-[var(--lh-heading)] text-text-primary dark:text-text-primary-dark mb-4">
             Interests &amp; Skills
           </h2>
           <div className="flex flex-wrap gap-2">
