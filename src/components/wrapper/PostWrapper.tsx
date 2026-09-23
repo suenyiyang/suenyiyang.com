@@ -8,12 +8,6 @@ import { Tag } from "../Tag";
 import { Toc } from "../Toc";
 import { Lightbox } from "../Lightbox";
 
-// Estimate read time based on content length (roughly 200 words per minute)
-const estimateReadTime = (content: string): number => {
-  const words = content.trim().split(/\s+/).length;
-  return Math.max(1, Math.ceil(words / 200));
-};
-
 export const PostWrapper: FC<PropsWithChildren> = (props) => {
   const { children } = props;
   const postBodyRef = useRef<HTMLDivElement>(null);
@@ -24,8 +18,8 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
   // Check page type
   const isPost = matchedPage?.date;
   const date = matchedPage?.date ? new Date(matchedPage.date) : null;
-  const formattedDate = date ? format(date, "MMMM d, yyyy") : null;
-  const readTime = matchedPage?.content ? estimateReadTime(matchedPage.content) : null;
+  const formattedDate = date ? format(date, "yyyy.MM.dd") : null;
+  const description = matchedPage?.description;
   const tags = matchedPage?.tags
     ? matchedPage.tags.split(",").map((t: string) => t.trim()).filter(Boolean)
     : [];
@@ -41,28 +35,28 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
           <Toc variant="desktop" />
           <article className="flex-grow min-w-0" lang={lang}>
             {/* Article Header */}
-            <header className="text-center pb-7 mb-8 md:pb-8 md:mb-10 border-b border-[var(--reading-rule)]">
-              {/* Meta info */}
-              <div className="flex items-center justify-center gap-2.5 font-mono text-meta text-text-muted mb-5 tabular-nums">
-                {formattedDate ? (
-                  <time dateTime={matchedPage?.date}>{formattedDate}</time>
-                ) : null}
-                {formattedDate && readTime ? (
-                  <span aria-hidden>&middot;</span>
-                ) : null}
-                {readTime ? (
-                  <span>{readTime} min read</span>
-                ) : null}
-              </div>
+            <header className="post-head">
+              {formattedDate ? (
+                <time
+                  dateTime={matchedPage?.date}
+                  className="block font-mono text-meta tracking-[0.02em] text-text-muted dark:text-text-muted-dark tabular-nums"
+                >
+                  {formattedDate}
+                </time>
+              ) : null}
 
-              {/* Title */}
-              <h1 className="post-title text-display text-text-primary dark:text-text-primary-dark mb-5">
+              <h1 className="post-title text-display text-text-primary dark:text-text-primary-dark mt-3.5 md:mt-5">
                 {matchedPage?.title}
               </h1>
 
-              {/* Tags */}
+              {description ? (
+                <p className="text-base md:text-[1.0625rem] leading-[1.8] text-text-secondary dark:text-text-secondary-dark mt-3.5 md:mt-5 text-pretty">
+                  {description}
+                </p>
+              ) : null}
+
               {tags.length > 0 ? (
-                <div className="flex flex-wrap justify-center gap-2">
+                <div className="flex flex-wrap gap-2 mt-5">
                   {tags.map((tag: string) => (
                     <Tag key={tag} label={tag} />
                   ))}

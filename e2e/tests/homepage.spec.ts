@@ -1,14 +1,14 @@
 import { test, expect } from "../fixtures";
 
 test.describe("Homepage", () => {
-  test("displays heading", async ({ homePage }) => {
+  test("has a page heading for screen readers", async ({ homePage }) => {
     await homePage.goto();
-    await expect(homePage.heading).toBeVisible();
+    await expect(homePage.heading).toHaveText("Yiyang Suen");
   });
 
-  test("displays intro text", async ({ homePage }) => {
+  test("opens straight on the post list", async ({ homePage }) => {
     await homePage.goto();
-    await expect(homePage.introText).toBeVisible();
+    await expect(homePage.postLinks.first()).toBeVisible();
   });
 
   test("has visible header", async ({ homePage }) => {
