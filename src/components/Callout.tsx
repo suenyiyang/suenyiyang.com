@@ -27,7 +27,8 @@ const COLOR_STYLES: Record<CalloutColor, string> = {
   blue: "bg-blue-50 dark:bg-blue-950/30 border-blue-200/70 dark:border-blue-900/50",
   purple:
     "bg-purple-50 dark:bg-purple-950/30 border-purple-200/70 dark:border-purple-900/50",
-  theme: "bg-[#F1ECDB] dark:bg-[#2A251D] border-[#DCCFAB] dark:border-[#3F3727]",
+  // Flexoki base-50 / base-150 on paper, base-950 / base-850 in the dark
+  theme: "bg-[#F2F0E5] dark:bg-[#1C1B1A] border-[#DAD8CE] dark:border-[#343331]",
 };
 
 export const Callout: FC<CalloutProps> = ({

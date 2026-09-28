@@ -59,22 +59,26 @@
   --font-display: var(--font-serif);
   --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  /* --- Color palette --- */
-  --color-bg-light: #FCFBF8;
-  --color-text-primary: #1B1A18;
-  --color-text-secondary: #6B6862;
-  --color-text-muted: #9A968D;
-  --color-text-body: #34322E;
-  --color-border-light: #E8E4DB;
-  --color-accent: #A04A2C;
+  /* --- Color palette ---
+     Flexoki v2 by Steph Ango (stephango.com/flexoki), used the way
+     Obsidian's Minimal theme uses it: a warm `paper` reading surface,
+     the `base-*` neutral ramp for ink and hairlines, one blue accent.
+     Hex values keep their Flexoki names in the comments. --- */
+  --color-bg-light: #FFFCF0;            /* paper */
+  --color-text-primary: #100F0F;        /* black  · titles, headings, strong */
+  --color-text-secondary: #575653;      /* base-700 · descriptions, quotes */
+  --color-text-muted: #878580;          /* base-500 · dates, captions, markers */
+  --color-text-body: #343331;           /* base-850 · body copy */
+  --color-border-light: #E6E4D9;        /* base-100 · hairlines, chips */
+  --color-accent: #027AFF;
 
-  --color-bg-dark: #161513;
-  --color-text-primary-dark: #EDEAE3;
-  --color-text-secondary-dark: #9B978E;
-  --color-text-muted-dark: #6E6A63;
-  --color-text-body-dark: #C9C5BC;
-  --color-border-dark: #2B2925;
-  --color-accent-dark: #D9A07F;
+  --color-bg-dark: #100F0F;             /* black */
+  --color-text-primary-dark: #E6E4D9;   /* base-100 */
+  --color-text-secondary-dark: #878580; /* base-500 */
+  --color-text-muted-dark: #6F6E69;     /* base-600 */
+  --color-text-body-dark: #CECDC3;      /* base-200 */
+  --color-border-dark: #282726;         /* base-900 */
+  --color-accent-dark: #027AFF;
 }
 
 :root {
@@ -83,40 +87,42 @@
   --vt-y: 50%;
   --vt-radius: 150%;
 
-  /* Reading surface tokens (light) */
-  --reading-paper: #FCFBF8;
-  --reading-text-primary: #1B1A18;
-  --reading-text-secondary: #6B6862;
-  --reading-text-muted: #9A968D;
-  --reading-code-bg: #F3F0E8;
-  --reading-code-text: #1B1A18;
-  --reading-quote-bar: #E8E4DB;
-  --reading-rule: #E8E4DB;
-  --reading-accent: #A04A2C;
-  --reading-selection-bg: #EDE3CF;
-  --reading-selection-text: #1B1A18;
-  /* Matches the Shiki vitesse-light editor background */
-  --code-window-bg: #FFFFFF;
+  /* Reading surface tokens (light) — Flexoki paper */
+  --reading-paper: #FFFCF0;             /* paper */
+  --reading-text-primary: #100F0F;      /* black */
+  --reading-text-secondary: #575653;    /* base-700 */
+  --reading-text-muted: #878580;        /* base-500 */
+  --reading-code-bg: #F2F0E5;           /* base-50 */
+  --reading-code-text: #100F0F;         /* black */
+  --reading-quote-bar: #E6E4D9;         /* base-100 */
+  --reading-rule: #E6E4D9;              /* base-100 */
+  --reading-accent: #027AFF;
+  /* Accent tint over paper, so selection follows the accent */
+  --reading-selection-bg: color-mix(in srgb, var(--reading-accent) 20%, var(--reading-paper));
+  --reading-selection-text: #100F0F;    /* black */
+  /* Code panel surface. The Flexoki Shiki theme's own editor background is
+     paper, which would melt a block into the page; Obsidian sets
+     --code-background to the secondary surface instead, so the panel, the
+     window chrome and inline code all share one token. */
+  --code-window-bg: var(--reading-code-bg);
 
   --waline-theme-color: var(--color-neutral-700) !important;
   --waline-active-color: var(--color-neutral-950) !important;
 }
 
 .dark {
-  /* Reading surface tokens (dark) */
-  --reading-paper: #161513;
-  --reading-text-primary: #EDEAE3;
-  --reading-text-secondary: #9B978E;
-  --reading-text-muted: #6E6A63;
-  --reading-code-bg: #1F1E1B;
-  --reading-code-text: #EDEAE3;
-  --reading-quote-bar: #2B2925;
-  --reading-rule: #2B2925;
-  --reading-accent: #D9A07F;
-  --reading-selection-bg: #3A3326;
-  --reading-selection-text: #EDEAE3;
-  /* Matches the Shiki vitesse-dark editor background */
-  --code-window-bg: #121212;
+  /* Reading surface tokens (dark) — Flexoki black */
+  --reading-paper: #100F0F;             /* black */
+  --reading-text-primary: #E6E4D9;      /* base-100 */
+  --reading-text-secondary: #878580;    /* base-500 */
+  --reading-text-muted: #6F6E69;        /* base-600 */
+  --reading-code-bg: #1C1B1A;           /* base-950 */
+  --reading-code-text: #CECDC3;         /* base-200 */
+  --reading-quote-bar: #282726;         /* base-900 */
+  --reading-rule: #282726;              /* base-900 */
+  --reading-accent: #027AFF;
+  --reading-selection-bg: color-mix(in srgb, var(--reading-accent) 32%, var(--reading-paper));
+  --reading-selection-text: #E6E4D9;    /* base-100 */
 
   --waline-theme-color: var(--color-neutral-300) !important;
   --waline-active-color: var(--color-neutral-50) !important;
@@ -315,9 +321,15 @@
     min-width: 0 !important;
   }
 
-  /* --- Links (Anchor component owns the underline treatment) --- */
+  /* --- Links: Obsidian's treatment — accent ink, underline on hover ---
+     (Anchor component owns the same treatment for MDX links) */
   .post-body a {
-    color: var(--reading-text-primary);
+    color: var(--reading-accent);
+    text-decoration-line: none;
+  }
+  .post-body a:hover {
+    text-decoration-line: underline;
+    text-underline-offset: 0.28em;
   }
 
   /* --- Inline code --- */
@@ -394,20 +406,19 @@
     padding: 0;
     border: 0;
   }
-  /* Shiki: light is default, dark swaps via the .dark scope */
+  /* Shiki with the Flexoki themes: light is default, dark swaps via the
+     .dark scope. Token colors come from the theme; the panel background is
+     our own code surface (base-50 / base-950), see --code-window-bg. */
   .post-body .shiki,
   .post-body .shiki span {
     color: var(--shiki-light);
   }
   .post-body pre.shiki {
-    background-color: var(--shiki-light-bg);
+    background-color: var(--reading-code-bg);
   }
   .dark .post-body .shiki,
   .dark .post-body .shiki span {
     color: var(--shiki-dark);
-  }
-  .dark .post-body pre.shiki {
-    background-color: var(--shiki-dark-bg);
   }
 
   /* --- Figures / images --- */
@@ -558,7 +569,7 @@
 .embed-youtube-figure > figcaption {
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: var(--reading-meta, #666);
+  color: var(--reading-text-muted);
   text-align: center;
 }
 
@@ -600,7 +611,7 @@
 .post-figure > figcaption {
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: var(--reading-meta, #666);
+  color: var(--reading-text-muted);
   text-align: center;
   cursor: default;
 }
@@ -657,7 +668,7 @@
   position: relative;
   max-width: min(90vw, 1200px);
   max-height: 90vh;
-  background: var(--reading-surface, #fbf8f1);
+  background: var(--reading-paper);
   border-radius: 10px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   display: flex;
@@ -672,7 +683,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f4f1ea;
+  background: var(--reading-code-bg);
 }
 
 .lightbox-image picture,
@@ -688,13 +699,13 @@
 
 .lightbox-meta {
   padding: 0.75rem 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--reading-rule);
   font-size: 0.875rem;
-  color: var(--reading-meta, #666);
+  color: var(--reading-text-muted);
 }
 
 .lightbox-caption {
-  color: var(--reading-text, #222);
+  color: var(--reading-text-primary);
   margin-bottom: 0.125rem;
 }
 
