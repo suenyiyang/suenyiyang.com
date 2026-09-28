@@ -26,7 +26,7 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
         <span />
       )}
       <div className="flex flex-col gap-2 min-w-0">
-        <h3 className="text-[1.125rem] sm:text-[1.1875rem] leading-[1.55] font-semibold tracking-[0.01em] text-pretty text-text-primary dark:text-text-primary-dark group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
+        <h3 className="text-[1.125rem] sm:text-[1.1875rem] leading-[1.55] font-semibold tracking-[0.01em] text-text-primary dark:text-text-primary-dark group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
           {post.title}
         </h3>
         {post.description ? (

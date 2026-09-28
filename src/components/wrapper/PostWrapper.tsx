@@ -50,7 +50,7 @@ export const PostWrapper: FC<PropsWithChildren> = (props) => {
               </h1>
 
               {description ? (
-                <p className="text-base md:text-[1.0625rem] leading-[1.8] text-text-secondary dark:text-text-secondary-dark mt-3.5 md:mt-5 text-pretty">
+                <p className="text-base md:text-[1.0625rem] leading-[1.8] text-text-secondary dark:text-text-secondary-dark mt-3.5 md:mt-5">
                   {description}
                 </p>
               ) : null}
