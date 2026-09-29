@@ -25,8 +25,4 @@ export interface SiteConfig {
     /** X/Twitter handle, e.g. "@suenyiyang". */
     twitter: string;
   };
-  about?: {
-    avatar?: string;
-    skills?: string[];
-  };
 }
