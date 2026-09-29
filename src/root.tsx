@@ -21,8 +21,15 @@ export function links() {
   return [
     { rel: "preload", href: stylesheet, as: "style" },
     { rel: "stylesheet", href: stylesheet },
-    { rel: "canonical", href: siteConfig.metadata.url },
-    { rel: "icon", href: siteConfig.metadata.favicon },
+    // Served from public/ with unhashed names on purpose: link unfurlers
+    // (Feishu, X, Slack, iMessage) don't run JS and look for these exact
+    // paths — /favicon.ico first, then the SVG. A hashed or inlined (data:)
+    // icon has no URL for them to fetch.
+    { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
+    { rel: "icon", href: siteConfig.metadata.favicon, type: "image/svg+xml" },
+    // Some unfurlers won't take an SVG; hand them a raster one too.
+    { rel: "icon", href: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
   ];
 }
 
@@ -32,6 +39,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
+        <meta
+          name="theme-color"
+          content="#FFFFFF"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#1E1E1E"
+          media="(prefers-color-scheme: dark)"
+        />
         <Links />
         <Meta />
         {__INJECTED_GA_ID__ ? (

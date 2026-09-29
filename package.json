@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "dotenv -- vite dev",
     "build": "react-router build",
+    "og": "node scripts/generate-og-image.mjs",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "serve": "react-router serve",
     "deploy": "wrangler pages deploy build/client",
