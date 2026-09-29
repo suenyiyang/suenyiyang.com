@@ -63,3 +63,6 @@ lerna-debug.log*
 
 # Git worktrees
 .worktrees/
+
+# Font build cache (the 53 MB Adobe source font)
+.cache/
