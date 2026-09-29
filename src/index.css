@@ -60,23 +60,25 @@
   --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* --- Color palette ---
-     Flexoki v2 by Steph Ango (stephango.com/flexoki), used the way
-     Obsidian's Minimal theme uses it: a warm `paper` reading surface,
-     the `base-*` neutral ramp for ink and hairlines, one blue accent.
-     Hex values keep their Flexoki names in the comments. --- */
-  --color-bg-light: #FFFCF0;            /* paper */
-  --color-text-primary: #100F0F;        /* black  · titles, headings, strong */
+     A flat page surface with one ink: white page + #454545 ink in the
+     light, #1E1E1E page + #DCDCDC ink in the dark. The remaining greys
+     (secondary, muted, hairlines) still come from the Flexoki v2 neutral
+     ramp by Steph Ango (stephango.com/flexoki), which keeps the hierarchy
+     quieter than the ink without introducing a second hue. Hex values
+     keep their Flexoki names in the comments where they still apply. --- */
+  --color-bg-light: #FFFFFF;            /* page surface */
+  --color-text-primary: #454545;        /* ink · titles, headings, strong */
   --color-text-secondary: #575653;      /* base-700 · descriptions, quotes */
   --color-text-muted: #878580;          /* base-500 · dates, captions, markers */
-  --color-text-body: #343331;           /* base-850 · body copy */
+  --color-text-body: #454545;           /* ink · body copy */
   --color-border-light: #E6E4D9;        /* base-100 · hairlines, chips */
   --color-accent: #027AFF;
 
-  --color-bg-dark: #100F0F;             /* black */
-  --color-text-primary-dark: #E6E4D9;   /* base-100 */
+  --color-bg-dark: #1E1E1E;             /* page surface */
+  --color-text-primary-dark: #DCDCDC;   /* ink */
   --color-text-secondary-dark: #878580; /* base-500 */
   --color-text-muted-dark: #6F6E69;     /* base-600 */
-  --color-text-body-dark: #CECDC3;      /* base-200 */
+  --color-text-body-dark: #DCDCDC;      /* ink · body copy */
   --color-border-dark: #282726;         /* base-900 */
   --color-accent-dark: #027AFF;
 }
@@ -87,9 +89,9 @@
   --vt-y: 50%;
   --vt-radius: 150%;
 
-  /* Reading surface tokens (light) — Flexoki paper */
-  --reading-paper: #FFFCF0;             /* paper */
-  --reading-text-primary: #100F0F;      /* black */
+  /* Reading surface tokens (light) — white page, #454545 ink */
+  --reading-paper: #FFFFFF;             /* page surface */
+  --reading-text-primary: #454545;      /* ink */
   --reading-text-secondary: #575653;    /* base-700 */
   --reading-text-muted: #878580;        /* base-500 */
   --reading-code-bg: #F2F0E5;           /* base-50 */
@@ -111,9 +113,9 @@
 }
 
 .dark {
-  /* Reading surface tokens (dark) — Flexoki black */
-  --reading-paper: #100F0F;             /* black */
-  --reading-text-primary: #E6E4D9;      /* base-100 */
+  /* Reading surface tokens (dark) — #1E1E1E page, #DCDCDC ink */
+  --reading-paper: #1E1E1E;             /* page surface */
+  --reading-text-primary: #DCDCDC;      /* ink */
   --reading-text-secondary: #878580;    /* base-500 */
   --reading-text-muted: #6F6E69;        /* base-600 */
   --reading-code-bg: #1C1B1A;           /* base-950 */
