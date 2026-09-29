@@ -6,6 +6,7 @@ import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 import { BackToTop } from "~/components/BackToTop";
 
+import { useEffect } from "react";
 import { siteConfig } from "~/config";
 import stylesheet from "~/index.css?url";
 
@@ -79,6 +80,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function LayoutShell({ children }: { children: React.ReactNode }) {
+  // Passive effects run child-first, so by the time this one fires every
+  // effect in the initial tree (click handlers, theme sync, …) is attached.
+  // e2e tests wait for this marker before interacting with the page.
+  useEffect(() => {
+    document.documentElement.dataset.hydrated = "true";
+  }, []);
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
