@@ -1,11 +1,36 @@
 import { test, expect } from "../fixtures";
+import { gotoHydrated } from "../helpers/hydration";
+
+test.describe("Reading type", () => {
+  test("body copy and heading weights", async ({ page }) => {
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
+
+    // The reading surface is deliberately heavier than the 400/600 defaults.
+    await expect(page.locator(".post-body p").first()).toHaveCSS(
+      "font-weight",
+      "500"
+    );
+    await expect(page.locator(".post-title").first()).toHaveCSS(
+      "font-weight",
+      "650"
+    );
+  });
+
+  test("article summary renders in LXGW WenKai", async ({ page }) => {
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
+
+    // Summaries step aside into the kai (楷体) face.
+    const summary = page.locator(".post-summary").first();
+    await expect(summary).toBeVisible();
+    await expect(summary).toHaveCSS("font-family", /LXGW WenKai/);
+  });
+});
 
 test.describe("BackToTop", () => {
   test("hidden until 200px scroll, then visible; click scrolls to top", async ({
     page,
   }) => {
-    await page.goto("/posts/understand-your-agents-better");
-    await page.waitForLoadState("networkidle");
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
 
     const button = page.getByRole("button", { name: /back to top/i });
     await expect(button).toBeHidden();
@@ -24,8 +49,7 @@ test.describe("Toc — desktop rail", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/posts/understand-your-agents-better");
-    await page.waitForLoadState("networkidle");
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
 
     const rail = page.locator(".post-toc-desktop");
     await expect(rail).toBeVisible();
@@ -40,8 +64,7 @@ test.describe("Toc — desktop rail", () => {
 
   test("desktop rail hidden below 1280px", async ({ page }) => {
     await page.setViewportSize({ width: 1024, height: 800 });
-    await page.goto("/posts/understand-your-agents-better");
-    await page.waitForLoadState("networkidle");
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
 
     const rail = page.locator(".post-toc-desktop");
     await expect(rail).toBeHidden();
@@ -53,8 +76,7 @@ test.describe("Toc — mobile pill", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 1024, height: 800 });
-    await page.goto("/posts/understand-your-agents-better");
-    await page.waitForLoadState("networkidle");
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
 
     const pill = page.locator(".post-toc-mobile");
     await expect(pill).toBeVisible();

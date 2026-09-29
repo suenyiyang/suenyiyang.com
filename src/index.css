@@ -5,10 +5,14 @@
    Fontsource splits the CJK face into unicode-range slices, so a page only
    downloads the slices it actually uses. */
 @import "@fontsource-variable/source-serif-4/opsz.css";
-@import "@fontsource/noto-serif-sc/400.css";
-@import "@fontsource/noto-serif-sc/600.css";
+/* Variable CJK face: one file per unicode-range slice covers 200–900, so the
+   heavier reading weights cost nothing extra versus two static weights. */
+@import "@fontsource-variable/noto-serif-sc/wght.css";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
+/* LXGW WenKai (霞鹜文楷) for article summaries. Sliced by unicode-range like
+   the CJK serif above, so only the glyphs actually on screen download. */
+@import "lxgw-wenkai-webfont/lxgwwenkai-regular.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -53,32 +57,38 @@
   --toc-rail-width:   12.5rem;
   --toc-breakpoint:   80rem;
 
-  /* --- Fonts: one serif stack for everything you read; mono for meta. --- */
-  --font-serif:   "Source Serif 4 Variable", "Noto Serif SC", "Songti SC", Georgia, serif;
+  /* --- Fonts: one serif stack for everything you read; mono for meta.
+         Summaries step aside into the kai (楷体) face. --- */
+  --font-serif:   "Source Serif 4 Variable", "Noto Serif SC Variable", "Songti SC", Georgia, serif;
+  --font-kai:     "LXGW WenKai", "Noto Serif SC Variable", "Songti SC", Georgia, serif;
   --font-sans:    var(--font-serif);
   --font-display: var(--font-serif);
   --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
+  /* --- Weights: a touch heavier than the usual 400/600 so the reading
+         surface doesn't feel thin on the warm paper background. --- */
+  --font-weight-reading: 500;  /* body copy */
+  --font-weight-strong:  650;  /* <strong> inside body copy */
+  --font-weight-heading: 650;  /* post title, h2–h4, table headers */
+
   /* --- Color palette ---
-     A flat page surface with one ink: white page + #454545 ink in the
-     light, #1E1E1E page + #DCDCDC ink in the dark. The remaining greys
-     (secondary, muted, hairlines) still come from the Flexoki v2 neutral
-     ramp by Steph Ango (stephango.com/flexoki), which keeps the hierarchy
-     quieter than the ink without introducing a second hue. Hex values
-     keep their Flexoki names in the comments where they still apply. --- */
-  --color-bg-light: #FFFFFF;            /* page surface */
-  --color-text-primary: #454545;        /* ink · titles, headings, strong */
+     Flexoki v2 by Steph Ango (stephango.com/flexoki), used the way
+     Obsidian's Minimal theme uses it: a warm `paper` reading surface,
+     the `base-*` neutral ramp for ink and hairlines, one blue accent.
+     Hex values keep their Flexoki names in the comments. --- */
+  --color-bg-light: #FFFCF0;            /* paper */
+  --color-text-primary: #100F0F;        /* black  · titles, headings, strong */
   --color-text-secondary: #575653;      /* base-700 · descriptions, quotes */
   --color-text-muted: #878580;          /* base-500 · dates, captions, markers */
-  --color-text-body: #454545;           /* ink · body copy */
+  --color-text-body: #343331;           /* base-850 · body copy */
   --color-border-light: #E6E4D9;        /* base-100 · hairlines, chips */
   --color-accent: #027AFF;
 
-  --color-bg-dark: #1E1E1E;             /* page surface */
-  --color-text-primary-dark: #DCDCDC;   /* ink */
+  --color-bg-dark: #100F0F;             /* black */
+  --color-text-primary-dark: #E6E4D9;   /* base-100 */
   --color-text-secondary-dark: #878580; /* base-500 */
   --color-text-muted-dark: #6F6E69;     /* base-600 */
-  --color-text-body-dark: #DCDCDC;      /* ink · body copy */
+  --color-text-body-dark: #CECDC3;      /* base-200 */
   --color-border-dark: #282726;         /* base-900 */
   --color-accent-dark: #027AFF;
 }
@@ -89,9 +99,9 @@
   --vt-y: 50%;
   --vt-radius: 150%;
 
-  /* Reading surface tokens (light) — white page, #454545 ink */
-  --reading-paper: #FFFFFF;             /* page surface */
-  --reading-text-primary: #454545;      /* ink */
+  /* Reading surface tokens (light) — Flexoki paper */
+  --reading-paper: #FFFCF0;             /* paper */
+  --reading-text-primary: #100F0F;      /* black */
   --reading-text-secondary: #575653;    /* base-700 */
   --reading-text-muted: #878580;        /* base-500 */
   --reading-code-bg: #F2F0E5;           /* base-50 */
@@ -113,9 +123,9 @@
 }
 
 .dark {
-  /* Reading surface tokens (dark) — #1E1E1E page, #DCDCDC ink */
-  --reading-paper: #1E1E1E;             /* page surface */
-  --reading-text-primary: #DCDCDC;      /* ink */
+  /* Reading surface tokens (dark) — Flexoki black */
+  --reading-paper: #100F0F;             /* black */
+  --reading-text-primary: #E6E4D9;      /* base-100 */
   --reading-text-secondary: #878580;    /* base-500 */
   --reading-text-muted: #6F6E69;        /* base-600 */
   --reading-code-bg: #1C1B1A;           /* base-950 */
@@ -162,12 +172,18 @@
 @layer components {
   .post-title {
     font-family: var(--font-serif);
-    font-weight: 600;
+    font-weight: var(--font-weight-heading);
     font-style: normal;
     letter-spacing: 0.01em;
     line-height: var(--lh-display);
     /* Left aligned text, greedy line breaking: see .post-body p below. */
     text-wrap: wrap;
+  }
+
+  /* Article summary / list excerpt: kai face, one step quieter than body. */
+  .post-summary {
+    font-family: var(--font-kai);
+    font-weight: 400;
   }
 
   /* Short rule under the article header, instead of a full-width border */
@@ -189,6 +205,7 @@
   .post-body {
     color: var(--color-text-body);
     font-family: var(--font-serif);
+    font-weight: var(--font-weight-reading);
     font-size: var(--text-body);
     line-height: var(--lh-body);
     letter-spacing: 0.01em;
@@ -227,7 +244,7 @@
   .post-body :is(h2, h3, h4) {
     font-family: var(--font-serif);
     color: var(--color-text-primary);
-    font-weight: 600;
+    font-weight: var(--font-weight-heading);
     line-height: var(--lh-heading);
     /* Same reasoning as .post-body p. Multi-line headings measured the same:
        mean 2.84em of trailing gap on WebKit with `pretty`, 0.70em here. */
@@ -257,7 +274,7 @@
   }
 
   .post-body strong {
-    font-weight: 600;
+    font-weight: var(--font-weight-strong);
     color: var(--color-text-primary);
   }
   .dark .post-body strong {
@@ -487,7 +504,7 @@
     border-bottom: 0;
   }
   .post-body th {
-    font-weight: 600;
+    font-weight: var(--font-weight-heading);
     color: var(--color-text-primary);
     border-bottom: 1.5px solid var(--reading-quote-bar);
   }

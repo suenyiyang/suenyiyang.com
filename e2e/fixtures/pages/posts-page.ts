@@ -19,8 +19,10 @@ export class PostsPage extends BasePage {
     return this.postItems.count();
   }
 
+  /** Click a post and wait until the client-side navigation lands on it. */
   async clickPost(index: number = 0): Promise<void> {
     await this.postItems.nth(index).click();
+    await this.page.waitForURL(/\/posts\/.+/);
   }
 
   getPostByTitle(title: string): Locator {

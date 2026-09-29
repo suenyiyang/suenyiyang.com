@@ -6,6 +6,7 @@ import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 import { BackToTop } from "~/components/BackToTop";
 
+import { useEffect } from "react";
 import { siteConfig } from "~/config";
 import stylesheet from "~/index.css?url";
 
@@ -20,8 +21,15 @@ export function links() {
   return [
     { rel: "preload", href: stylesheet, as: "style" },
     { rel: "stylesheet", href: stylesheet },
-    { rel: "canonical", href: siteConfig.metadata.url },
-    { rel: "icon", href: siteConfig.metadata.favicon },
+    // Served from public/ with unhashed names on purpose: link unfurlers
+    // (Feishu, X, Slack, iMessage) don't run JS and look for these exact
+    // paths — /favicon.ico first, then the SVG. A hashed or inlined (data:)
+    // icon has no URL for them to fetch.
+    { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
+    { rel: "icon", href: siteConfig.metadata.favicon, type: "image/svg+xml" },
+    // Some unfurlers won't take an SVG; hand them a raster one too.
+    { rel: "icon", href: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
   ];
 }
 
@@ -31,6 +39,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
+        <meta
+          name="theme-color"
+          content="#FFFCF0"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#100F0F"
+          media="(prefers-color-scheme: dark)"
+        />
         <Links />
         <Meta />
         {__INJECTED_GA_ID__ ? (
@@ -79,6 +97,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function LayoutShell({ children }: { children: React.ReactNode }) {
+  // Passive effects run child-first, so by the time this one fires every
+  // effect in the initial tree (click handlers, theme sync, …) is attached.
+  // e2e tests wait for this marker before interacting with the page.
+  useEffect(() => {
+    document.documentElement.dataset.hydrated = "true";
+  }, []);
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
