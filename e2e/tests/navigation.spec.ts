@@ -19,6 +19,12 @@ test.describe("Navigation", () => {
     await expect(page).toHaveURL("/about");
   });
 
+  test("links link navigates to links page", async ({ homePage, page }) => {
+    await homePage.goto();
+    await homePage.getNavLink("/links").click();
+    await expect(page).toHaveURL("/links");
+  });
+
   test("GitHub link in footer opens in new tab", async ({ homePage }) => {
     await homePage.goto();
     const githubLink = homePage.getFooterLink("https://github.com/suenyiyang");
