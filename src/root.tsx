@@ -41,12 +41,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta
           name="theme-color"
-          content="#FFFFFF"
+          content="#FFFCF0"
           media="(prefers-color-scheme: light)"
         />
         <meta
           name="theme-color"
-          content="#1E1E1E"
+          content="#100F0F"
           media="(prefers-color-scheme: dark)"
         />
         <Links />
