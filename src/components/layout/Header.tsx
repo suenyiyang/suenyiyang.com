@@ -18,8 +18,8 @@ export default function Header() {
           <Logo />
         </Link>
 
-        <div className="flex items-center gap-5 md:gap-6">
-          <nav className="flex items-center gap-5 md:gap-6">
+        <div className="flex items-center gap-4 md:gap-6">
+          <nav className="flex items-center gap-3.5 md:gap-6">
             {siteConfig.navItems.map((item) =>
               item.target === "_blank" ? (
                 <a
