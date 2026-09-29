@@ -21,14 +21,12 @@ export function links() {
   return [
     { rel: "preload", href: stylesheet, as: "style" },
     { rel: "stylesheet", href: stylesheet },
-    // Served from public/ with unhashed names on purpose: link unfurlers
-    // (Feishu, X, Slack, iMessage) don't run JS and look for these exact
-    // paths — /favicon.ico first, then the SVG. A hashed or inlined (data:)
-    // icon has no URL for them to fetch.
-    { rel: "icon", href: "/favicon.ico", sizes: "32x32" },
-    { rel: "icon", href: siteConfig.metadata.favicon, type: "image/svg+xml" },
-    // Some unfurlers won't take an SVG; hand them a raster one too.
-    { rel: "icon", href: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    // Served from public/ with unhashed names on purpose: browsers and link
+    // unfurlers (Feishu, X, Slack, iMessage) don't run JS and look for these
+    // exact paths — /favicon.ico first. A hashed or inlined (data:) icon has no
+    // URL for them to fetch. All three are cut from the avatar by `pnpm icons`.
+    { rel: "icon", href: "/favicon.ico", sizes: "16x16 32x32" },
+    { rel: "icon", href: siteConfig.metadata.favicon, type: "image/webp", sizes: "192x192" },
     { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
   ];
 }
