@@ -31,20 +31,10 @@ export const siteConfig: SiteConfig = {
     keywords: "Yiyang Suen, Frontend, Tech",
     url: "https://suenyiyang.com",
     // Icons live in public/ so crawlers get stable, unhashed URLs
-    // (/favicon.ico is what most of them probe first).
-    favicon: "/favicon.svg",
-    ogImage: "/og.png",
+    // (/favicon.ico is what most of them probe first). Regenerate the whole set
+    // from the avatar with `pnpm icons`.
+    favicon: "/icon-192.webp",
+    ogImage: "/og.jpg",
     twitter: "@suenyiyang",
-  },
-  about: {
-    avatar: "https://sf-cdn.suenyiyang.com/avatar/avatar.jpeg",
-    skills: [
-      "React",
-      "TypeScript",
-      "Node.js",
-      "AI Tools",
-      "UI/UX",
-      "Photography",
-    ],
   },
 };

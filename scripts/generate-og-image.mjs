@@ -1,9 +1,9 @@
 /**
- * Renders public/og.png — the link-preview card Feishu, X, Slack and the rest
+ * Renders public/og.jpg — the link-preview card Feishu, X, Slack and the rest
  * of the unfurlers show for https://suenyiyang.com.
  *
  * Run manually (`pnpm og`) whenever the avatar or the wording changes; the
- * result is committed, so the build never depends on a browser.
+ * result is committed, so the build never depends on a browser or the network.
  *
  *     node scripts/generate-og-image.mjs
  *
@@ -11,11 +11,16 @@
  * the real site fonts (Source Serif 4 / IBM Plex Mono) and real text layout
  * instead of whatever fontconfig happens to find, at the cost of one headless
  * page load.
+ *
+ * JPEG rather than the PNG the card started as: the portrait is a paper-textured
+ * illustration, which costs ~750 KB in PNG and ~110 KB here, and the unfurlers
+ * that read og:image all take JPEG.
  */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "@playwright/test";
+import { loadAvatar, toDataUrl } from "./lib/avatar.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -25,8 +30,8 @@ const description =
   "Personal blog including frontend tech, life sharing, AI exploration and more.";
 const siteHost = "suenyiyang.com";
 
-// The avatar illustration paints its own #ECE5D7 background, so using the same
-// colour for the card makes it bleed into the card edge without a seam.
+// The avatar is painted on cream paper: #ECE4D7 averaged over its background,
+// close enough that the card's flat fill reads as the same paper.
 const ink = "#1A1817";
 const secondaryInk = "#575653";
 const mutedInk = "#878580";
@@ -40,6 +45,8 @@ const asDataUrl = async (file, mime) =>
 
 const fontFile = (pkg, file) =>
   path.join(root, "node_modules", pkg, "files", file);
+
+const avatar = await loadAvatar();
 
 const html = `<!doctype html>
 <html>
@@ -78,21 +85,28 @@ const html = `<!doctype html>
         -webkit-font-smoothing: antialiased;
       }
 
-      /* The illustration is square and its own background is ${surface}, so it
-         sits flush against the right edge. */
+      /* The illustration is square and its paper background is ${surface}, so
+         it sits flush against the right edge — the browser scales the full
+         1254px avatar down to the card. Its left edge gets a short fade: the
+         grain stops there, and a hard line against the card's flat fill reads
+         as a mistake. */
       .avatar {
         position: absolute;
         top: 0;
         right: 0;
         width: ${HEIGHT}px;
         height: ${HEIGHT}px;
+        -webkit-mask-image: linear-gradient(to right, transparent 0, #000 72px);
+        mask-image: linear-gradient(to right, transparent 0, #000 72px);
       }
 
+      /* Never wider than the gap the portrait leaves, or the copy runs under
+         the illustration and gets covered up mid-word. */
       .copy {
         position: absolute;
         top: 0;
         left: 0;
-        width: ${WIDTH - HEIGHT + 40}px;
+        width: ${WIDTH - HEIGHT}px;
         height: ${HEIGHT}px;
         padding: 0 0 0 88px;
         display: flex;
@@ -131,7 +145,7 @@ const html = `<!doctype html>
     </div>
     <img
       class="avatar"
-      src="${await asDataUrl(path.join(root, "public/icon-512.png"), "image/png")}"
+      src="${toDataUrl(avatar)}"
       alt=""
     />
   </body>
@@ -146,8 +160,8 @@ const page = await browser.newPage({
 await page.setContent(html, { waitUntil: "load" });
 await page.evaluate(() => document.fonts.ready);
 
-const out = path.join(root, "public/og.png");
-await page.screenshot({ path: out, type: "png" });
+const out = path.join(root, "public/og.jpg");
+await page.screenshot({ path: out, type: "jpeg", quality: 88 });
 await browser.close();
 
 const { size } = await fs.stat(out);

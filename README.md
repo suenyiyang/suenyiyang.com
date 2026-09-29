@@ -20,6 +20,8 @@ pnpm dev
 - `pnpm build` - build the static site to `build/client/`
 - `pnpm serve` - serve the production build locally
 - `pnpm deploy` - publish `build/client/` to Cloudflare Pages via Wrangler
+- `pnpm icons` - re-cut the favicon/logo set from the avatar (see `scripts/generate-icons.mjs`)
+- `pnpm og` - re-render the link-preview card
 - `pnpm lint` - run ESLint
 
 ## Content
@@ -27,6 +29,15 @@ pnpm dev
 - Frontmatter schema (all optional): `title`, `date`, `description`, `keywords`, `lang` (`zh` or `en`), `url`, `tags`, `comment`.
 - If `title` is missing, it is inferred from the first `#` heading.
 - **Images are co-located with the post**: drop them in the same folder and reference with relative paths, e.g. `![alt](./diagram.png)`. A remark plugin rewrites these into ESM imports so Vite hashes and bundles them. IDE markdown preview renders them inline.
+
+## Avatar, icons and link previews
+
+- The header mark, the favicon set and the link-preview card are all cut from one
+  illustration — the avatar on the CDN, declared in `scripts/lib/avatar.mjs`.
+  There is no separate logo artwork.
+- `pnpm icons` re-cuts the icon set and `pnpm og` re-renders the card; the results
+  are committed, so the build never touches the network. Pass
+  `AVATAR_SRC=/path/to.jpeg` to either script to work from a local file.
 
 ## Environment variables
 Create a `.env` file if needed.

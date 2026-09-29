@@ -37,7 +37,7 @@ test.describe("Link preview metadata", () => {
     );
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
-      "https://suenyiyang.com/og.png"
+      "https://suenyiyang.com/og.jpg"
     );
     await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
       "content",
@@ -54,10 +54,10 @@ test.describe("Link preview metadata", () => {
   }) => {
     const files: Array<[string, string]> = [
       ["/favicon.ico", "image/"],
-      ["/favicon.svg", "image/svg+xml"],
+      ["/icon-192.webp", "image/webp"],
       ["/apple-touch-icon.png", "image/png"],
-      ["/icon-512.png", "image/png"],
-      ["/og.png", "image/png"],
+      ["/logo.webp", "image/webp"],
+      ["/og.jpg", "image/jpeg"],
     ];
 
     for (const [file, contentType] of files) {
