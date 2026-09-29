@@ -50,8 +50,10 @@ export async function waitForThemeTransition(
       previousIsDark,
       { timeout: 2000 }
     );
-    return;
   }
+  // The theme switch runs a View Transition; while it plays, the page is
+  // covered by the transition snapshot and clicks don't reach the DOM.
+  // setThemeWithTransition() drops data-theme-transition once it finishes.
   await page.waitForFunction(
     () => !document.documentElement.hasAttribute("data-theme-transition"),
     undefined,

@@ -36,8 +36,11 @@ test.describe("Post Detail", () => {
 
     if (count > 0) {
       await postsPage.clickPost(0);
-      await page.waitForLoadState("networkidle");
+      await expect(page).toHaveURL(/\/posts\/.+/);
+      await expect(postDetailPage.title).toBeVisible();
 
+      // Not "networkidle": embedded YouTube / X players keep the network busy
+      // indefinitely. allImagesLoaded() waits for each image itself.
       const imageCount = await postDetailPage.getImageCount();
       if (imageCount > 0) {
         const allLoaded = await postDetailPage.allImagesLoaded();

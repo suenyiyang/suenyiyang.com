@@ -31,6 +31,20 @@ export default tseslint.config(
     },
   },
   {
+    // Build scripts run in Node but also evaluate callbacks in the page
+    // (scripts/generate-og-image.mjs drives a headless Chromium), so they
+    // need both global sets.
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+      },
+    },
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: "latest",

@@ -1,5 +1,4 @@
 import { Logo } from "~/components/Logo";
-import favicon from "~/assets/favicon.svg?url";
 import { SiteConfig } from "~/types/config";
 
 export const siteConfig: SiteConfig = {
@@ -31,7 +30,11 @@ export const siteConfig: SiteConfig = {
       "Personal blog including frontend tech, life sharing, AI exploration and more.",
     keywords: "Yiyang Suen, Frontend, Tech",
     url: "https://suenyiyang.com",
-    favicon,
+    // Icons live in public/ so crawlers get stable, unhashed URLs
+    // (/favicon.ico is what most of them probe first).
+    favicon: "/favicon.svg",
+    ogImage: "/og.png",
+    twitter: "@suenyiyang",
   },
   about: {
     avatar: "https://sf-cdn.suenyiyang.com/avatar/avatar.jpeg",

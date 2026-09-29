@@ -1,10 +1,11 @@
 import { test, expect } from "../fixtures";
+import { gotoHydrated } from "../helpers/hydration";
 
 const POST_URL = "/posts/review-2025/";
 
 test.describe("Lightbox", () => {
   test("opens when clicking a post image", async ({ page }) => {
-    await page.goto(POST_URL);
+    await gotoHydrated(page, POST_URL);
     const firstFigure = page.locator("article figure[data-zoomable]").first();
     await firstFigure.scrollIntoViewIfNeeded();
     await firstFigure.click();
@@ -16,7 +17,7 @@ test.describe("Lightbox", () => {
   });
 
   test("Escape closes the lightbox", async ({ page }) => {
-    await page.goto(POST_URL);
+    await gotoHydrated(page, POST_URL);
     const firstFigure = page.locator("article figure[data-zoomable]").first();
     await firstFigure.scrollIntoViewIfNeeded();
     await firstFigure.click();
@@ -27,7 +28,7 @@ test.describe("Lightbox", () => {
   });
 
   test("arrow keys navigate between images, wrapping at ends", async ({ page }) => {
-    await page.goto(POST_URL);
+    await gotoHydrated(page, POST_URL);
     const figures = page.locator("article figure[data-zoomable]");
     const count = await figures.count();
     test.skip(count < 2, "post needs multiple images for this test");
@@ -51,7 +52,7 @@ test.describe("Lightbox", () => {
   });
 
   test("backdrop click closes; card click does not", async ({ page }) => {
-    await page.goto(POST_URL);
+    await gotoHydrated(page, POST_URL);
     const firstFigure = page.locator("article figure[data-zoomable]").first();
     await firstFigure.scrollIntoViewIfNeeded();
     await firstFigure.click();
@@ -69,7 +70,7 @@ test.describe("Lightbox", () => {
   });
 
   test("lightbox is not mounted on non-post pages", async ({ page }) => {
-    await page.goto("/");
+    await gotoHydrated(page, "/");
     await expect(page.locator(".lightbox-backdrop")).toHaveCount(0);
   });
 });

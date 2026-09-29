@@ -20,6 +20,10 @@ export interface SiteConfig {
     keywords: string;
     url: string;
     favicon: string;
+    /** Link-preview card, served from public/. */
+    ogImage: string;
+    /** X/Twitter handle, e.g. "@suenyiyang". */
+    twitter: string;
   };
   about?: {
     avatar?: string;

@@ -76,15 +76,12 @@ test.describe("Dark Mode", () => {
     await expectDarkMode(page);
   });
 
-  test("shows correct icon based on mode", async ({ homePage }) => {
+  test("marks the selected theme option", async ({ homePage }) => {
     await homePage.goto();
+    await expect(homePage.systemThemeOption).toHaveAttribute("aria-checked", "true");
 
-    const isDark = await homePage.isDarkMode();
-
-    if (isDark) {
-      await expect(homePage.sunIcon).toBeVisible();
-    } else {
-      await expect(homePage.moonIcon).toBeVisible();
-    }
+    await homePage.darkThemeOption.click();
+    await expect(homePage.darkThemeOption).toHaveAttribute("aria-checked", "true");
+    await expect(homePage.systemThemeOption).toHaveAttribute("aria-checked", "false");
   });
 });
