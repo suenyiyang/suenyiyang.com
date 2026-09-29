@@ -30,7 +30,7 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
           {post.title}
         </h3>
         {post.description ? (
-          <p className="text-[0.9375rem] leading-[1.75] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
+          <p className="post-summary text-[0.9375rem] leading-[1.75] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
             {post.description}
           </p>
         ) : null}

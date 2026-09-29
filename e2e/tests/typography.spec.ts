@@ -1,5 +1,29 @@
 import { test, expect } from "../fixtures";
 
+test.describe("Reading type", () => {
+  test("body copy, headings and article summary use the intended weight and face", async ({
+    page,
+  }) => {
+    await page.goto("/posts/understand-your-agents-better");
+    await page.waitForLoadState("networkidle");
+
+    // The reading surface is deliberately heavier than the 400/600 defaults.
+    await expect(page.locator(".post-body p").first()).toHaveCSS(
+      "font-weight",
+      "500"
+    );
+    await expect(page.locator(".post-title").first()).toHaveCSS(
+      "font-weight",
+      "650"
+    );
+
+    // Summaries step aside into LXGW WenKai.
+    const summary = page.locator(".post-summary").first();
+    await expect(summary).toBeVisible();
+    await expect(summary).toHaveCSS("font-family", /LXGW WenKai/);
+  });
+});
+
 test.describe("BackToTop", () => {
   test("hidden until 200px scroll, then visible; click scrolls to top", async ({
     page,

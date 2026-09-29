@@ -5,10 +5,14 @@
    Fontsource splits the CJK face into unicode-range slices, so a page only
    downloads the slices it actually uses. */
 @import "@fontsource-variable/source-serif-4/opsz.css";
-@import "@fontsource/noto-serif-sc/400.css";
-@import "@fontsource/noto-serif-sc/600.css";
+/* Variable CJK face: one file per unicode-range slice covers 200–900, so the
+   heavier reading weights cost nothing extra versus two static weights. */
+@import "@fontsource-variable/noto-serif-sc/wght.css";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
+/* LXGW WenKai (霞鹜文楷) for article summaries. Sliced by unicode-range like
+   the CJK serif above, so only the glyphs actually on screen download. */
+@import "lxgw-wenkai-webfont/lxgwwenkai-regular.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -53,11 +57,19 @@
   --toc-rail-width:   12.5rem;
   --toc-breakpoint:   80rem;
 
-  /* --- Fonts: one serif stack for everything you read; mono for meta. --- */
-  --font-serif:   "Source Serif 4 Variable", "Noto Serif SC", "Songti SC", Georgia, serif;
+  /* --- Fonts: one serif stack for everything you read; mono for meta.
+         Summaries step aside into the kai (楷体) face. --- */
+  --font-serif:   "Source Serif 4 Variable", "Noto Serif SC Variable", "Songti SC", Georgia, serif;
+  --font-kai:     "LXGW WenKai", "Noto Serif SC Variable", "Songti SC", Georgia, serif;
   --font-sans:    var(--font-serif);
   --font-display: var(--font-serif);
   --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* --- Weights: a touch heavier than the usual 400/600 so the reading
+         surface doesn't feel thin on the warm paper background. --- */
+  --font-weight-reading: 500;  /* body copy */
+  --font-weight-strong:  650;  /* <strong> inside body copy */
+  --font-weight-heading: 650;  /* post title, h2–h4, table headers */
 
   /* --- Color palette ---
      A flat page surface with one ink: white page + #454545 ink in the
@@ -162,12 +174,18 @@
 @layer components {
   .post-title {
     font-family: var(--font-serif);
-    font-weight: 600;
+    font-weight: var(--font-weight-heading);
     font-style: normal;
     letter-spacing: 0.01em;
     line-height: var(--lh-display);
     /* Left aligned text, greedy line breaking: see .post-body p below. */
     text-wrap: wrap;
+  }
+
+  /* Article summary / list excerpt: kai face, one step quieter than body. */
+  .post-summary {
+    font-family: var(--font-kai);
+    font-weight: 400;
   }
 
   /* Short rule under the article header, instead of a full-width border */
@@ -189,6 +207,7 @@
   .post-body {
     color: var(--color-text-body);
     font-family: var(--font-serif);
+    font-weight: var(--font-weight-reading);
     font-size: var(--text-body);
     line-height: var(--lh-body);
     letter-spacing: 0.01em;
@@ -227,7 +246,7 @@
   .post-body :is(h2, h3, h4) {
     font-family: var(--font-serif);
     color: var(--color-text-primary);
-    font-weight: 600;
+    font-weight: var(--font-weight-heading);
     line-height: var(--lh-heading);
     /* Same reasoning as .post-body p. Multi-line headings measured the same:
        mean 2.84em of trailing gap on WebKit with `pretty`, 0.70em here. */
@@ -257,7 +276,7 @@
   }
 
   .post-body strong {
-    font-weight: 600;
+    font-weight: var(--font-weight-strong);
     color: var(--color-text-primary);
   }
   .dark .post-body strong {
@@ -487,7 +506,7 @@
     border-bottom: 0;
   }
   .post-body th {
-    font-weight: 600;
+    font-weight: var(--font-weight-heading);
     color: var(--color-text-primary);
     border-bottom: 1.5px solid var(--reading-quote-bar);
   }
