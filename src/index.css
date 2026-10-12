@@ -274,12 +274,12 @@
   .post-body strong {
     font-weight: var(--font-weight-strong);
     color: var(--color-text-primary);
-    /* Two translucent, slightly angled strokes: a hand-drawn marker rather
-       than a solid rectangular badge. Clone the strokes on each wrapped line.
+    /* Two translucent strokes across only the lower half of the text:
+       a hand-drawn underline, not a filled badge. Clone on wrapped lines.
        Backgrounds stay behind the text without changing its line-height. */
     background-image:
-      linear-gradient(177deg, transparent 14%, var(--reading-highlight) 19%, var(--reading-highlight) 81%, transparent 87%),
-      linear-gradient(183deg, transparent 27%, var(--reading-highlight-overlap) 32%, var(--reading-highlight-overlap) 88%, transparent 93%);
+      linear-gradient(177deg, transparent 49%, var(--reading-highlight) 54%, var(--reading-highlight) 87%, transparent 93%),
+      linear-gradient(183deg, transparent 58%, var(--reading-highlight-overlap) 63%, var(--reading-highlight-overlap) 91%, transparent 97%);
     padding-inline: 0.08em;
     border-radius: 0.18em 0.1em 0.2em 0.08em;
     -webkit-box-decoration-break: clone;
