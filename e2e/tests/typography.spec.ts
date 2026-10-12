@@ -5,24 +5,38 @@ test.describe("Reading type", () => {
   test("body copy and heading weights", async ({ page }) => {
     await gotoHydrated(page, "/posts/understand-your-agents-better");
 
-    // The reading surface is deliberately heavier than the 400/600 defaults.
-    await expect(page.locator(".post-body p").first()).toHaveCSS(
-      "font-weight",
-      "500"
-    );
+    // Use WenKai's real regular/bold faces rather than synthetic weights.
+    const body = page.locator(".post-body p").first();
+    await expect(body).toHaveCSS("font-family", /^"LXGW WenKai"/);
+    await expect(body).toHaveCSS("font-weight", "400");
+    await expect(body).toHaveCSS("font-style", "normal");
     await expect(page.locator(".post-title").first()).toHaveCSS(
       "font-weight",
-      "650"
+      "700"
     );
   });
 
-  test("article summary renders in LXGW WenKai", async ({ page }) => {
+  test("article summary is italic, distinct from the regular body", async ({ page }) => {
     await gotoHydrated(page, "/posts/understand-your-agents-better");
 
-    // Summaries step aside into the kai (楷体) face.
+    // WenKai is now the body face; summaries step aside with a slant.
     const summary = page.locator(".post-summary").first();
     await expect(summary).toBeVisible();
-    await expect(summary).toHaveCSS("font-family", /LXGW WenKai/);
+    await expect(summary).toHaveCSS("font-family", /^"LXGW WenKai"/);
+    await expect(summary).toHaveCSS("font-style", "italic");
+  });
+
+  test("list excerpts are italic and code retains IBM Plex Mono", async ({ page }) => {
+    await gotoHydrated(page, "/posts");
+    const excerpt = page.locator(".post-summary").first();
+    await expect(excerpt).toBeVisible();
+    await expect(excerpt).toHaveCSS("font-style", "italic");
+
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
+    await expect(page.locator(".post-body code").first()).toHaveCSS(
+      "font-family",
+      /^"IBM Plex Mono"/
+    );
   });
 });
 

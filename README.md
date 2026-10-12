@@ -22,7 +22,7 @@ pnpm dev
 - `pnpm deploy` - publish `build/client/` to Cloudflare Pages via Wrangler
 - `pnpm icons` - re-cut the favicon/logo set from the avatar (see `scripts/generate-icons.mjs`)
 - `pnpm og` - re-render the link-preview card
-- `pnpm fonts` - rebuild the sliced CJK webfont (see [Typography](#typography))
+- `pnpm fonts` / `pnpm fonts:check` - rebuild/check the archived Source Han Serif slices (not used by the current reading theme)
 - `pnpm lint` - run ESLint
 
 ## Content
@@ -33,9 +33,19 @@ pnpm dev
 
 ## Typography
 
-Reading text is a serif stack: **Source Serif 4** for Latin and **Source Han
-Serif SC** (思源宋体, Adobe) for CJK. Article summaries use LXGW WenKai (霞鹜文楷)
-and meta text uses IBM Plex Mono.
+Reading text, headings, and ordinary UI use **LXGW WenKai** (霞鹜文楷) for
+both CJK and Latin. The `lxgw-wenkai-webfont` package supplies self-hosted,
+`unicode-range`-sliced regular (400) and bold (700) faces. Article summaries
+and list excerpts use italic to distinguish them from body copy; WenKai has no
+native italic face, so the browser synthesizes the slant. Code and meta text
+continue to use **IBM Plex Mono**. Font sizes, line heights, and colors are unchanged.
+
+### Archived Source Han Serif tooling
+
+The previous serif font files and generator are retained for easy comparison or
+rollback, but are not imported into the site. `pnpm fonts:check` explicitly
+checks those archived slices; it no longer runs as a build prerequisite because
+it does not validate the active WenKai font.
 
 Adobe only ships Source Han Serif as desktop OTF/TTF (the SC variable font is
 53 MB), and the community web packages are sliced for "all of CJK" — several MB
@@ -61,7 +71,7 @@ pnpm fonts            # regenerate after adding text with new characters
 pnpm fonts -- --report  # ...plus a per-page byte report
 ```
 
-`pnpm build` runs `scripts/check-font-coverage.mjs` first (`prebuild`), because a
+`pnpm fonts:check` runs `scripts/check-font-coverage.mjs`, because a
 stale font set fails in two different ways: a character no chunk covers would
 silently fall back to the OS font, so that fails the build and asks you to run
 `pnpm fonts`; a character that is only in the GB2312 headroom renders fine but
