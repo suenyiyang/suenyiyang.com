@@ -45,6 +45,10 @@ export default defineConfig({
             // --reading-code-bg, see config/themes/README.md.
             themes: { light: flexokiLight, dark: flexokiDark },
             defaultColor: false,
+            // Keep unlabeled blocks and custom labels (e.g. 伪代码) on the
+            // same Shiki → code-window rendering path as supported languages.
+            defaultLanguage: "text",
+            fallbackLanguage: "text",
           },
         ],
         rehypeCodeWindow,
