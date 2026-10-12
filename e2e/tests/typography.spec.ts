@@ -1,28 +1,86 @@
 import { test, expect } from "../fixtures";
 import { gotoHydrated } from "../helpers/hydration";
+import { evaluate } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import remarkFlexibleMarkers from "remark-flexible-markers";
 
 test.describe("Reading type", () => {
   test("body copy and heading weights", async ({ page }) => {
     await gotoHydrated(page, "/posts/understand-your-agents-better");
 
-    // The reading surface is deliberately heavier than the 400/600 defaults.
-    await expect(page.locator(".post-body p").first()).toHaveCSS(
-      "font-weight",
-      "500"
-    );
+    // Use WenKai's real regular/bold faces rather than synthetic weights.
+    const body = page.locator(".post-body p").first();
+    await expect(body).toHaveCSS("font-family", /^"LXGW WenKai"/);
+    await expect(body).toHaveCSS("font-weight", "400");
+    await expect(body).toHaveCSS("font-style", "normal");
     await expect(page.locator(".post-title").first()).toHaveCSS(
       "font-weight",
-      "650"
+      "700"
     );
   });
 
-  test("article summary renders in LXGW WenKai", async ({ page }) => {
+  test("only explicit Markdown highlights get marker strokes", async ({ page }) => {
+    const { default: Content } = await evaluate(
+      '**只加粗**\n\n==只高亮==\n\n==**高亮并加粗**==\n\n`==代码不高亮==`\n\n```text\n==代码块不高亮==\n```',
+      { ...runtime, remarkPlugins: [remarkFlexibleMarkers] }
+    );
+    const html = renderToStaticMarkup(createElement(Content));
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
+    await page.locator(".post-body").evaluate((el, markup) => {
+      el.innerHTML = markup;
+    }, html);
+    const body = page.locator(".post-body");
+    const strong = body.locator("strong").first();
+    await expect(strong).toHaveCSS("font-weight", "700");
+    await expect(strong).toHaveCSS("background-image", "none");
+    await expect(body.locator("mark")).toHaveCount(2);
+    const highlight = body.locator("mark").first();
+    await expect(highlight).toHaveText("只高亮");
+    await expect(highlight).toHaveCSS("font-weight", "400");
+    await expect(body.locator("mark strong")).toHaveText("高亮并加粗");
+    await expect(body.locator("mark strong")).toHaveCSS("font-weight", "700");
+    await expect(body.locator("code").first()).toHaveText("==代码不高亮==");
+    await expect(body.locator("pre code")).toHaveText("==代码块不高亮==\n");
+    const decorationBreak = await highlight.evaluate((el) => {
+      const style = getComputedStyle(el);
+      return style.getPropertyValue("box-decoration-break") ||
+        style.getPropertyValue("-webkit-box-decoration-break");
+    });
+    expect(decorationBreak).toBe("clone");
+    const lightStroke = await highlight.evaluate((el) => getComputedStyle(el).backgroundImage);
+    expect(lightStroke).toContain("linear-gradient");
+    expect(lightStroke).toContain("0.19");
+
+    await page.evaluate(() => document.documentElement.classList.add("dark"));
+    const darkStroke = await highlight.evaluate((el) => getComputedStyle(el).backgroundImage);
+    expect(darkStroke).toContain("linear-gradient");
+    expect(darkStroke).toContain("0.29");
+    expect(darkStroke).not.toBe(lightStroke);
+  });
+
+  test("article summary is italic, distinct from the regular body", async ({ page }) => {
     await gotoHydrated(page, "/posts/understand-your-agents-better");
 
-    // Summaries step aside into the kai (楷体) face.
+    // WenKai is now the body face; summaries step aside with a slant.
     const summary = page.locator(".post-summary").first();
     await expect(summary).toBeVisible();
-    await expect(summary).toHaveCSS("font-family", /LXGW WenKai/);
+    await expect(summary).toHaveCSS("font-family", /^"LXGW WenKai"/);
+    await expect(summary).toHaveCSS("font-style", "italic");
+  });
+
+  test("list excerpts are italic and code retains IBM Plex Mono", async ({ page }) => {
+    await gotoHydrated(page, "/posts");
+    const excerpt = page.locator(".post-summary").first();
+    await expect(excerpt).toBeVisible();
+    await expect(excerpt).toHaveCSS("font-style", "italic");
+
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
+    await expect(page.locator(".post-body code").first()).toHaveCSS(
+      "font-family",
+      /^"IBM Plex Mono"/
+    );
   });
 });
 
