@@ -274,6 +274,14 @@
   .post-body strong {
     font-weight: var(--font-weight-strong);
     color: var(--color-text-primary);
+  }
+  .dark .post-body strong {
+    color: var(--color-text-primary-dark);
+  }
+
+  .post-body mark {
+    color: inherit;
+    background-color: transparent;
     /* Two translucent strokes across only the lower half of the text:
        a hand-drawn underline, not a filled badge. Clone on wrapped lines.
        Backgrounds stay behind the text without changing its line-height. */
@@ -284,9 +292,6 @@
     border-radius: 0.18em 0.1em 0.2em 0.08em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
-  }
-  .dark .post-body strong {
-    color: var(--color-text-primary-dark);
   }
   .post-body em {
     font-style: italic;

@@ -9,6 +9,7 @@ import { imagetools } from "vite-imagetools";
 import path from "node:path";
 import remarkEmoji from "remark-emoji";
 import remarkGfm from "remark-gfm";
+import remarkFlexibleMarkers from "remark-flexible-markers";
 import rehypeShiki from "@shikijs/rehype";
 import rehypeSlug from "rehype-slug";
 
@@ -27,6 +28,7 @@ export default defineConfig({
       remarkPlugins: [
         remarkFrontmatter,
         remarkGfm,
+        remarkFlexibleMarkers,
         remarkEmoji,
         remarkYoutubeEmbeds,
         remarkTwitterEmbeds,

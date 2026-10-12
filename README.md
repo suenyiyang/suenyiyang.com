@@ -38,10 +38,21 @@ both CJK and Latin. The `lxgw-wenkai-webfont` package supplies self-hosted,
 `unicode-range`-sliced regular (400) and bold (700) faces. Article summaries
 and list excerpts use italic to distinguish them from body copy; WenKai has no
 native italic face, so the browser synthesizes the slant. Code and meta text
-continue to use **IBM Plex Mono**. Bold text inside articles gets two translucent,
-slightly angled marker strokes across only the lower half of the text, tinted
-with the theme's blue accent; dark mode uses a stronger tint, and wrapped text
-gets a separate stroke on each line.
+continue to use **IBM Plex Mono**. Bold (`**text**`) only changes text weight.
+Explicit highlights (`==text==`) get two translucent, slightly angled marker
+strokes across only the lower half of the text, tinted with the theme's blue
+accent; dark mode uses a stronger tint, and wrapped text gets a separate stroke
+on each line. Highlight syntax is a Markdown extension provided by
+`remark-flexible-markers`, not part of CommonMark or GFM.
+
+```markdown
+**只加粗**
+==只高亮==
+==**高亮并加粗**==
+```
+
+Keep the `==` delimiters adjacent to the content (no inner padding spaces).
+Inline code and fenced code blocks keep `==` literal.
 Font sizes, line heights, and the existing text colors are unchanged.
 
 ### Archived Source Han Serif tooling

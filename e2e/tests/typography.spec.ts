@@ -1,5 +1,10 @@
 import { test, expect } from "../fixtures";
 import { gotoHydrated } from "../helpers/hydration";
+import { evaluate } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import remarkFlexibleMarkers from "remark-flexible-markers";
 
 test.describe("Reading type", () => {
   test("body copy and heading weights", async ({ page }) => {
@@ -16,22 +21,40 @@ test.describe("Reading type", () => {
     );
   });
 
-  test("bold text has theme-tinted marker strokes in both themes", async ({ page }) => {
+  test("only explicit Markdown highlights get marker strokes", async ({ page }) => {
+    const { default: Content } = await evaluate(
+      '**只加粗**\n\n==只高亮==\n\n==**高亮并加粗**==\n\n`==代码不高亮==`\n\n```text\n==代码块不高亮==\n```',
+      { ...runtime, remarkPlugins: [remarkFlexibleMarkers] }
+    );
+    const html = renderToStaticMarkup(createElement(Content));
     await gotoHydrated(page, "/posts/understand-your-agents-better");
-    const strong = page.locator(".post-body strong").first();
+    await page.locator(".post-body").evaluate((el, markup) => {
+      el.innerHTML = markup;
+    }, html);
+    const body = page.locator(".post-body");
+    const strong = body.locator("strong").first();
     await expect(strong).toHaveCSS("font-weight", "700");
-    const decorationBreak = await strong.evaluate((el) => {
+    await expect(strong).toHaveCSS("background-image", "none");
+    await expect(body.locator("mark")).toHaveCount(2);
+    const highlight = body.locator("mark").first();
+    await expect(highlight).toHaveText("只高亮");
+    await expect(highlight).toHaveCSS("font-weight", "400");
+    await expect(body.locator("mark strong")).toHaveText("高亮并加粗");
+    await expect(body.locator("mark strong")).toHaveCSS("font-weight", "700");
+    await expect(body.locator("code").first()).toHaveText("==代码不高亮==");
+    await expect(body.locator("pre code")).toHaveText("==代码块不高亮==\n");
+    const decorationBreak = await highlight.evaluate((el) => {
       const style = getComputedStyle(el);
       return style.getPropertyValue("box-decoration-break") ||
         style.getPropertyValue("-webkit-box-decoration-break");
     });
     expect(decorationBreak).toBe("clone");
-    const lightStroke = await strong.evaluate((el) => getComputedStyle(el).backgroundImage);
+    const lightStroke = await highlight.evaluate((el) => getComputedStyle(el).backgroundImage);
     expect(lightStroke).toContain("linear-gradient");
     expect(lightStroke).toContain("0.19");
 
     await page.evaluate(() => document.documentElement.classList.add("dark"));
-    const darkStroke = await strong.evaluate((el) => getComputedStyle(el).backgroundImage);
+    const darkStroke = await highlight.evaluate((el) => getComputedStyle(el).backgroundImage);
     expect(darkStroke).toContain("linear-gradient");
     expect(darkStroke).toContain("0.29");
     expect(darkStroke).not.toBe(lightStroke);
