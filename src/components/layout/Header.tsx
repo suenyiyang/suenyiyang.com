@@ -13,7 +13,7 @@ const linkClass = (isActive: boolean) =>
 export default function Header() {
   return (
     <header className="w-full px-(--col-px) sticky top-0 z-20 backdrop-blur-md bg-bg-light/85 dark:bg-bg-dark/85">
-      <div className="flex items-center justify-between gap-4 max-w-(--col-measure) mx-auto h-16 md:h-[5.5rem]">
+      <div className="flex items-center justify-between gap-4 max-w-(--col-measure) mx-auto h-[var(--site-header-height)]">
         <Link to="/" aria-label="Home" className="flex items-center">
           <Logo />
         </Link>

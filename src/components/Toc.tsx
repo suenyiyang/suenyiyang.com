@@ -29,6 +29,18 @@ const collectEntries = (): TocEntry[] => {
   return entries;
 };
 
+// Measure on interaction so font loading, resizing and expanding the mobile TOC
+// are all accounted for. Only overflowing labels animate.
+const measureOverflow = (link: HTMLAnchorElement) => {
+  const label = link.querySelector<HTMLElement>(".toc-label");
+  const text = link.querySelector<HTMLElement>(".toc-label-text");
+  if (!label || !text) return;
+  const distance = Math.max(0, text.scrollWidth - label.clientWidth);
+  link.dataset.overflow = String(distance > 0);
+  link.style.setProperty("--toc-scroll-distance", `${-distance}px`);
+  link.style.setProperty("--toc-scroll-duration", `${Math.max(3, distance / 24) + 2}s`);
+};
+
 export const Toc: FC<TocProps> = ({ variant }) => {
   const [entries, setEntries] = useState<TocEntry[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -71,7 +83,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
   if (entries.length === 0) return null;
 
   const list = (
-    <ul className="m-0 list-none p-0">
+    <ul className="toc-list m-0 list-none p-0">
       {entries.map((entry) => {
         const isActive = activeId === entry.id;
         const indent = entry.level === 3 ? "pl-[0.8rem]" : "pl-0";
@@ -80,13 +92,16 @@ export const Toc: FC<TocProps> = ({ variant }) => {
             <a
               href={`#${entry.id}`}
               title={entry.text}
-              className={`block truncate py-1 font-mono text-meta leading-[1.7] no-underline transition-colors ${indent} ${
+              aria-current={isActive ? "location" : undefined}
+              onMouseEnter={(event) => measureOverflow(event.currentTarget)}
+              onFocus={(event) => measureOverflow(event.currentTarget)}
+              className={`toc-link block py-1 font-serif text-meta leading-[1.7] no-underline transition-colors ${indent} ${
                 isActive
-                  ? "text-text-primary dark:text-text-primary-dark font-medium border-l-2 border-text-primary dark:border-text-primary-dark -ml-[0.6rem] pl-[0.5rem]"
-                  : "text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark"
+                  ? "text-[var(--reading-accent)] font-bold border-l-2 border-[var(--reading-accent)] -ml-[0.6rem] pl-[0.5rem]"
+                  : "text-text-secondary dark:text-text-secondary-dark hover:text-[var(--reading-accent)]"
               }`}
             >
-              {entry.text}
+              <span className="toc-label"><span className="toc-label-text">{entry.text}</span></span>
             </a>
           </li>
         );
@@ -98,7 +113,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
     return (
       <aside className="post-toc-desktop" aria-label="Table of contents">
         <div className="toc-inner">
-          <p className="mb-2 pb-2 border-b border-[var(--reading-rule)] font-mono text-eyebrow font-bold uppercase tracking-[0.18em] text-text-primary dark:text-text-primary-dark">
+          <p className="mb-2 pb-2 border-b border-[var(--reading-rule)] font-serif text-eyebrow font-bold uppercase tracking-[0.18em] text-text-primary dark:text-text-primary-dark">
             Contents
           </p>
           {list}
@@ -116,7 +131,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
     >
       <summary
         role="button"
-        className="flex items-center justify-between px-3 py-2 cursor-pointer list-none font-mono text-meta text-text-secondary dark:text-text-secondary-dark"
+        className="flex items-center justify-between px-3 py-2 cursor-pointer list-none font-serif text-meta text-text-secondary dark:text-text-secondary-dark"
         aria-label="Contents"
       >
         <span className="font-bold uppercase tracking-[0.18em] text-text-primary dark:text-text-primary-dark text-eyebrow">
