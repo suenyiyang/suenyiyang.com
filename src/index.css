@@ -101,6 +101,8 @@
   --reading-quote-bar: #E6E4D9;         /* base-100 */
   --reading-rule: #E6E4D9;              /* base-100 */
   --reading-accent: #027AFF;
+  --reading-highlight: color-mix(in srgb, var(--reading-accent) 19%, transparent);
+  --reading-highlight-overlap: color-mix(in srgb, var(--reading-accent) 8%, transparent);
   /* Accent tint over paper, so selection follows the accent */
   --reading-selection-bg: color-mix(in srgb, var(--reading-accent) 20%, var(--reading-paper));
   --reading-selection-text: #100F0F;    /* black */
@@ -125,6 +127,8 @@
   --reading-quote-bar: #282726;         /* base-900 */
   --reading-rule: #282726;              /* base-900 */
   --reading-accent: #027AFF;
+  --reading-highlight: color-mix(in srgb, var(--reading-accent) 29%, transparent);
+  --reading-highlight-overlap: color-mix(in srgb, var(--reading-accent) 12%, transparent);
   --reading-selection-bg: color-mix(in srgb, var(--reading-accent) 32%, var(--reading-paper));
   --reading-selection-text: #E6E4D9;    /* base-100 */
 
@@ -270,6 +274,16 @@
   .post-body strong {
     font-weight: var(--font-weight-strong);
     color: var(--color-text-primary);
+    /* Two translucent, slightly angled strokes: a hand-drawn marker rather
+       than a solid rectangular badge. Clone the strokes on each wrapped line.
+       Backgrounds stay behind the text without changing its line-height. */
+    background-image:
+      linear-gradient(177deg, transparent 14%, var(--reading-highlight) 19%, var(--reading-highlight) 81%, transparent 87%),
+      linear-gradient(183deg, transparent 27%, var(--reading-highlight-overlap) 32%, var(--reading-highlight-overlap) 88%, transparent 93%);
+    padding-inline: 0.08em;
+    border-radius: 0.18em 0.1em 0.2em 0.08em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
   .dark .post-body strong {
     color: var(--color-text-primary-dark);

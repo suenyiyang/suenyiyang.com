@@ -16,6 +16,27 @@ test.describe("Reading type", () => {
     );
   });
 
+  test("bold text has theme-tinted marker strokes in both themes", async ({ page }) => {
+    await gotoHydrated(page, "/posts/understand-your-agents-better");
+    const strong = page.locator(".post-body strong").first();
+    await expect(strong).toHaveCSS("font-weight", "700");
+    const decorationBreak = await strong.evaluate((el) => {
+      const style = getComputedStyle(el);
+      return style.getPropertyValue("box-decoration-break") ||
+        style.getPropertyValue("-webkit-box-decoration-break");
+    });
+    expect(decorationBreak).toBe("clone");
+    const lightStroke = await strong.evaluate((el) => getComputedStyle(el).backgroundImage);
+    expect(lightStroke).toContain("linear-gradient");
+    expect(lightStroke).toContain("0.19");
+
+    await page.evaluate(() => document.documentElement.classList.add("dark"));
+    const darkStroke = await strong.evaluate((el) => getComputedStyle(el).backgroundImage);
+    expect(darkStroke).toContain("linear-gradient");
+    expect(darkStroke).toContain("0.29");
+    expect(darkStroke).not.toBe(lightStroke);
+  });
+
   test("article summary is italic, distinct from the regular body", async ({ page }) => {
     await gotoHydrated(page, "/posts/understand-your-agents-better");
 
