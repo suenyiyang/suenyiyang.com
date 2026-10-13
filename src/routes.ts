@@ -50,11 +50,10 @@ const nestedRoutes = (params: {
   return routes;
 };
 
-const thoughtThreads = [...new Set(readThoughts().map(note => note.thread ?? note.id))];
 const thoughtsBase = `/${ENV_BASE ? ENV_BASE.replace(/^\/+|\/+$/g, "") + "/" : ""}thoughts`;
+readThoughts();
 
 export default [
   ...nestedRoutes({ routesDir: PAGES_DIR, fileExtensions: FILE_EXTENSIONS }),
   route(thoughtsBase, "routes/thoughts.tsx"),
-  ...thoughtThreads.map(thread => route(`${thoughtsBase}/${thread}`, "routes/thought-thread.tsx", { id: `thought-thread-${thread}` })),
 ] satisfies RouteConfig;

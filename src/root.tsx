@@ -88,11 +88,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="bg-bg-light dark:bg-bg-dark text-text-primary dark:text-text-primary-dark font-sans">
         <LayoutShell>{children}</LayoutShell>
         <GoogleAnalytics gaId={__INJECTED_GA_ID__} />
-        <ScrollRestoration
-          getKey={location => location.pathname.replace(/\/$/, "") === "/thoughts"
-            ? "/thoughts" + location.search
-            : location.key}
-        />
+        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
