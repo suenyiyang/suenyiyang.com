@@ -39,6 +39,24 @@ export const PageMetadata: FC<{
   const url = canonicalUrl(metadata?._meta.path ?? "/");
   const image = absoluteUrl(mergedMetadata.ogImage);
   const publishedTime = isoDate(metadata?.date);
+  const modifiedTime = isoDate(metadata?.dateModified);
+
+  const jsonLd =
+    metadata?.title && publishedTime
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: metadata.title,
+          author: {
+            "@type": "Person",
+            name: "Yiyang Suen",
+          },
+          datePublished: publishedTime,
+          ...(modifiedTime ? { dateModified: modifiedTime } : {}),
+          url,
+          image,
+        }
+      : null;
 
   return (
     <>
@@ -74,6 +92,15 @@ export const PageMetadata: FC<{
       <meta name="twitter:description" content={mergedMetadata.description} />
       <meta name="twitter:image" content={image} />
       <meta name="twitter:image:alt" content={title} />
+
+      {jsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      ) : null}
     </>
   );
 };

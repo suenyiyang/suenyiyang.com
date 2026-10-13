@@ -28,12 +28,18 @@ export function links() {
     { rel: "icon", href: "/favicon.ico", sizes: "16x16 32x32" },
     { rel: "icon", href: siteConfig.metadata.favicon, type: "image/webp", sizes: "192x192" },
     { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    {
+      rel: "alternate",
+      type: "application/rss+xml",
+      href: "/rss.xml",
+      title: siteConfig.metadata.title,
+    },
   ];
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />

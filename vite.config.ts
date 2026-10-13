@@ -19,6 +19,7 @@ import { remarkMdxRelativeImages } from "./config/remark-mdx-relative-images";
 import { remarkUnwrapImages } from "./config/remark-unwrap-images";
 import { remarkTwitterEmbeds } from "./config/remark-twitter-embeds";
 import { remarkYoutubeEmbeds } from "./config/remark-youtube-embeds";
+import { seoFilesPlugin } from "./config/vite-plugin-seo";
 import flexokiDark from "./config/themes/flexoki-dark.json";
 import flexokiLight from "./config/themes/flexoki-light.json";
 
@@ -57,6 +58,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     imagetools(),
+    seoFilesPlugin(),
     reactRouter(),
     svgr({
       include: "**/*.svg",

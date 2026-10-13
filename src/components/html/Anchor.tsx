@@ -1,9 +1,11 @@
 import { AnchorHTMLAttributes } from "react";
+import { canonicalizeInternalHref } from "~/utils/trailingSlash";
 
 export const Anchor: React.FC<AnchorHTMLAttributes<HTMLAnchorElement>> = (
   props
 ) => {
-  const { children, className, href, ...rest } = props;
+  const { children, className, href: rawHref, ...rest } = props;
+  const href = canonicalizeInternalHref(rawHref);
 
   const isExternal = href?.startsWith("http");
 

@@ -47,7 +47,7 @@ export class BasePage {
   }
 
   async navigateToPosts(): Promise<void> {
-    await this.page.locator('body > div > header a[href="/posts"]').click();
+    await this.page.locator('body > div > header a[href="/posts/"]').click();
   }
 
   getNavLink(href: string): Locator {

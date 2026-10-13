@@ -10,19 +10,19 @@ test.describe("Navigation", () => {
   test("posts link navigates to posts page", async ({ homePage, page }) => {
     await homePage.goto();
     await homePage.navigateToPosts();
-    await expect(page).toHaveURL("/posts");
+    await expect(page).toHaveURL("/posts/");
   });
 
   test("about link navigates to about page", async ({ homePage, page }) => {
     await homePage.goto();
-    await homePage.getNavLink("/about").click();
-    await expect(page).toHaveURL("/about");
+    await homePage.getNavLink("/about/").click();
+    await expect(page).toHaveURL("/about/");
   });
 
   test("links link navigates to links page", async ({ homePage, page }) => {
     await homePage.goto();
-    await homePage.getNavLink("/links").click();
-    await expect(page).toHaveURL("/links");
+    await homePage.getNavLink("/links/").click();
+    await expect(page).toHaveURL("/links/");
   });
 
   test("GitHub link in footer opens in new tab", async ({ homePage }) => {
@@ -34,12 +34,12 @@ test.describe("Navigation", () => {
   test("back and forward navigation works", async ({ homePage, page }) => {
     await homePage.goto();
     await homePage.navigateToPosts();
-    await expect(page).toHaveURL("/posts");
+    await expect(page).toHaveURL("/posts/");
 
     await page.goBack();
     await expect(page).toHaveURL("/");
 
     await page.goForward();
-    await expect(page).toHaveURL("/posts");
+    await expect(page).toHaveURL("/posts/");
   });
 });

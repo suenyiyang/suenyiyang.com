@@ -33,7 +33,7 @@ test.describe("Responsive Design", () => {
     await setViewport(page, "mobile");
     await homePage.goto();
     await homePage.navigateToPosts();
-    await expect(page).toHaveURL("/posts");
+    await expect(page).toHaveURL("/posts/");
   });
 
   test("posts page works on all viewports", async ({ postsPage, page }) => {
