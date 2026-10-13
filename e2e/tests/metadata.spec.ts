@@ -16,7 +16,7 @@ test.describe("Link preview metadata", () => {
 
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
-      "https://suenyiyang.com/posts/understand-your-agents-better/"
+      "https://suenyiyang.com/posts/understand-your-agents-better"
     );
 
     await expect(page.locator('meta[property="og:type"]')).toHaveAttribute(
@@ -25,7 +25,7 @@ test.describe("Link preview metadata", () => {
     );
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
       "content",
-      "https://suenyiyang.com/posts/understand-your-agents-better/"
+      "https://suenyiyang.com/posts/understand-your-agents-better"
     );
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
       "content",

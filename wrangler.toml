@@ -3,4 +3,6 @@ compatibility_date = "2026-05-14"
 
 [assets]
 directory = "build/client"
+# /dir/index.html is served at /dir (200). /dir/ redirects to /dir. Root stays /.
+html_handling = "drop-trailing-slash"
 

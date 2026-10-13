@@ -4,9 +4,9 @@ import { SiteConfig } from "~/types/config";
 export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
-    { label: "Posts", href: "/posts/" },
-    { label: "About", href: "/about/" },
-    { label: "Links", href: "/links/" },
+    { label: "Posts", href: "/posts" },
+    { label: "About", href: "/about" },
+    { label: "Links", href: "/links" },
   ],
   socialLinks: [
     {
