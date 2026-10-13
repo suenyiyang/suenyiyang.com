@@ -90,6 +90,8 @@
   --vt-x: 50%;
   --vt-y: 50%;
   --vt-radius: 150%;
+  --site-header-height: 4rem;
+  --toc-top: calc(var(--site-header-height) + 1rem);
 
   /* Reading surface tokens (light) — Flexoki paper */
   --reading-paper: #FFFCF0;             /* paper */
@@ -136,11 +138,17 @@
   --waline-active-color: var(--color-neutral-50) !important;
 }
 
+@media (min-width: 48rem) {
+  :root {
+    --site-header-height: 5.5rem;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     /* Clear the sticky header when jumping to an anchor */
-    scroll-padding-top: 5rem;
+    scroll-padding-top: var(--toc-top);
   }
 
   body {
@@ -537,6 +545,35 @@
   }
 
   /* --- TOC layout --- */
+  .toc-label {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .toc-label-text {
+    display: inline-block;
+    min-width: 100%;
+  }
+  .toc-link[data-overflow="true"]:is(:hover, :focus-visible) .toc-label {
+    text-overflow: clip;
+  }
+  .toc-link[data-overflow="true"]:is(:hover, :focus-visible) .toc-label-text {
+    animation: toc-pan var(--toc-scroll-duration) linear infinite alternate;
+  }
+  @keyframes toc-pan {
+    0%, 15% { transform: translateX(0); }
+    85%, 100% { transform: translateX(var(--toc-scroll-distance)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .toc-link[data-overflow="true"]:is(:hover, :focus-visible) .toc-label {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .toc-link[data-overflow="true"]:is(:hover, :focus-visible) .toc-label-text {
+      animation: none;
+    }
+  }
   .post-layout {
     position: relative;
   }
@@ -558,7 +595,21 @@
     }
     .post-toc-desktop > .toc-inner {
       position: sticky;
-      top: 4.5rem;
+      top: var(--toc-top);
+      max-height: calc(100dvh - var(--toc-top) - 1rem);
+      display: flex;
+      flex-direction: column;
+    }
+    .toc-inner > p {
+      flex-shrink: 0;
+    }
+    .toc-inner > .toc-list {
+      min-height: 0;
+      overflow-y: auto;
+      /* Keep the active marker inside the scrollable area. */
+      margin-left: -0.6rem;
+      padding-left: 0.6rem;
+      scrollbar-width: thin;
     }
     .post-toc-mobile {
       display: none;
