@@ -27,7 +27,7 @@ pnpm dev
 
 ## Content
 - MDX pages live in `pages/`; posts live in `pages/posts/<slug>/index.mdx`.
-- Frontmatter schema (all optional): `title`, `date`, `description`, `keywords`, `lang` (`zh` or `en`), `url`, `tags`, `comment`.
+- Frontmatter schema (all optional): `title`, `date`, `dateModified`, `description`, `keywords`, `lang` (`zh` or `en`), `url`, `tags`, `comment`.
 - If `title` is missing, it is inferred from the first `#` heading.
 - **Images are co-located with the post**: drop them in the same folder and reference with relative paths, e.g. `![alt](./diagram.png)`. A remark plugin rewrites these into ESM imports so Vite hashes and bundles them. IDE markdown preview renders them inline.
 

@@ -2,6 +2,7 @@ import { Post } from "content-collections/generated";
 import { format } from "date-fns";
 import { FC } from "react";
 import { Link } from "react-router";
+import { withTrailingSlash } from "~/utils/trailingSlash";
 
 interface PostCardProps {
   post: Post;
@@ -12,7 +13,7 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
 
   return (
     <Link
-      to={post._meta.path}
+      to={withTrailingSlash(post._meta.path)}
       className="group grid grid-cols-1 gap-1.5 py-5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-5 sm:py-[1.375rem]"
     >
       {date ? (
