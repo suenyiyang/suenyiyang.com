@@ -54,7 +54,7 @@ test.describe("Dark Mode", () => {
     const afterToggle = await homePage.isDarkMode();
 
     await homePage.navigateToPosts();
-    await expect(page).toHaveURL("/posts/");
+    await expect(page).toHaveURL("/posts");
 
     const afterNav = await homePage.isDarkMode();
     expect(afterNav).toBe(afterToggle);

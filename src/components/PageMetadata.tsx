@@ -1,6 +1,7 @@
 import { Page } from "content-collections/generated";
 import { FC } from "react";
 import { siteConfig } from "~/config";
+import { absolutePageUrl } from "~/utils/trailingSlash";
 
 /** Site origin without a trailing slash, for building absolute URLs. */
 const siteUrl = siteConfig.metadata.url.replace(/\/+$/, "");
@@ -9,12 +10,12 @@ const absoluteUrl = (path: string) =>
   `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
 
 /**
- * Pages are served with a trailing slash (Cloudflare Pages redirects
- * /posts/x → /posts/x/), so the canonical URL keeps that form — an
- * og:url that redirects is a needless detour for every unfurler.
+ * Slash-less URLs are canonical. Workers assets use
+ * html_handling = "drop-trailing-slash", so /posts/x is 200 and
+ * /posts/x/ redirects. The root stays https://suenyiyang.com/.
  */
 const canonicalUrl = (path: string) =>
-  path === "/" ? `${siteUrl}/` : `${siteUrl}${path.replace(/\/$/, "")}/`;
+  absolutePageUrl(siteUrl, path);
 
 const isoDate = (date?: string) => {
   if (!date) return null;
