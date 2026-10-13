@@ -2,6 +2,8 @@ import z from "zod";
 
 export const schema = z.object({
   date: z.string().optional(),
+  /** ISO date. Included in BlogPosting JSON-LD when a post sets it. */
+  dateModified: z.string().optional(),
   description: z.string().optional(),
   keywords: z.string().optional(),
   lang: z.enum(['zh', 'en']).optional(),
