@@ -24,6 +24,7 @@ pnpm dev
 - `pnpm og` - re-render the link-preview card
 - `pnpm fonts` / `pnpm fonts:check` - rebuild/check the archived Source Han Serif slices (not used by the current reading theme)
 - `pnpm lint` - run ESLint
+- `pnpm test:visual` - verify existing screenshot baselines against a production static build (run separately from Thoughts e2e; both use port 4387)
 
 ## Content
 - MDX pages live in `pages/`; posts live in `pages/posts/<slug>/index.mdx`.
