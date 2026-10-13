@@ -1,6 +1,6 @@
 import Header from "~/components/layout/Header";
 import Footer from "~/components/layout/Footer";
-import { Links, Meta, Outlet, Scripts } from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
@@ -88,6 +88,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="bg-bg-light dark:bg-bg-dark text-text-primary dark:text-text-primary-dark font-sans">
         <LayoutShell>{children}</LayoutShell>
         <GoogleAnalytics gaId={__INJECTED_GA_ID__} />
+        <ScrollRestoration
+          getKey={location => location.pathname.replace(/\/$/, "") === "/thoughts"
+            ? "/thoughts" + location.search
+            : location.key}
+        />
         <Scripts />
       </body>
     </html>

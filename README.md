@@ -31,6 +31,14 @@ pnpm dev
 - If `title` is missing, it is inferred from the first `#` heading.
 - **Images are co-located with the post**: drop them in the same folder and reference with relative paths, e.g. `![alt](./diagram.png)`. A remark plugin rewrites these into ESM imports so Vite hashes and bundles them. IDE markdown preview renders them inline.
 
+## Thoughts / 碎碎念
+
+- 独立 Markdown 文件存放在 `thoughts/YYYY/YYYY-MM-DD-slug.md`。
+- 时间流 `/thoughts`、完整想法线与精选 Then & Now 对照。
+- [文件组织、frontmatter、前后关联与发布规范](docs/thoughts.md)。
+- `pnpm thoughts:check` 校验内容；`pnpm thoughts:test` 验证规则；`pnpm test:thoughts:e2e` 使用隔离样例测试交互。
+- 手机导航采用 Menu 折叠菜单（小于 640px），主题开关始终保留在顶栏。
+
 ## Typography
 
 Reading text, headings, and ordinary UI use **LXGW WenKai** (霞鹜文楷) for

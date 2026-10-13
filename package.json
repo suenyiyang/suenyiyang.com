@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "dotenv -- vite dev",
+    "thoughts:check": "tsx scripts/check-thoughts.ts",
+    "thoughts:test": "tsx --test tests/thoughts.test.ts",
+    "test:thoughts:e2e": "playwright test --config playwright.thoughts.config.ts",
     "build": "react-router build",
     "og": "node scripts/generate-og-image.mjs",
     "icons": "node scripts/generate-icons.mjs",

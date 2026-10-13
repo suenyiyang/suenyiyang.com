@@ -5,6 +5,7 @@ export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
     { label: "Posts", href: "/posts" },
+    { label: "Thoughts", href: "/thoughts" },
     { label: "About", href: "/about" },
     { label: "Links", href: "/links" },
   ],

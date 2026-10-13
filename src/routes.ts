@@ -3,6 +3,7 @@ import { readdirSync } from "node:fs";
 import path from "node:path";
 
 import { ENV_BASE } from '../config/env';
+import { readThoughts } from '../config/thoughts';
 
 const PAGES_DIR = path.resolve(__dirname, "../pages");
 const FILE_EXTENSIONS = [".mdx", ".md"];
@@ -10,10 +11,10 @@ const FILE_EXTENSIONS = [".mdx", ".md"];
 const nestedRoutes = (params: {
   routesDir: string;
   fileExtensions: string[];
-}): RouteConfig => {
+}): Awaited<RouteConfig> => {
   const { routesDir, fileExtensions } = params;
 
-  const routes: RouteConfig = [];
+  const routes: Awaited<RouteConfig> = [];
 
   const scanDirectory = (dir: string, basePath: string = "") => {
     const items = readdirSync(dir, { withFileTypes: true });
@@ -49,7 +50,11 @@ const nestedRoutes = (params: {
   return routes;
 };
 
-export default nestedRoutes({
-  routesDir: PAGES_DIR,
-  fileExtensions: FILE_EXTENSIONS,
-}) satisfies RouteConfig;
+const thoughtThreads = [...new Set(readThoughts().map(note => note.thread ?? note.id))];
+const thoughtsBase = `/${ENV_BASE ? ENV_BASE.replace(/^\/+|\/+$/g, "") + "/" : ""}thoughts`;
+
+export default [
+  ...nestedRoutes({ routesDir: PAGES_DIR, fileExtensions: FILE_EXTENSIONS }),
+  route(thoughtsBase, "routes/thoughts.tsx"),
+  ...thoughtThreads.map(thread => route(`${thoughtsBase}/${thread}`, "routes/thought-thread.tsx", { id: `thought-thread-${thread}` })),
+] satisfies RouteConfig;
