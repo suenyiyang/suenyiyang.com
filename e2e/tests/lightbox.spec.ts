@@ -1,7 +1,7 @@
 import { test, expect } from "../fixtures";
 import { gotoHydrated } from "../helpers/hydration";
 
-const POST_URL = "/posts/review-2025/";
+const POST_URL = "/posts/review-2025";
 
 test.describe("Lightbox", () => {
   test("opens when clicking a post image", async ({ page }) => {

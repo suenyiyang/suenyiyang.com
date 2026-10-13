@@ -1,5 +1,6 @@
 import { type Context, defineCollection, defineConfig, Schema } from "@content-collections/core";
 import { schema, type SchemaZodObject } from "~/types/post";
+import { withoutTrailingSlash } from "~/utils/trailingSlash";
 
 const getTitleFromContent = (content: string) => {
   return content.match(/^# (.*)(\n)?/)?.[1];
@@ -16,7 +17,7 @@ const transform = (data: Schema<"frontmatter", SchemaZodObject>, context: Contex
     comment: data.comment ?? true,
     _meta: {
       ...data._meta,
-      path: getPathnameFromContext(context.collection.directory, data._meta.path),
+      path: withoutTrailingSlash(getPathnameFromContext(context.collection.directory, data._meta.path)),
     },
   };
 }

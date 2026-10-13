@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
+import { absolutePageUrl, withoutTrailingSlash } from "../src/utils/trailingSlash";
 
 /** Keep in sync with siteConfig.metadata in src/config/index.tsx. */
 const SITE_URL = "https://suenyiyang.com";
@@ -13,7 +14,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pagesDir = path.join(root, "pages");
 
 export interface SeoEntry {
-  /** Pathname with a trailing slash. Home is "/". */
+  /** Slash-less pathname. Home is "/". */
   pathname: string;
   title: string;
   description: string;
@@ -22,7 +23,7 @@ export interface SeoEntry {
   isPost: boolean;
 }
 
-const STATIC_ORDER = ["/", "/posts/", "/about/", "/links/"];
+const STATIC_ORDER = ["/", "/posts", "/about", "/links"];
 
 function xmlEscape(value: string): string {
   return value
@@ -60,7 +61,7 @@ function routeFromFile(file: string): string {
   const withoutExt = rel.replace(/\.(mdx|md)$/i, "");
   const withoutIndex = withoutExt.replace(/(^|\/)index$/, "");
   if (!withoutIndex) return "/";
-  return `/${withoutIndex.replace(/\/$/, "")}/`;
+  return withoutTrailingSlash(`/${withoutIndex.replace(/^\/+|\/+$/g, "")}`);
 }
 
 function walkMdx(dir: string, files: string[] = []): string[] {
@@ -91,7 +92,7 @@ export function collectSeoEntries(): SeoEntry[] {
       title,
       description,
       date: formatDay(data.date),
-      isPost: /^\/posts\/[^/]+\/$/.test(pathname),
+      isPost: /^\/posts\/[^/]+$/.test(pathname),
     };
   });
 
@@ -110,7 +111,7 @@ export function collectSeoEntries(): SeoEntry[] {
 }
 
 function absolute(pathname: string): string {
-  return pathname === "/" ? `${SITE_URL}/` : `${SITE_URL}${pathname}`;
+  return absolutePageUrl(SITE_URL, pathname);
 }
 
 function rfc822(day: string): string {
