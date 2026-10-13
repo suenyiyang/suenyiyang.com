@@ -3,7 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./e2e",
   testMatch: [
-    "thoughts/*.spec.ts",
+    "thoughts/thoughts.spec.ts",
     "tests/navigation.spec.ts",
     "tests/responsive.spec.ts",
     "tests/dark-mode.spec.ts",

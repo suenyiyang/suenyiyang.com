@@ -39,7 +39,6 @@ export default function ThoughtsPage() {
     <div className="thoughts-page">
       <header className="thoughts-intro">
         <h1>Thoughts</h1>
-        <p>一些尚未定论的想法。每篇都有固定链接，过长的内容可以展开。</p>
       </header>
 
       {thoughts.length > 1 && (
@@ -57,7 +56,7 @@ export default function ThoughtsPage() {
       )}
 
       {thoughts.length === 0 ? (
-        <p className="thoughts-empty">还没有发布的碎碎念。</p>
+        <p className="thoughts-empty">暂无碎碎念</p>
       ) : (
         thoughts.map((thought) => {
           const open = expanded[thought.id] === true;
