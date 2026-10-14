@@ -24,6 +24,8 @@ next-env.d.ts
 /vite.config.d.ts
 /config/*.js
 /config/*.d.ts
+/scripts/check-thoughts.js
+/scripts/check-thoughts.d.ts
 
 # IDE
 .vscode/*

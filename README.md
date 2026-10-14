@@ -24,12 +24,21 @@ pnpm dev
 - `pnpm og` - re-render the link-preview card
 - `pnpm fonts` / `pnpm fonts:check` - rebuild/check the archived Source Han Serif slices (not used by the current reading theme)
 - `pnpm lint` - run ESLint
+- `pnpm test:visual` - verify existing screenshot baselines against a production static build (run separately from Thoughts e2e; both use port 4387)
 
 ## Content
 - MDX pages live in `pages/`; posts live in `pages/posts/<slug>/index.mdx`.
 - Frontmatter schema (all optional): `title`, `date`, `dateModified`, `description`, `keywords`, `lang` (`zh` or `en`), `url`, `tags`, `comment`.
 - If `title` is missing, it is inferred from the first `#` heading.
 - **Images are co-located with the post**: drop them in the same folder and reference with relative paths, e.g. `![alt](./diagram.png)`. A remark plugin rewrites these into ESM imports so Vite hashes and bundles them. IDE markdown preview renders them inline.
+
+## Thoughts / 碎碎念
+
+- `thoughts/` 目录下的所有 Markdown 按时间平铺在 `/thoughts`，不生成单篇页面。
+- 每篇的 frontmatter `title` 是一级标题；目录只列这些标题，每篇使用 `#id` 定位。
+- [文件组织与 frontmatter 规范](docs/thoughts.md)。
+- `pnpm thoughts:check` 校验内容；`pnpm thoughts:test` 验证规则；`pnpm test:thoughts:e2e` 使用隔离样例测试交互。
+- 手机导航采用 Menu 折叠菜单（小于 640px），主题开关始终保留在顶栏。
 
 ## Typography
 

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./thoughts.css";
 
 /* LXGW WenKai (霞鹜文楷) for both CJK and Latin reading text.
    Unicode-range slices load only the glyphs a page needs. Use real regular
