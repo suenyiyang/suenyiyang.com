@@ -15,12 +15,14 @@ test.describe("Navigation", () => {
 
   test("about link navigates to about page", async ({ homePage, page }) => {
     await homePage.goto();
+    await homePage.openNavigation();
     await homePage.getNavLink("/about").click();
     await expect(page).toHaveURL("/about");
   });
 
   test("links link navigates to links page", async ({ homePage, page }) => {
     await homePage.goto();
+    await homePage.openNavigation();
     await homePage.getNavLink("/links").click();
     await expect(page).toHaveURL("/links");
   });

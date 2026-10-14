@@ -46,7 +46,15 @@ export class BasePage {
     await this.logo.click();
   }
 
+  async openNavigation(): Promise<void> {
+    const toggle = this.page.getByRole("button", { name: "Navigation menu" });
+    if (await toggle.isVisible() && await toggle.getAttribute("aria-expanded") === "false") {
+      await toggle.click();
+    }
+  }
+
   async navigateToPosts(): Promise<void> {
+    await this.openNavigation();
     await this.page.locator('body > div > header a[href="/posts"]').click();
   }
 

@@ -8,6 +8,13 @@ export default tseslint.config(
   {
     ignores: [
       "build/**",
+      // TypeScript's composite Node build emits these beside their sources.
+      "config/*.js",
+      "config/*.d.ts",
+      "vite.config.js",
+      "vite.config.d.ts",
+      "scripts/check-thoughts.js",
+      "scripts/check-thoughts.d.ts",
       "dist/**",
       "node_modules/**",
       ".react-router/**",
