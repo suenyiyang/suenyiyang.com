@@ -905,11 +905,21 @@
   width: 17px;
   height: 17px;
 }
-/* The markdown icon is a filled badge, so it reads heavier than the
-   outline glyphs at the same size; match their optical box instead. */
-#comments a.wl-action svg {
-  width: 14px;
-  height: 14px;
+/* Waline's markdown "link to the guide" action is a static <a>, so its
+   glyph can be replaced: hide the filled 16px badge and redraw the action as
+   a line mark at the same weight/size as the emoji, GIF, image and preview
+   icons (17px boxes). Painting through a mask with currentColor keeps the
+   muted/hover/active colour states working. */
+#comments a.wl-action > svg {
+  display: none;
+}
+#comments a.wl-action::before {
+  content: "";
+  width: 17px;
+  height: 17px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpath d='M7 15V9l2 2 2-2v6'/%3E%3Cpath d='M14 13l2 2 2-2m-2 2V9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpath d='M7 15V9l2 2 2-2v6'/%3E%3Cpath d='M14 13l2 2 2-2m-2 2V9'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 #comments .wl-action:hover {
   color: var(--comment-text-strong);
