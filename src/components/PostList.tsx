@@ -2,6 +2,7 @@ import { allPosts, Post } from "content-collections/generated";
 import { FC, useMemo, useState } from "react";
 import { PostCard } from "./PostCard";
 import { Tag } from "./Tag";
+import { YearSeal, YearSealDefs, isNumericYear } from "./YearSeal";
 
 interface PostListProps {
   showFilter?: boolean;
@@ -100,14 +101,15 @@ export const PostList: FC<PostListProps> = ({ showFilter = false, limit }) => {
         </div>
       ) : null}
 
-      {/* Posts list, grouped by year */}
+      {/* Posts list, grouped by year. The year is carried by a faint seal
+          behind the first post rather than a heading and a rule. */}
+      <YearSealDefs />
       <div className="flex flex-col gap-11 sm:gap-14">
         {years.map((year) => (
-          <section key={year}>
-            <h2 className="font-mono text-meta font-medium tracking-[0.04em] text-text-muted dark:text-text-muted-dark pb-3.5 border-b border-[var(--reading-rule)]">
-              {year}
-            </h2>
-            <ol className="list-none m-0 p-0 divide-y divide-[var(--reading-rule)]">
+          <section key={year} className="year-group">
+            <h2 className="sr-only">{year} 年</h2>
+            {isNumericYear(year) ? <YearSeal year={year} /> : null}
+            <ol className="relative z-10 list-none m-0 p-0 divide-y divide-[var(--reading-rule)]">
               {postsByYear[year].map((post) => (
                 <li key={post._meta.path}>
                   <PostCard post={post} />
