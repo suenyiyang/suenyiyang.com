@@ -61,6 +61,15 @@ export const WalineComment = (props: WalineCommentProps) => {
       dark: isDark,
       noCopyright: true,
       requiredMeta: ['nick', 'mail'],
+      // Short labels suit the uppercase mono meta row. Waline glues
+      // "(Optional)" straight onto the label, so the trailing space on
+      // "Website " is deliberate.
+      locale: {
+        nick: 'Name',
+        mail: 'Email',
+        link: 'Website ',
+        placeholder: 'Leave a comment…',
+      },
     };
 
     if (!walineInstanceRef.current) {
