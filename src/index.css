@@ -801,6 +801,79 @@
 }
 
 /* ============================================================
+   Year seal
+   A year group opens with a faint, worn stamp in its top-right corner
+   instead of a heading and a rule. The stamp sits behind the first post
+   (`ol` gets z-10) and scales with the column via cqw, so phones get a
+   smaller impression that stays inside the measure.
+   ============================================================ */
+.year-group {
+  position: relative;
+  container-type: inline-size;
+  padding-top: 1.5rem;
+}
+
+.year-seal {
+  position: absolute;
+  top: 0;
+  right: 0.25rem;
+  width: clamp(6.5rem, 25cqw, 9.5rem);
+  aspect-ratio: 1;
+  color: color-mix(in srgb, var(--reading-text-primary) 22%, transparent);
+  opacity: 0.9;
+  transform: rotate(-2.8deg);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Strokes get thinner on a phone; a touch more ink keeps the seal legible. */
+@media (max-width: 40rem) {
+  .year-seal {
+    opacity: 1;
+  }
+}
+
+/* Light ink on a dark page reads much heavier than the same mix on paper. */
+.dark .year-seal {
+  color: color-mix(in srgb, var(--reading-text-primary) 15%, transparent);
+}
+
+.year-seal-frame {
+  position: absolute;
+  inset: 0;
+  filter: url(#year-seal-frame);
+}
+
+.year-seal-frame-outer {
+  position: absolute;
+  inset: 0;
+  border: 3px solid currentColor;
+}
+
+.year-seal-frame-inner {
+  position: absolute;
+  inset: 0.42rem;
+  border: 1px solid currentColor;
+}
+
+.year-seal-chars {
+  position: absolute;
+  inset: 0.95rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  filter: url(#year-seal-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 7.2cqw, 2.55rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.year-seal-chars > span {
+  display: grid;
+  place-items: center;
+}
+
+/* ============================================================
    Comments (Waline)
    The stock widget is a card floating on a white sheet: 12px radius,
    #ddd dashed rules, cool-grey controls. This page has no cards, so the
