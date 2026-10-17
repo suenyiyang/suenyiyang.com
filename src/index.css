@@ -115,8 +115,41 @@
      window chrome and inline code all share one token. */
   --code-window-bg: var(--reading-code-bg);
 
-  --waline-theme-color: var(--color-neutral-700) !important;
-  --waline-active-color: var(--color-neutral-950) !important;
+  /* Waline ships a cool-grey widget skin (white panel, #ddd hairlines, a
+     filled grey submit). Remap its palette onto the reading surface so the
+     comment box reads as part of the page, not an embedded third party.
+     !important because the widget's stylesheet can load after this file. */
+  --waline-font-size: 1rem !important;
+  --waline-theme-color: var(--reading-accent) !important;
+  --waline-active-color: var(--color-text-primary) !important;
+  --waline-color: var(--color-text-body) !important;
+  --waline-bg-color: var(--reading-paper) !important;
+  --waline-bg-color-light: var(--reading-code-bg) !important;
+  --waline-bg-color-hover: color-mix(in srgb, var(--color-text-primary) 6%, transparent) !important;
+  --waline-border-color: var(--reading-rule) !important;
+  --waline-border: 1px solid var(--reading-rule) !important;
+  --waline-white: var(--reading-paper) !important;
+  --waline-disable-bg-color: var(--reading-code-bg) !important;
+  --waline-disable-color: var(--color-text-muted) !important;
+  --waline-code-bg-color: var(--reading-code-bg) !important;
+  --waline-bq-color: var(--reading-quote-bar) !important;
+  --waline-dark-grey: var(--color-text-secondary) !important;
+  --waline-light-grey: var(--color-text-muted) !important;
+  --waline-info-color: var(--color-text-muted) !important;
+  --waline-info-bg-color: var(--reading-code-bg) !important;
+  --waline-badge-color: var(--color-text-secondary) !important;
+
+  /* Comment-only extras: the filled submit inverts with the theme, and
+     controls get a tint of ink instead of a grey wash. */
+  --comment-text: var(--color-text-body);
+  --comment-text-strong: var(--color-text-primary);
+  --comment-text-quiet: var(--color-text-secondary);
+  --comment-text-muted: var(--color-text-muted);
+  --comment-border: var(--reading-rule);
+  --comment-ink: var(--color-text-primary);
+  --comment-on-ink: var(--color-bg-light);
+  --comment-ink-hover: color-mix(in srgb, var(--color-text-primary) 86%, var(--color-bg-light));
+  --comment-hover-bg: color-mix(in srgb, var(--color-text-primary) 5%, transparent);
 }
 
 .dark {
@@ -135,8 +168,30 @@
   --reading-selection-bg: color-mix(in srgb, var(--reading-accent) 32%, var(--reading-paper));
   --reading-selection-text: #E6E4D9;    /* base-100 */
 
-  --waline-theme-color: var(--color-neutral-300) !important;
-  --waline-active-color: var(--color-neutral-50) !important;
+  --waline-theme-color: var(--reading-accent) !important;
+  --waline-active-color: var(--color-text-primary-dark) !important;
+  --waline-color: var(--color-text-body-dark) !important;
+  --waline-bg-color: var(--reading-paper) !important;
+  --waline-bg-color-light: var(--reading-code-bg) !important;
+  --waline-bg-color-hover: color-mix(in srgb, var(--color-text-primary-dark) 8%, transparent) !important;
+  --waline-border-color: var(--reading-rule) !important;
+  --waline-disable-bg-color: var(--reading-code-bg) !important;
+  --waline-disable-color: var(--color-text-muted-dark) !important;
+  --waline-dark-grey: var(--color-text-secondary-dark) !important;
+  --waline-light-grey: var(--color-text-muted-dark) !important;
+  --waline-info-color: var(--color-text-muted-dark) !important;
+  --waline-info-bg-color: var(--reading-code-bg) !important;
+  --waline-badge-color: var(--color-text-secondary-dark) !important;
+
+  --comment-text: var(--color-text-body-dark);
+  --comment-text-strong: var(--color-text-primary-dark);
+  --comment-text-quiet: var(--color-text-secondary-dark);
+  --comment-text-muted: var(--color-text-muted-dark);
+  --comment-border: var(--reading-rule);
+  --comment-ink: var(--color-text-primary-dark);
+  --comment-on-ink: var(--color-bg-dark);
+  --comment-ink-hover: color-mix(in srgb, var(--color-text-primary-dark) 84%, var(--color-bg-dark));
+  --comment-hover-bg: color-mix(in srgb, var(--color-text-primary-dark) 10%, transparent);
 }
 
 @media (min-width: 48rem) {
@@ -742,6 +797,349 @@
   }
   .post-columns__item {
     flex: 0 0 auto;
+  }
+}
+
+/* ============================================================
+   Comments (Waline)
+   The stock widget is a card floating on a white sheet: 12px radius,
+   #ddd dashed rules, cool-grey controls. This page has no cards, so the
+   box becomes a hairline outline on paper, the header/footer rules do the
+   sectioning, and controls reuse the site's mono eyebrow + pill vocabulary.
+   Selectors are scoped to #comments to beat the widget's own stylesheet.
+   ============================================================ */
+#comments [data-waline] {
+  font-family: var(--font-serif);
+}
+
+#comments .wl-comment {
+  margin-bottom: 0;
+}
+
+#comments .wl-panel {
+  margin: 0;
+  border: 1px solid var(--comment-border);
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: none;
+  transition: border-color 200ms ease;
+}
+#comments .wl-panel:focus-within {
+  border-color: color-mix(in srgb, var(--comment-text-muted) 65%, var(--comment-border));
+}
+
+/* --- Meta row: mono eyebrows, not 10px inputs --- */
+#comments .wl-header {
+  padding: 0;
+  border-bottom: 1px solid var(--comment-border);
+  border-radius: 9px 9px 0 0;
+}
+#comments .wl-header label {
+  min-width: 0;
+  padding: 1em 0.65em 1em 1.1em;
+  color: var(--comment-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-tag);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+#comments .wl-header-item:focus-within label {
+  color: var(--comment-text-strong);
+}
+#comments .wl-header input {
+  padding: 0.4em 1.1em 0.4em 0;
+  color: var(--comment-text-strong);
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+}
+#comments .wl-header input:focus,
+#comments .wl-editor:focus {
+  background: transparent;
+}
+
+#comments .wl-editor {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0.95rem 1.1rem 0.5rem;
+  min-height: 9.5em;
+  border-radius: 0;
+  background: transparent;
+  color: var(--comment-text);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+#comments .wl-editor::placeholder {
+  color: var(--comment-text-muted);
+}
+
+/* --- Toolbar --- */
+#comments .wl-footer {
+  align-items: center;
+  margin: 0;
+  padding: 0.7rem 0.9rem 0.7rem 0.8rem;
+  border-top: 1px solid var(--comment-border);
+}
+#comments .wl-action {
+  width: 1.9em;
+  height: 1.9em;
+  margin: 0.05em;
+  color: var(--comment-text-muted);
+  border-radius: 6px;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+/* Waline mixes 16px and 24px icon sets in one row; normalize them. */
+#comments .wl-action svg {
+  width: 17px;
+  height: 17px;
+}
+#comments .wl-action:hover {
+  color: var(--comment-text-strong);
+  background: var(--comment-hover-bg);
+}
+#comments .wl-action.active {
+  color: var(--reading-accent);
+}
+#comments .wl-info .wl-text-number {
+  color: var(--comment-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-tag);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* --- Buttons: hairline pill / filled ink pill --- */
+#comments .wl-btn {
+  padding: 0.55em 1.15em;
+  border: 1px solid var(--comment-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--comment-text-quiet);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+#comments .wl-btn:hover,
+#comments .wl-btn:active {
+  border-color: var(--comment-text-muted);
+  background: transparent;
+  color: var(--comment-text-strong);
+}
+#comments .wl-btn.primary,
+#comments .wl-btn.primary:hover,
+#comments .wl-btn.primary:active {
+  border-color: var(--comment-ink);
+  background: var(--comment-ink);
+  color: var(--comment-on-ink);
+}
+#comments .wl-btn.primary:hover,
+#comments .wl-btn.primary:active {
+  border-color: var(--comment-ink-hover);
+  background: var(--comment-ink-hover);
+}
+#comments .wl-btn.primary:disabled {
+  border-color: transparent;
+  background: var(--comment-ink);
+  color: var(--comment-on-ink);
+  opacity: 0.4;
+}
+#comments .wl-btn:disabled {
+  border-color: var(--comment-border);
+  background: transparent;
+  color: var(--comment-text-muted);
+}
+#comments .wl-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--reading-accent) 55%, transparent);
+  outline-offset: 2px;
+}
+
+/* --- Section head: eyebrow + hairline, like Contents --- */
+#comments .wl-meta-head {
+  align-items: baseline;
+  margin-top: 2.5rem;
+  padding: 0 0 0.65rem;
+  border-bottom: 1px solid var(--comment-border);
+}
+#comments .wl-count {
+  color: var(--comment-text-strong);
+  font-family: var(--font-serif);
+  font-size: var(--text-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+#comments .wl-sort {
+  display: flex;
+  gap: 1.15rem;
+}
+#comments .wl-sort li,
+#comments .wl-sort li + li {
+  margin-inline-start: 0;
+  color: var(--comment-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-tag);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 160ms ease;
+}
+#comments .wl-sort li:hover {
+  color: var(--comment-text-quiet);
+}
+#comments .wl-sort li.active {
+  color: var(--comment-text-strong);
+}
+
+/* --- Comment list --- */
+#comments .wl-empty {
+  padding: 2rem 1rem 2.25rem;
+  color: var(--comment-text-muted);
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+#comments .wl-card-item {
+  padding: 1.1rem 0;
+}
+#comments .wl-card {
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--comment-border);
+}
+#comments .wl-card .wl-nick {
+  color: var(--comment-text-strong);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.9375em;
+}
+#comments .wl-card span.wl-nick {
+  color: var(--comment-text-quiet);
+}
+#comments .wl-card .wl-time {
+  color: var(--comment-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875em;
+  letter-spacing: 0.02em;
+}
+#comments .wl-card .wl-content {
+  padding-top: 0.5em;
+  color: var(--comment-text);
+  font-size: 1em;
+  line-height: 1.8;
+}
+#comments .wl-card .wl-meta > span {
+  padding: 2px 7px;
+  border: 1px solid var(--comment-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--comment-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875em;
+  letter-spacing: 0.02em;
+}
+#comments .wl-card .wl-quote {
+  border-inline-start: 1px solid var(--comment-border);
+}
+#comments .wl-card .wl-delete,
+#comments .wl-card .wl-like,
+#comments .wl-card .wl-reply,
+#comments .wl-card .wl-edit {
+  color: var(--comment-text-muted);
+}
+#comments .wl-card .wl-delete:hover,
+#comments .wl-card .wl-like:hover,
+#comments .wl-card .wl-reply:hover,
+#comments .wl-card .wl-edit:hover {
+  color: var(--comment-text-strong);
+}
+#comments .wl-card .wl-content.expand::after {
+  background: color-mix(in srgb, var(--reading-paper) 92%, transparent);
+  color: var(--comment-text-muted);
+}
+
+/* --- Popovers & load states --- */
+#comments .wl-emoji-popup,
+#comments .wl-gif-popup {
+  border: 1px solid var(--comment-border);
+  border-radius: 10px;
+  background: var(--reading-paper);
+  box-shadow: 0 12px 32px rgb(16 15 15 / 0.1);
+}
+#comments .wl-gif-popup input {
+  border: 1px solid var(--comment-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--comment-text-strong);
+  font-family: var(--font-serif);
+}
+#comments .wl-emoji-popup .wl-tabs::before {
+  background: var(--comment-border);
+}
+#comments .wl-emoji-popup .wl-tab.active {
+  background: var(--reading-paper);
+}
+#comments .wl-emoji-popup button:hover {
+  background: var(--comment-hover-bg);
+}
+#comments .wl-loading {
+  color: var(--comment-text-muted);
+}
+#comments .wl-operation button {
+  margin: 1.25em 0 0;
+}
+#comments .wl-comment-status .wl-btn {
+  border-radius: 0;
+}
+#comments .wl-comment-status .wl-btn:first-child {
+  border-radius: 999px 0 0 999px;
+}
+#comments .wl-comment-status .wl-btn:last-child {
+  border-radius: 0 999px 999px 0;
+}
+
+@media (min-width: 581px) {
+  /* Stack the label above its input. Inline labels left only ~70px for a
+     URL in a three-column row, which clipped real values. */
+  #comments .wl-header-item {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.7rem 0 0.75rem;
+  }
+  #comments .wl-header label {
+    padding: 0 1.1rem 0.05rem;
+    line-height: 1.6;
+  }
+  #comments .wl-header input {
+    flex: none;
+    width: auto;
+    min-width: 0;
+    padding: 0 1.1rem;
+  }
+}
+
+@media (max-width: 580px) {
+  #comments .wl-header-item:not(:last-child) {
+    border-bottom: 1px solid var(--comment-border);
+  }
+  #comments .wl-header label {
+    padding: 0.85em 0.6em 0.85em 1rem;
+  }
+  #comments .wl-editor {
+    padding: 0.85rem 1rem 0.4rem;
+  }
+  #comments .wl-footer {
+    padding: 0.65rem 0.75rem;
+  }
+  #comments .wl-sort {
+    gap: 0.9rem;
   }
 }
 
