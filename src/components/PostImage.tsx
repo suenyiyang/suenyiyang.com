@@ -4,10 +4,25 @@ import type { PictureMetadata } from "~/types/image";
 interface PostImageProps {
   src: PictureMetadata | string;
   "data-lqip"?: string;
+  /** Cap the rendered width (px). Comes from Obsidian's `![alt|320](x.png)` syntax. */
+  "data-width"?: string | number;
   alt?: string;
 }
 
-export const PostImage = ({ src, "data-lqip": lqip, alt }: PostImageProps) => {
+// Tall screenshots would otherwise run the full content width. Keep the
+// declared width as a max-width so narrow viewports still shrink them.
+const parseWidth = (value: string | number | undefined): number | undefined => {
+  if (value === undefined || value === null || value === "") return undefined;
+  const width = typeof value === "number" ? value : Number.parseInt(value, 10);
+  return Number.isFinite(width) && width > 0 ? width : undefined;
+};
+
+export const PostImage = ({
+  src,
+  "data-lqip": lqip,
+  "data-width": widthAttr,
+  alt,
+}: PostImageProps) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -22,10 +37,13 @@ export const PostImage = ({ src, "data-lqip": lqip, alt }: PostImageProps) => {
   }, []);
 
   const caption = alt?.trim();
+  const width = parseWidth(widthAttr);
+  const figureClass = width ? "post-figure post-figure--narrow" : "post-figure";
+  const figureStyle = width ? { maxWidth: `${width}px` } : undefined;
 
   if (typeof src === "string") {
     return (
-      <figure className="post-figure" data-zoomable>
+      <figure className={figureClass} style={figureStyle} data-zoomable>
         <div className={`post-figure-media ${loaded ? "loaded" : ""}`}>
           <img
             ref={imgRef}
@@ -42,7 +60,7 @@ export const PostImage = ({ src, "data-lqip": lqip, alt }: PostImageProps) => {
   }
 
   return (
-    <figure className="post-figure" data-zoomable>
+    <figure className={figureClass} style={figureStyle} data-zoomable>
       <div
         className={`post-figure-media ${loaded ? "loaded" : ""}`}
         style={lqip ? { backgroundImage: `url(${lqip})` } : undefined}
