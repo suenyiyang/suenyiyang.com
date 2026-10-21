@@ -10,6 +10,17 @@ const isRelative = (url: string | undefined): url is string =>
 const PICTURE_QUERY = "?w=480;960;1440&format=avif;webp;png&as=picture";
 const LQIP_QUERY = "?w=20&format=webp";
 
+// Obsidian's image sizing syntax: `![caption|320](x.png)` (optionally
+// `|320x200`). Honouring it keeps notes portable between Obsidian and the
+// site, and shrinks tall screenshots that would eat a whole viewport.
+const SIZED_ALT = /^(.*)\|(\d+)(?:x\d+)?$/;
+
+const splitAlt = (alt: string | null | undefined): { alt: string; width?: string } => {
+  const match = alt ? SIZED_ALT.exec(alt) : null;
+  if (!match) return { alt: alt ?? "" };
+  return { alt: match[1].trim(), width: match[2] };
+};
+
 interface ImportRecord {
   pictureName: string;
   lqipName: string;
@@ -34,6 +45,8 @@ export function remarkMdxRelativeImages() {
         counter++;
       }
 
+      const { alt, width } = splitAlt(node.alt);
+
       const attributes: any[] = [
         {
           type: "mdxJsxAttribute",
@@ -53,8 +66,12 @@ export function remarkMdxRelativeImages() {
             data: { estree: parseProgram(record.lqipName) },
           },
         },
-        { type: "mdxJsxAttribute", name: "alt", value: node.alt ?? "" },
+        { type: "mdxJsxAttribute", name: "alt", value: alt },
       ];
+
+      if (width) {
+        attributes.push({ type: "mdxJsxAttribute", name: "data-width", value: width });
+      }
 
       if (node.title) {
         attributes.push({
