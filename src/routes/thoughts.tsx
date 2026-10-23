@@ -5,7 +5,7 @@ import { thoughtMeta } from "~/components/thoughts/metadata";
 const COLLAPSE_AT = 288;
 
 export const meta = () =>
-  thoughtMeta("Thoughts", "一些尚未定论的想法，平铺在同一页。", "/thoughts");
+  thoughtMeta("想法", "一些尚未定论的想法，平铺在同一页。", "/thoughts");
 
 function displayDate(date: string) {
   return date.slice(0, 10).replace(/-/g, ".");
@@ -38,7 +38,7 @@ export default function ThoughtsPage() {
   return (
     <div className="thoughts-page">
       <header className="thoughts-intro">
-        <h1>Thoughts</h1>
+        <h1>想法</h1>
       </header>
 
       {thoughts.length > 1 && (
@@ -56,7 +56,7 @@ export default function ThoughtsPage() {
       )}
 
       {thoughts.length === 0 ? (
-        <p className="thoughts-empty">暂无碎碎念</p>
+        <p className="thoughts-empty">暂无想法</p>
       ) : (
         thoughts.map((thought) => {
           const open = expanded[thought.id] === true;

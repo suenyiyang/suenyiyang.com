@@ -19,7 +19,7 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
       {date ? (
         <time
           dateTime={post.date}
-          className="font-mono text-[0.75rem] sm:text-meta sm:pt-1.5 text-text-muted dark:text-text-muted-dark tabular-nums"
+          className="font-mono text-[0.75rem] transition-colors sm:text-meta sm:pt-1.5 text-text-muted dark:text-text-muted-dark group-hover:text-accent dark:group-hover:text-accent-dark group-focus-visible:text-accent dark:group-focus-visible:text-accent-dark tabular-nums"
         >
           {format(date, "MM.dd")}
         </time>
@@ -31,7 +31,7 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
           {post.title}
         </h3>
         {post.description ? (
-          <p className="post-summary text-[0.9375rem] leading-[1.75] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
+          <p className="post-summary text-[0.9375rem] leading-[1.7] text-text-secondary dark:text-text-secondary-dark line-clamp-2">
             {post.description}
           </p>
         ) : null}

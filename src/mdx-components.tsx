@@ -5,7 +5,7 @@ import { Columns } from "~/components/Columns";
 import { PostList } from "~/components/PostList";
 import { PostWrapper } from "~/components/wrapper/PostWrapper";
 import { Anchor } from "~/components/html/Anchor";
-import { PostsPage, AboutPage } from "~/components/pages";
+import { PostsPage, AboutPage, LinksPage } from "~/components/pages";
 import { PostImage } from "~/components/PostImage";
 
 type MDXComponents = Parameters<typeof useMDXComponents>["0"];
@@ -16,6 +16,7 @@ export default {
   PostList,
   PostsPage,
   AboutPage,
+  LinksPage,
   wrapper: (props) => {
     return <PostWrapper {...props} />;
   },

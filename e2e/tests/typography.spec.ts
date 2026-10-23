@@ -60,21 +60,21 @@ test.describe("Reading type", () => {
     expect(darkStroke).not.toBe(lightStroke);
   });
 
-  test("article summary is italic, distinct from the regular body", async ({ page }) => {
+  test("article summary uses regular WenKai, distinct by color and size", async ({ page }) => {
     await gotoHydrated(page, "/posts/understand-your-agents-better");
 
-    // WenKai is now the body face; summaries step aside with a slant.
+    // Summaries stay quiet without synthesising an italic WenKai face.
     const summary = page.locator(".post-summary").first();
     await expect(summary).toBeVisible();
     await expect(summary).toHaveCSS("font-family", /^"LXGW WenKai"/);
-    await expect(summary).toHaveCSS("font-style", "italic");
+    await expect(summary).toHaveCSS("font-style", "normal");
   });
 
-  test("list excerpts are italic and code retains IBM Plex Mono", async ({ page }) => {
+  test("list excerpts are upright and code retains IBM Plex Mono", async ({ page }) => {
     await gotoHydrated(page, "/posts");
     const excerpt = page.locator(".post-summary").first();
     await expect(excerpt).toBeVisible();
-    await expect(excerpt).toHaveCSS("font-style", "italic");
+    await expect(excerpt).toHaveCSS("font-style", "normal");
 
     await gotoHydrated(page, "/posts/understand-your-agents-better");
     await expect(page.locator(".post-body code").first()).toHaveCSS(

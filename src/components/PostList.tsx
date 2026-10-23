@@ -109,7 +109,7 @@ export const PostList: FC<PostListProps> = ({ showFilter = false, limit }) => {
           <section key={year} className="year-group">
             <h2 className="sr-only">{year} 年</h2>
             {isNumericYear(year) ? <YearSeal year={year} /> : null}
-            <ol className="relative z-10 list-none m-0 p-0 divide-y divide-[var(--reading-rule)]">
+            <ol className="relative z-10 m-0 flex list-none flex-col p-0 sm:gap-1">
               {postsByYear[year].map((post) => (
                 <li key={post._meta.path}>
                   <PostCard post={post} />

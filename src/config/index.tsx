@@ -4,10 +4,10 @@ import { SiteConfig } from "~/types/config";
 export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
-    { label: "Posts", href: "/posts" },
-    { label: "Thoughts", href: "/thoughts" },
-    { label: "About", href: "/about" },
-    { label: "Links", href: "/links" },
+    { label: "文章", href: "/posts" },
+    { label: "想法", href: "/thoughts" },
+    { label: "关于", href: "/about" },
+    { label: "友链", href: "/links" },
   ],
   socialLinks: [
     {
@@ -16,9 +16,9 @@ export const siteConfig: SiteConfig = {
       href: "https://github.com/suenyiyang",
     },
     {
-      label: "Twitter",
+      label: "𝕏",
       icon: "icon-[line-md--twitter-x]",
-      href: "https://twitter.com/suenyiyang",
+      href: "https://x.com/suenyiyang",
     },
     {
       label: "RSS",

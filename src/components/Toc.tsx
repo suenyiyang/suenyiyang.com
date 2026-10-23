@@ -54,7 +54,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
 
   // Track active section via IntersectionObserver
   useEffect(() => {
-    if (entries.length === 0) return;
+    if (variant === "mobile" || entries.length === 0) return;
 
     const nodes = entries
       .map((entry) => document.getElementById(entry.id))
@@ -78,7 +78,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
     nodes.forEach((node) => observer.observe(node));
     observerRef.current = observer;
     return () => observer.disconnect();
-  }, [entries]);
+  }, [entries, variant]);
 
   if (entries.length === 0) return null;
 
@@ -96,7 +96,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
               onMouseEnter={(event) => measureOverflow(event.currentTarget)}
               onFocus={(event) => measureOverflow(event.currentTarget)}
               className={`toc-link block py-1 font-serif text-meta leading-[1.7] no-underline transition-colors ${indent} ${
-                isActive
+                variant === "desktop" && isActive
                   ? "text-[var(--reading-accent)] font-bold border-l-2 border-[var(--reading-accent)] -ml-[0.6rem] pl-[0.5rem]"
                   : "text-text-secondary dark:text-text-secondary-dark hover:text-[var(--reading-accent)]"
               }`}
@@ -113,7 +113,7 @@ export const Toc: FC<TocProps> = ({ variant }) => {
     return (
       <aside className="post-toc-desktop" aria-label="Table of contents">
         <div className="toc-inner">
-          <p className="mb-2 pb-2 border-b border-[var(--reading-rule)] font-serif text-eyebrow font-bold uppercase tracking-[0.18em] text-text-primary dark:text-text-primary-dark">
+          <p className="mb-3 font-mono text-eyebrow font-bold uppercase tracking-[0.18em] text-text-primary dark:text-text-primary-dark">
             Contents
           </p>
           {list}
@@ -134,10 +134,15 @@ export const Toc: FC<TocProps> = ({ variant }) => {
         className="flex items-center justify-between px-3 py-2 cursor-pointer list-none font-serif text-meta text-text-secondary dark:text-text-secondary-dark"
         aria-label="Contents"
       >
-        <span className="font-bold uppercase tracking-[0.18em] text-text-primary dark:text-text-primary-dark text-eyebrow">
+        <span className="font-mono font-bold uppercase tracking-[0.18em] text-text-primary dark:text-text-primary-dark text-eyebrow">
           Contents
         </span>
-        <span aria-hidden>{open ? "▴" : "▾"}</span>
+        <span
+          aria-hidden
+          className={`inline-block text-base leading-none transition-transform ${open ? "rotate-180" : ""}`}
+        >
+          ▾
+        </span>
       </summary>
       <div className="px-3 pb-3 pt-1">{list}</div>
     </details>

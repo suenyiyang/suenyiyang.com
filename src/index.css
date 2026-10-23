@@ -3,7 +3,7 @@
 
 /* LXGW WenKai (霞鹜文楷) for both CJK and Latin reading text.
    Unicode-range slices load only the glyphs a page needs. Use real regular
-   and bold faces; WenKai has no italic face, so summaries use synthetic oblique. */
+   and bold faces; summaries stay upright because WenKai has no italic face. */
 @import "lxgw-wenkai-webfont/lxgwwenkai-regular.css";
 @import "lxgw-wenkai-webfont/lxgwwenkai-bold.css";
 @import "@fontsource/ibm-plex-mono/400.css";
@@ -72,17 +72,17 @@
   --color-bg-light: #FFFCF0;            /* paper */
   --color-text-primary: #100F0F;        /* black  · titles, headings, strong */
   --color-text-secondary: #575653;      /* base-700 · descriptions, quotes */
-  --color-text-muted: #878580;          /* base-500 · dates, captions, markers */
+  --color-text-muted: #6F6E69;          /* base-600 · dates, captions, markers */
   --color-text-body: #343331;           /* base-850 · body copy */
   --color-border-light: #E6E4D9;        /* base-100 · hairlines, chips */
   --color-accent: #027AFF;
 
   --color-bg-dark: #100F0F;             /* black */
   --color-text-primary-dark: #E6E4D9;   /* base-100 */
-  --color-text-secondary-dark: #878580; /* base-500 */
-  --color-text-muted-dark: #6F6E69;     /* base-600 */
+  --color-text-secondary-dark: #9F9D96; /* base-400 */
+  --color-text-muted-dark: #878580;     /* base-500 */
   --color-text-body-dark: #CECDC3;      /* base-200 */
-  --color-border-dark: #282726;         /* base-900 */
+  --color-border-dark: #343331;         /* base-850 */
   --color-accent-dark: #027AFF;
 }
 
@@ -98,11 +98,12 @@
   --reading-paper: #FFFCF0;             /* paper */
   --reading-text-primary: #100F0F;      /* black */
   --reading-text-secondary: #575653;    /* base-700 */
-  --reading-text-muted: #878580;        /* base-500 */
+  --reading-text-muted: #6F6E69;        /* base-600 */
   --reading-code-bg: #F2F0E5;           /* base-50 */
   --reading-code-text: #100F0F;         /* black */
   --reading-quote-bar: #E6E4D9;         /* base-100 */
   --reading-rule: #E6E4D9;              /* base-100 */
+  --radius-surface: 8px;
   --reading-accent: #027AFF;
   --reading-highlight: color-mix(in srgb, var(--reading-accent) 19%, transparent);
   --reading-highlight-overlap: color-mix(in srgb, var(--reading-accent) 8%, transparent);
@@ -156,12 +157,12 @@
   /* Reading surface tokens (dark) — Flexoki black */
   --reading-paper: #100F0F;             /* black */
   --reading-text-primary: #E6E4D9;      /* base-100 */
-  --reading-text-secondary: #878580;    /* base-500 */
-  --reading-text-muted: #6F6E69;        /* base-600 */
+  --reading-text-secondary: #9F9D96;    /* base-400 */
+  --reading-text-muted: #878580;        /* base-500 */
   --reading-code-bg: #1C1B1A;           /* base-950 */
   --reading-code-text: #CECDC3;         /* base-200 */
-  --reading-quote-bar: #282726;         /* base-900 */
-  --reading-rule: #282726;              /* base-900 */
+  --reading-quote-bar: #343331;         /* base-850 */
+  --reading-rule: #343331;              /* base-850 */
   --reading-accent: #027AFF;
   --reading-highlight: color-mix(in srgb, var(--reading-accent) 29%, transparent);
   --reading-highlight-overlap: color-mix(in srgb, var(--reading-accent) 12%, transparent);
@@ -203,6 +204,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Keep centered layouts fixed when navigating between short and long pages. */
+    scrollbar-gutter: stable;
     /* Clear the sticky header when jumping to an anchor */
     scroll-padding-top: var(--toc-top);
   }
@@ -240,12 +243,12 @@
     text-wrap: wrap;
   }
 
-  /* Article summary / list excerpt: oblique, one step quieter than body.
-     WenKai has no native italic; the browser synthesizes the slant. */
+  /* Article summary / list excerpt: regular WenKai, one step quieter than
+     body copy. A native upright face keeps mixed CJK and Latin terms calm. */
   .post-summary {
     font-family: var(--font-serif);
     font-weight: var(--font-weight-reading);
-    font-style: italic;
+    font-style: normal;
   }
 
   /* Short rule under the article header, instead of a full-width border */
@@ -389,9 +392,11 @@
   /* --- Blockquote --- */
   .post-body blockquote {
     border-left: 1px solid var(--reading-quote-bar);
-    padding-left: 1.2em;
+    padding-left: 0.85em;
     margin-top: var(--space-block);
     color: var(--color-text-secondary);
+    font-size: 1rem; /* 16px */
+    line-height: 1.8;
     font-style: normal;
   }
   .dark .post-body blockquote {
@@ -459,7 +464,7 @@
     margin-top: 1.6em;
     margin-bottom: 1.6em;
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: var(--radius-surface);
     overflow: hidden;
     background-color: var(--code-window-bg);
     border: 1px solid color-mix(in srgb, var(--reading-code-text) 12%, transparent);
@@ -474,14 +479,20 @@
     border-bottom: 1px solid color-mix(in srgb, var(--reading-code-text) 10%, transparent);
   }
   .post-body .code-window__dot {
-    width: 0.72rem;
-    height: 0.72rem;
+    width: 0.625rem;
+    height: 0.625rem;
     border-radius: 50%;
-    box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.18);
+    background:
+      linear-gradient(145deg, rgb(255 255 255 / 0.38), transparent 46%),
+      var(--dot-color);
+    box-shadow:
+      inset 0 -1px 1px rgb(0 0 0 / 0.14),
+      inset 0 0 0 0.5px rgb(0 0 0 / 0.16),
+      0 1px 1px rgb(0 0 0 / 0.08);
   }
-  .post-body .code-window__dot:nth-child(1) { background-color: #ff5f57; }
-  .post-body .code-window__dot:nth-child(2) { background-color: #febc2e; }
-  .post-body .code-window__dot:nth-child(3) { background-color: #28c840; }
+  .post-body .code-window__dot:nth-child(1) { --dot-color: #ff5f57; }
+  .post-body .code-window__dot:nth-child(2) { --dot-color: #febc2e; }
+  .post-body .code-window__dot:nth-child(3) { --dot-color: #28c840; }
 
   .post-body pre {
     margin-top: var(--space-pre);
@@ -542,11 +553,11 @@
     display: block;
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: var(--radius-surface);
   }
   .post-body figcaption {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: var(--text-meta);
     letter-spacing: 0.02em;
     color: var(--color-text-muted);
     text-align: center;
@@ -682,11 +693,14 @@
   max-width: 100%;
   height: auto;
 }
+.post-body img {
+  font-family: var(--font-serif);
+}
 .post-body video {
   display: block;
   margin-inline: auto;
   max-width: min(28rem, 100%);
-  border-radius: 8px;
+  border-radius: var(--radius-surface);
 }
 
 .embed-youtube-figure {
@@ -699,7 +713,7 @@
   aspect-ratio: 16 / 9;
   margin: 1.75rem 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: var(--radius-surface);
   background: #000;
 }
 
@@ -717,7 +731,7 @@
 
 .embed-youtube-figure > figcaption {
   margin-top: 0.5rem;
-  font-size: 0.875rem;
+  font-size: var(--text-meta);
   color: var(--reading-text-muted);
   text-align: center;
 }
@@ -735,7 +749,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 6px;
+  border-radius: var(--radius-surface);
   overflow: hidden;
 }
 
@@ -766,7 +780,7 @@
 
 .post-figure > figcaption {
   margin-top: 0.5rem;
-  font-size: 0.875rem;
+  font-size: var(--text-meta);
   color: var(--reading-text-muted);
   text-align: center;
   cursor: default;
@@ -822,7 +836,7 @@
 
 .year-seal {
   position: absolute;
-  top: 0;
+  top: -1rem;
   right: 0.25rem;
   width: clamp(6.5rem, 25cqw, 9.5rem);
   aspect-ratio: 1;
@@ -836,13 +850,14 @@
 /* Strokes get thinner on a phone; a touch more ink keeps the seal legible. */
 @media (max-width: 40rem) {
   .year-seal {
+    top: -0.5rem;
     opacity: 1;
   }
 }
 
 /* Light ink on a dark page reads much heavier than the same mix on paper. */
 .dark .year-seal {
-  color: color-mix(in srgb, var(--reading-text-primary) 15%, transparent);
+  color: color-mix(in srgb, var(--reading-text-primary) 26%, transparent);
 }
 
 .year-seal-frame {
@@ -899,7 +914,7 @@
 #comments .wl-panel {
   margin: 0;
   border: 1px solid var(--comment-border);
-  border-radius: 10px;
+  border-radius: var(--radius-surface);
   background: transparent;
   box-shadow: none;
   transition: border-color 200ms ease;
@@ -912,7 +927,7 @@
 #comments .wl-header {
   padding: 0;
   border-bottom: 1px solid var(--comment-border);
-  border-radius: 9px 9px 0 0;
+  border-radius: calc(var(--radius-surface) - 1px) calc(var(--radius-surface) - 1px) 0 0;
 }
 #comments .wl-header label {
   min-width: 0;
@@ -1172,7 +1187,7 @@
 #comments .wl-emoji-popup,
 #comments .wl-gif-popup {
   border: 1px solid var(--comment-border);
-  border-radius: 10px;
+  border-radius: var(--radius-surface);
   background: var(--reading-paper);
   box-shadow: 0 12px 32px rgb(16 15 15 / 0.1);
 }
@@ -1266,7 +1281,7 @@
   max-width: min(90vw, 1200px);
   max-height: 90vh;
   background: var(--reading-paper);
-  border-radius: 10px;
+  border-radius: var(--radius-surface);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;

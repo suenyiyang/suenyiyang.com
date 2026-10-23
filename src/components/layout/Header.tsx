@@ -5,9 +5,9 @@ import { Logo } from "../Logo";
 import { ThemeSwitch } from "../ThemeSwitch";
 
 const linkClass = (isActive: boolean) =>
-  `font-mono text-meta transition-colors ${
+  `relative font-serif text-meta transition-colors ${
     isActive
-      ? "text-text-primary dark:text-text-primary-dark"
+      ? "text-text-primary dark:text-text-primary-dark after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-current after:content-['']"
       : "text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark"
   }`;
 
@@ -42,24 +42,30 @@ export default function Header() {
   return (
     <header
       ref={header}
-      className="site-header w-full px-(--col-px) sticky top-0 z-20 backdrop-blur-md bg-bg-light/85 dark:bg-bg-dark/85"
+      className="site-header w-full px-(--col-px) sticky top-0 z-20"
     >
-      <div className="flex items-center justify-between gap-3 max-w-(--col-measure) mx-auto h-[var(--site-header-height)]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 backdrop-blur-md bg-bg-light/85 dark:bg-bg-dark/85"
+      />
+      <div className="relative z-10 flex items-center justify-between gap-3 max-w-(--col-measure) mx-auto h-[var(--site-header-height)]">
         <Link to="/" aria-label="Home" className="flex items-center shrink-0">
           <Logo />
         </Link>
-        <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
           <button
             ref={toggle}
             type="button"
-            className="nav-toggle"
+            className={`nav-toggle${open ? " is-open" : ""}`}
             aria-label="Navigation menu"
             aria-expanded={open}
             aria-controls="site-navigation"
             onClick={() => setOpen((value) => !value)}
           >
-            {open ? "Close" : "Menu"}
-            <span aria-hidden="true">{open ? " −" : " +"}</span>
+            <span className="nav-toggle-icon" aria-hidden="true">
+              <span />
+              <span />
+            </span>
           </button>
           <nav
             id="site-navigation"

@@ -3,7 +3,7 @@ import { siteConfig } from "~/config";
 export default function Footer() {
   return (
     <footer className="w-full px-(--col-px) mt-auto">
-      <div className="flex items-center justify-between gap-4 max-w-(--col-measure) mx-auto pt-7 pb-12 border-t border-[var(--reading-rule)] font-mono text-[0.75rem]">
+      <div className="flex items-center justify-between gap-4 max-w-(--col-measure) mx-auto pt-7 pb-12 font-serif text-[0.75rem]">
         <span className="text-text-muted dark:text-text-muted-dark">
           © 2026 {siteConfig.metadata.title}
         </span>

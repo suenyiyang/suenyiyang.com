@@ -8,6 +8,6 @@ export const ROUTES = {
 export type Route = (typeof ROUTES)[keyof typeof ROUTES];
 
 export const NAV_LINKS = [
-  { label: "Posts", href: ROUTES.posts },
-  { label: "Links", href: ROUTES.links },
+  { label: "文章", href: ROUTES.posts },
+  { label: "友链", href: ROUTES.links },
 ] as const;

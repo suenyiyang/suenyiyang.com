@@ -13,7 +13,7 @@ export const AboutPage: FC<PropsWithChildren> = ({ children }) => {
       {/* Profile Section */}
       <section className="pb-10 md:pb-12">
         <h1 className="post-title text-display text-text-primary dark:text-text-primary-dark mb-4">
-          About Me
+          关于
         </h1>
         <div className="flex items-center gap-4">
           {siteConfig.socialLinks?.map((link) => (

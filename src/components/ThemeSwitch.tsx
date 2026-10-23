@@ -40,7 +40,7 @@ export const ThemeSwitch = () => {
     <div
       role="radiogroup"
       aria-label="Theme"
-      className="inline-flex items-center rounded border border-border-light dark:border-border-dark p-0.5"
+      className="inline-flex items-center gap-0.5 rounded-full bg-[var(--reading-code-bg)] p-[3px]"
     >
       {options.map((option) => {
         const isActive = mode === option.mode;
@@ -52,10 +52,10 @@ export const ThemeSwitch = () => {
             aria-checked={isActive}
             aria-label={option.label}
             onClick={(event) => selectMode(option.mode, event)}
-            className={`inline-flex items-center justify-center w-6 h-6 rounded-sm transition-colors cursor-pointer ${
+            className={`inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-full transition-[color,background-color,box-shadow] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--reading-accent)] ${
               isActive
-                ? "bg-border-light dark:bg-border-dark text-text-primary dark:text-text-primary-dark"
-                : "text-text-muted dark:text-text-secondary hover:text-text-primary dark:hover:text-text-primary-dark"
+                ? "bg-[var(--reading-paper)] text-text-primary shadow-[0_1px_3px_rgba(16,15,15,0.12)] ring-1 ring-black/[0.04] dark:text-text-primary-dark dark:ring-white/[0.06]"
+                : "text-text-muted hover:text-text-primary dark:text-text-muted-dark dark:hover:text-text-primary-dark"
             }`}
           >
             <span className={`${option.icon} w-4 h-4`} />
