@@ -5,7 +5,7 @@ import { Logo } from "../Logo";
 import { ThemeSwitch } from "../ThemeSwitch";
 
 const linkClass = (isActive: boolean) =>
-  `relative font-serif text-meta transition-colors ${
+  `relative font-serif text-nav transition-colors ${
     isActive
       ? "text-text-primary dark:text-text-primary-dark after:absolute after:-bottom-2 after:left-1/2 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-current after:content-['']"
       : "text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark"
