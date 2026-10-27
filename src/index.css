@@ -1082,9 +1082,9 @@
 }
 
 /* --- Section head: eyebrow, no rule ---
-   A hairline under "2 COMMENTS" only underlined the header and pushed a
-   second line into the gap above the first comment; the list separates
-   itself, so the head just needs breathing room. */
+   Nothing in the comment block is underlined: a hairline under "2 COMMENTS"
+   only underlined the header, and the list below separates by spacing. The
+   head just needs breathing room. */
 #comments .wl-meta-head {
   align-items: baseline;
   margin: 2.5rem 0 0.85rem;
@@ -1128,25 +1128,24 @@
   font-size: 0.9375rem;
   text-align: center;
 }
-/* One hairline per thread, and only the top-level card owns it. A reply that
-   drew its own bottom rule stacked a second line right above the thread's
-   separator, and the nested card's padding left an empty band between text
-   and line. Replies nest by indentation alone — the widget's dashed left rail
-   read as another stray line down the whole thread. */
+/* No rules at all inside the list: threads separate by space. A hairline per
+   thread still cut the comments into cards, replies stacked a second rule on
+   top of it (with an empty band between text and line from the nested card's
+   padding), and the widget's dashed left rail drew a line down every thread.
+   Air does the sectioning; replies nest by indentation alone. */
 #comments .wl-card {
   padding-bottom: 0;
   border-bottom: 0;
 }
 #comments .wl-cards > .wl-card-item {
-  padding: 1.15rem 0;
+  padding: 1.6rem 0;
 }
-#comments .wl-cards > .wl-card-item > .wl-card {
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid var(--comment-border);
+/* First thread hangs off the head's margin, last one ends the section. */
+#comments .wl-cards > .wl-card-item:first-child {
+  padding-top: 0.4rem;
 }
-#comments .wl-cards > .wl-card-item:last-child > .wl-card {
+#comments .wl-cards > .wl-card-item:last-child {
   padding-bottom: 0;
-  border-bottom: 0;
 }
 #comments .wl-card .wl-quote {
   border-inline-start: 0;
