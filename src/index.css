@@ -1081,12 +1081,14 @@
   outline-offset: 2px;
 }
 
-/* --- Section head: eyebrow + hairline, like Contents --- */
+/* --- Section head: eyebrow, no rule ---
+   A hairline under "2 COMMENTS" only underlined the header and pushed a
+   second line into the gap above the first comment; the list separates
+   itself, so the head just needs breathing room. */
 #comments .wl-meta-head {
   align-items: baseline;
-  margin-top: 2.5rem;
-  padding: 0 0 0.65rem;
-  border-bottom: 1px solid var(--comment-border);
+  margin: 2.5rem 0 0.85rem;
+  padding: 0;
 }
 #comments .wl-count {
   color: var(--comment-text-strong);
@@ -1126,12 +1128,35 @@
   font-size: 0.9375rem;
   text-align: center;
 }
-#comments .wl-card-item {
-  padding: 1.1rem 0;
-}
+/* One hairline per thread, and only the top-level card owns it. A reply that
+   drew its own bottom rule stacked a second line right above the thread's
+   separator, and the nested card's padding left an empty band between text
+   and line. Replies nest by indentation alone — the widget's dashed left rail
+   read as another stray line down the whole thread. */
 #comments .wl-card {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+#comments .wl-cards > .wl-card-item {
+  padding: 1.15rem 0;
+}
+#comments .wl-cards > .wl-card-item > .wl-card {
   padding-bottom: 1.1rem;
   border-bottom: 1px solid var(--comment-border);
+}
+#comments .wl-cards > .wl-card-item:last-child > .wl-card {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+#comments .wl-card .wl-quote {
+  border-inline-start: 0;
+}
+#comments .wl-card .wl-quote .wl-card-item {
+  padding-top: 0.35rem;
+  padding-bottom: 0.2rem;
+}
+#comments .wl-card .wl-quote .wl-content {
+  margin-bottom: 0;
 }
 #comments .wl-card .wl-nick {
   color: var(--comment-text-strong);
@@ -1163,9 +1188,6 @@
   font-family: var(--font-mono);
   font-size: 0.6875em;
   letter-spacing: 0.02em;
-}
-#comments .wl-card .wl-quote {
-  border-inline-start: 1px solid var(--comment-border);
 }
 #comments .wl-card .wl-delete,
 #comments .wl-card .wl-like,
