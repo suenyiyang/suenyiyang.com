@@ -1154,6 +1154,34 @@
   font-size: 1em;
   line-height: 1.8;
 }
+/* Waline renders comment markdown to plain HTML and ships no list styles of
+   its own, so Tailwind Preflight (`ol, ul, menu { list-style: none }`) is the
+   only rule a comment's <ul> ever sees: items stack as bare lines. Restore the
+   reading column's markers and rhythm inside comment bodies and the editor
+   preview. */
+#comments :is(.wl-content, .wl-preview) :is(ul, ol) {
+  margin-top: 0.6em;
+  padding-inline-start: 1.3em;
+}
+#comments :is(.wl-content, .wl-preview) ul {
+  list-style: disc;
+}
+#comments :is(.wl-content, .wl-preview) ol {
+  list-style: decimal;
+}
+#comments :is(.wl-content, .wl-preview) :is(ul, ol) :is(ul, ol) {
+  margin-top: 0.3em;
+}
+#comments :is(.wl-content, .wl-preview) li {
+  margin-top: 0.35em;
+  padding-inline-start: 0.25em;
+}
+#comments :is(.wl-content, .wl-preview) li::marker {
+  color: var(--comment-text-muted);
+}
+#comments :is(.wl-content, .wl-preview) ol > li::marker {
+  font-variant-numeric: tabular-nums;
+}
 #comments .wl-card .wl-meta > span {
   padding: 2px 7px;
   border: 1px solid var(--comment-border);
