@@ -1178,13 +1178,35 @@
   font-size: 1em;
   line-height: 1.8;
 }
-/* Waline renders comment markdown to plain HTML and ships no list styles of
-   its own, so Tailwind Preflight (`ol, ul, menu { list-style: none }`) is the
-   only rule a comment's <ul> ever sees: items stack as bare lines. Restore the
-   reading column's markers and rhythm inside comment bodies and the editor
+/* --- Comment body markdown --------------------------------------------
+   Waline stores each comment as pre-rendered HTML and ships no rules for the
+   result, so all a comment body inherits is Tailwind Preflight: `ol, ul,
+   menu { list-style: none }` deletes every bullet, and the zeroed block
+   margins flatten paragraphs into one another. Restore the reading column's
+   rhythm — block margins plus real markers — for body copy and the editor
    preview. */
+#comments :is(.wl-content, .wl-preview) > :is(p, ul, ol, blockquote, pre, table) {
+  margin-block: 0.7em;
+}
+#comments :is(.wl-content, .wl-preview) > :first-child {
+  margin-top: 0;
+}
+#comments :is(.wl-content, .wl-preview) > :last-child {
+  margin-bottom: 0;
+}
+
+/* Stray line breaks: only the ones that fall between blocks are empty lines.
+   Breaks *inside* a paragraph or list item are the author's and stay. Kept as
+   a guard for comments stored before the renderer stopped emitting a <br />
+   after every block (see suenyiyang-waline-worker patch). */
+#comments :is(.wl-content, .wl-preview) > br:first-child,
+#comments :is(.wl-content, .wl-preview) :is(p, ul, ol, blockquote, pre, table, h1, h2, h3, h4, h5, h6) + br,
+#comments :is(.wl-content, .wl-preview) :is(ul, ol) > br {
+  display: none;
+}
+
 #comments :is(.wl-content, .wl-preview) :is(ul, ol) {
-  margin-top: 0.6em;
+  margin-top: 0.7em;
   padding-inline-start: 1.3em;
 }
 #comments :is(.wl-content, .wl-preview) ul {
