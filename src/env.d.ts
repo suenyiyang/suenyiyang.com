@@ -1,5 +1,6 @@
 declare const __INJECTED_WALINE_SERVER_URL__: string;
 declare const __INJECTED_GA_ID__: string;
+declare const __INJECTED_ORIGIN_TRIAL__: string;
 
 declare module "*.svg" {
   const content: string;

@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import { absolutePageUrl, withoutTrailingSlash } from "../src/utils/trailingSlash";
 
 /** Keep in sync with siteConfig.metadata in src/config/index.tsx. */
-const SITE_URL = "https://suenyiyang.com";
+export const SITE_URL = "https://suenyiyang.com";
 const SITE_TITLE = "Yiyang Suen";
 const SITE_DESCRIPTION =
   "Personal blog including frontend tech, life sharing, AI exploration and more.";
@@ -56,7 +56,7 @@ function titleFromContent(content: string): string | undefined {
   return match?.[1]?.trim();
 }
 
-function routeFromFile(file: string): string {
+export function routeFromFile(file: string): string {
   const rel = path.relative(pagesDir, file).replace(/\\/g, "/");
   const withoutExt = rel.replace(/\.(mdx|md)$/i, "");
   const withoutIndex = withoutExt.replace(/(^|\/)index$/, "");
@@ -64,7 +64,7 @@ function routeFromFile(file: string): string {
   return withoutTrailingSlash(`/${withoutIndex.replace(/^\/+|\/+$/g, "")}`);
 }
 
-function walkMdx(dir: string, files: string[] = []): string[] {
+export function walkMdx(dir: string, files: string[] = []): string[] {
   for (const item of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, item.name);
     if (item.isDirectory()) {

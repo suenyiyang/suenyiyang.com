@@ -1,5 +1,7 @@
 import { allPosts, Post } from "content-collections/generated";
-import { FC, useMemo, useState } from "react";
+import { useAtom } from "jotai";
+import { FC, useEffect, useMemo } from "react";
+import { activeTagAtom } from "~/stores/posts";
 import { PostCard } from "./PostCard";
 import { Tag } from "./Tag";
 import { YearSeal, YearSealDefs, isNumericYear } from "./YearSeal";
@@ -37,7 +39,15 @@ const groupPostsByYear = (posts: Post[]): Record<string, Post[]> => {
 };
 
 export const PostList: FC<PostListProps> = ({ showFilter = false, limit }) => {
-  const [activeTag, setActiveTag] = useState<string | null>(null);
+  // Shared with the `page_filter_posts_by_tag` WebMCP tool. Only the filtered
+  // list on /posts owns the filter; the homepage renders it unfiltered.
+  const [storedTag, setStoredTag] = useAtom(activeTagAtom);
+  const activeTag = showFilter ? storedTag : null;
+
+  useEffect(() => {
+    if (!showFilter) return;
+    return () => setStoredTag(null);
+  }, [showFilter, setStoredTag]);
 
   const sortedPosts = useMemo(() => {
     return [...allPosts].sort(
@@ -87,7 +97,7 @@ export const PostList: FC<PostListProps> = ({ showFilter = false, limit }) => {
             label="All"
             variant="filter"
             isActive={activeTag === null}
-            onClick={() => setActiveTag(null)}
+            onClick={() => setStoredTag(null)}
           />
           {allTags.map((tag) => (
             <Tag
@@ -95,7 +105,7 @@ export const PostList: FC<PostListProps> = ({ showFilter = false, limit }) => {
               label={tag}
               variant="filter"
               isActive={activeTag === tag}
-              onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+              onClick={() => setStoredTag(activeTag === tag ? null : tag)}
             />
           ))}
         </div>

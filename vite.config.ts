@@ -14,7 +14,8 @@ import remarkFlexibleMarkers from "remark-flexible-markers";
 import rehypeShiki from "@shikijs/rehype";
 import rehypeSlug from "rehype-slug";
 
-import { ENV_GA_ID, ENV_WALINE_SERVER_URL } from "./config/env";
+import { ENV_GA_ID, ENV_ORIGIN_TRIAL, ENV_WALINE_SERVER_URL } from "./config/env";
+import { contentIndexPlugin } from "./config/content-index";
 import { rehypeCodeWindow } from "./config/rehype-code-window";
 import { remarkMdxRelativeImages } from "./config/remark-mdx-relative-images";
 import { remarkUnwrapImages } from "./config/remark-unwrap-images";
@@ -61,6 +62,7 @@ export default defineConfig({
     tailwindcss(),
     imagetools(),
     seoFilesPlugin(),
+    contentIndexPlugin(),
     reactRouter(),
     svgr({
       include: "**/*.svg",
@@ -76,5 +78,6 @@ export default defineConfig({
   define: {
     __INJECTED_WALINE_SERVER_URL__: JSON.stringify(ENV_WALINE_SERVER_URL),
     __INJECTED_GA_ID__: JSON.stringify(ENV_GA_ID),
+    __INJECTED_ORIGIN_TRIAL__: JSON.stringify(ENV_ORIGIN_TRIAL ?? ""),
   },
 });
