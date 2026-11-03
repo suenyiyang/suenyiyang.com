@@ -5,6 +5,7 @@ import { MDXProvider } from "@mdx-js/react";
 import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 import { BackToTop } from "~/components/BackToTop";
+import { WebMcpNavigationBridge, useGlobalWebMcp } from "~/webmcp/register";
 
 import { useEffect } from "react";
 import { siteConfig } from "~/config";
@@ -43,6 +44,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
+        {/* Origin trial token for WebMCP. Empty in local builds; set ORIGIN_TRIAL
+            in the deploy environment. Tokens expire after ~6 months. */}
+        {__INJECTED_ORIGIN_TRIAL__ ? (
+          <meta httpEquiv="origin-trial" content={__INJECTED_ORIGIN_TRIAL__} />
+        ) : null}
         <meta
           name="theme-color"
           content="#FFFCF0"
@@ -102,6 +108,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function LayoutShell({ children }: { children: React.ReactNode }) {
+  // Registers the site-wide WebMCP tools once hydration is done. Effects run
+  // child-first, so route-level tools are already registered by then.
+  useGlobalWebMcp();
+
   // Passive effects run child-first, so by the time this one fires every
   // effect in the initial tree (click handlers, theme sync, …) is attached.
   // e2e tests wait for this marker before interacting with the page.
@@ -111,6 +121,7 @@ function LayoutShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      <WebMcpNavigationBridge />
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex flex-col flex-grow w-full max-w-(--col-width) mx-auto px-(--col-px) pt-9 pb-20 md:pt-[4.5rem] md:pb-28">

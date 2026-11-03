@@ -25,6 +25,7 @@ pnpm dev
 - `pnpm fonts` / `pnpm fonts:check` - rebuild/check the archived Source Han Serif slices (not used by the current reading theme)
 - `pnpm lint` - run ESLint
 - `pnpm test:visual` - verify existing screenshot baselines against a production static build (run separately from Thoughts e2e; both use port 4387)
+- `pnpm webmcp:test` - unit-test the WebMCP tool handlers against fixtures
 
 ## Content
 - MDX pages live in `pages/`; posts live in `pages/posts/<slug>/index.mdx`.
@@ -39,6 +40,30 @@ pnpm dev
 - [文件组织与 frontmatter 规范](docs/thoughts.md)。
 - `pnpm thoughts:check` 校验内容；`pnpm thoughts:test` 验证规则；`pnpm test:thoughts:e2e` 使用隔离样例测试交互。
 - 手机导航采用 Menu 折叠菜单（小于 640px），主题开关始终保留在顶栏。
+
+## WebMCP
+
+The site exposes read-only WebMCP tools so an AI agent in the browser can read
+content without scraping HTML. Everything runs client-side — the site is
+prerendered, so there is no server component.
+
+- `src/webmcp/` — tool definitions (`definitions.ts`), pure logic (`content.ts`),
+  and the API adapter (`model-context.ts`).
+- `config/content-index.ts` — build-time `virtual:content-index`: plain markdown
+  records for every page, post and thought. It is only reachable through a
+  dynamic import inside a tool call, so readers download nothing extra.
+- Native API is `document.modelContext` (Chrome 149+, origin trial). Elsewhere
+  `@mcp-b/webmcp-polyfill` is imported on an idle slot.
+- Tools registered everywhere: `get_site_info`, `search_content`, `list_posts`,
+  `get_post`, `list_thoughts`, `get_thought`, `list_tags`, `get_current_page`,
+  `open_page`. `page_filter_posts_by_tag` only exists on `/posts`.
+- `pnpm webmcp:test` covers the handlers in Node; `e2e/tests/webmcp*.spec.ts`
+  cover a mocked API surface and the real polyfill path.
+
+Local check: enable `chrome://flags/#enable-webmcp-testing`, open the dev server,
+then run `await document.modelContext.getTools()` in DevTools. For the public
+origin, set `ORIGIN_TRIAL` in the deploy environment (the token is injected as a
+`<meta http-equiv="origin-trial">` tag and expires after roughly six months).
 
 ## Typography
 
@@ -127,6 +152,7 @@ GA_ID=
 - `BASE` - base path prefix for routes.
 - `WALINE_SERVER_URL` - Waline server endpoint for comments.
 - `GA_ID` - Google Analytics ID.
+- `ORIGIN_TRIAL` - Chrome origin trial token for WebMCP (optional; only needed on the deployed origin).
 
 ## Deploy
 

@@ -7,6 +7,7 @@
     "dev": "dotenv -- vite dev",
     "thoughts:check": "tsx scripts/check-thoughts.ts",
     "thoughts:test": "tsx --test tests/thoughts.test.ts",
+    "webmcp:test": "tsx --test tests/webmcp.test.ts",
     "test:thoughts:e2e": "playwright test --config playwright.thoughts.config.ts",
     "test:visual": "playwright test --config playwright.visual.config.ts",
     "build": "react-router build",
@@ -27,6 +28,7 @@
   "dependencies": {
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@mcp-b/webmcp-polyfill": "^6.0.3",
     "@mdx-js/rollup": "^3.1.0",
     "@react-router/node": "^7.10.1",
     "@tailwindcss/typography": "^0.5.16",

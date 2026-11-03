@@ -11,7 +11,7 @@ export default async function globalSetup() {
   // Pre-warm every route the test suite touches. Vite compiles per-route
   // bundles lazily; without this, parallel workers race on first-request
   // compilation, causing flaky timeouts.
-  const routes = ["/", "/posts", "/about", "/links"];
+  const routes = ["/", "/posts", "/about", "/links", "/posts/review-2025"];
   console.log("[global-setup] pre-warming routes...");
   await Promise.all(
     routes.map(async (route) => {
