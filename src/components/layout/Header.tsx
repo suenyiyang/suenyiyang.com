@@ -96,6 +96,7 @@ export default function Header() {
                 <NavLink
                   key={item.href}
                   to={item.href}
+                  prefetch="render"
                   className={({ isActive }) => linkClass(isActive)}
                   end={item.href === "/"}
                   onClick={() => setOpen(false)}
