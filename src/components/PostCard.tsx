@@ -14,6 +14,7 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
   return (
     <Link
       to={withoutTrailingSlash(post._meta.path)}
+      prefetch="viewport"
       className="group grid grid-cols-1 gap-1.5 py-5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-5 sm:py-[1.375rem]"
     >
       {date ? (
