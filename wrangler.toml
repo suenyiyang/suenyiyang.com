@@ -5,4 +5,7 @@ compatibility_date = "2026-05-14"
 directory = "build/client"
 # /dir/index.html is served at /dir (200). /dir/ redirects to /dir. Root stays /.
 html_handling = "drop-trailing-slash"
+# Unmatched paths get the prerendered 404 page (build/client/404.html, copied
+# from the /404 route at build end) with a real 404 status.
+not_found_handling = "404-page"
 

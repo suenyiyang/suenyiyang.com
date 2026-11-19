@@ -181,3 +181,22 @@ export function writeSeoFiles(clientDir: string): void {
   const posts = collectSeoEntries().filter((entry) => entry.isPost).length;
   console.log(`[seo] wrote rss.xml and sitemap.xml (${posts} posts) to ${clientDir}`);
 }
+
+/**
+ * Workers static assets answer unmatched paths with a flat `/404.html`
+ * (`not_found_handling = "404-page"` in wrangler.toml), but prerendering
+ * writes routes as directories. Copy the prerendered /404 page into place.
+ *
+ * The route is deliberately absent from pages/, so it never enters
+ * sitemap.xml or the RSS feed, and it carries `noindex` itself.
+ */
+export function writeNotFoundPage(clientDir: string): void {
+  const source = path.join(clientDir, "404", "index.html");
+  if (!fs.existsSync(source)) {
+    throw new Error(
+      `[404] expected a prerendered page at ${source} — is /404 registered in src/routes.ts?`,
+    );
+  }
+  fs.copyFileSync(source, path.join(clientDir, "404.html"));
+  console.log(`[404] copied ${source} -> ${path.join(clientDir, "404.html")}`);
+}

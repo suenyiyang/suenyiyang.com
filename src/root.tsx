@@ -6,6 +6,7 @@ import components from "~/mdx-components";
 import { GoogleAnalytics } from "~/components/GoogleAnalytics";
 import { BackToTop } from "~/components/BackToTop";
 import { WebMcpNavigationBridge, useGlobalWebMcp } from "~/webmcp/register";
+import { NotFoundPage } from "~/components/pages";
 
 import { useEffect } from "react";
 import { siteConfig } from "~/config";
@@ -13,7 +14,7 @@ import stylesheet from "~/index.css?url";
 
 export function ErrorBoundary({ error }: { error: { status: number } }) {
   if (error.status === 404) {
-    return <div>404</div>;
+    return <NotFoundPage />;
   }
   return <div>500</div>;
 }
