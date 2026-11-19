@@ -56,4 +56,7 @@ readThoughts();
 export default [
   ...nestedRoutes({ routesDir: PAGES_DIR, fileExtensions: FILE_EXTENSIONS }),
   route(thoughtsBase, "routes/thoughts.tsx"),
+  // Prerendered to build/client/404/index.html, then copied to a flat
+  // 404.html for Cloudflare (`not_found_handling = "404-page"`).
+  route("/404", "routes/not-found.tsx"),
 ] satisfies RouteConfig;

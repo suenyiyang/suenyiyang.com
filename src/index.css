@@ -897,6 +897,99 @@
 }
 
 /* ============================================================
+   Not found
+   A 404 has no content, so the page *is* one impression: the year seal's
+   1×3 sibling, sitting in the optical centre of the space between header
+   and footer. Same paper, same ink, same 2.8°-ish tilt as the year stamp,
+   so a dead end still reads as part of the site rather than a browser error.
+   ============================================================ */
+.not-found {
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  place-content: center;
+  /* Cancel the <main> padding so the stamp centres on the viewport area
+     between header and footer instead of on the padded box. */
+  margin-block: -2.25rem -5rem;
+}
+
+@media (min-width: 48rem) {
+  .not-found {
+    margin-block: -4.5rem -7rem;
+  }
+}
+
+.not-found-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.not-found-seal {
+  position: relative;
+  display: block;
+  width: clamp(4.75rem, 13vw, 6.5rem);
+  aspect-ratio: 1 / 2.35;
+  transform: rotate(-1.6deg);
+  color: color-mix(in srgb, var(--reading-text-primary) 46%, transparent);
+  transition: color 400ms ease;
+}
+
+/* No visible copy on this page, so the stamp has to read as the way out: a
+   touch more ink under the pointer. */
+.not-found-seal:hover {
+  color: color-mix(in srgb, var(--reading-text-primary) 58%, transparent);
+}
+
+.not-found-seal:focus-visible {
+  outline: 2px solid var(--reading-accent);
+  outline-offset: 10px;
+  border-radius: 2px;
+}
+
+.dark .not-found-seal {
+  color: color-mix(in srgb, var(--reading-text-primary) 58%, transparent);
+}
+
+.not-found-seal-frame {
+  position: absolute;
+  inset: 0;
+  filter: url(#not-found-seal-frame);
+}
+
+.not-found-seal-frame-outer {
+  position: absolute;
+  inset: 0;
+  border: 3px solid currentColor;
+}
+
+.not-found-seal-frame-inner {
+  position: absolute;
+  inset: 0.34rem;
+  border: 1px solid currentColor;
+}
+
+.not-found-seal-chars {
+  position: absolute;
+  inset: 0.95rem 0.5rem;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center;
+  filter: url(#year-seal-ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4.6vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1;
+  color: color-mix(in srgb, var(--reading-text-primary) 72%, transparent);
+}
+
+.dark .not-found-seal-chars {
+  color: color-mix(in srgb, var(--reading-text-primary) 82%, transparent);
+}
+
+/* ============================================================
    Comments (Waline)
    The stock widget is a card floating on a white sheet: 12px radius,
    #ddd dashed rules, cool-grey controls. This page has no cards, so the
