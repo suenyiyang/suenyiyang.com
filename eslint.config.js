@@ -13,8 +13,6 @@ export default tseslint.config(
       "config/*.d.ts",
       "vite.config.js",
       "vite.config.d.ts",
-      "scripts/check-thoughts.js",
-      "scripts/check-thoughts.d.ts",
       "dist/**",
       "node_modules/**",
       ".react-router/**",

@@ -33,8 +33,6 @@ const GLOBAL_TOOL_NAMES = [
   "search_content",
   "list_posts",
   "get_post",
-  "list_thoughts",
-  "get_thought",
   "list_tags",
   "get_current_page",
   "open_page",
@@ -123,7 +121,7 @@ test.describe("WebMCP tools", () => {
     })) as { count: number; results: { path: string; url: string }[] };
 
     expect(result.count).toBeGreaterThan(0);
-    expect(result.results[0]?.path).toMatch(/^\/(posts|thoughts)/);
+    expect(result.results[0]?.path).toMatch(/^\/(posts|about|links)/);
     expect(result.results[0]?.url).toMatch(/^https:\/\/suenyiyang\.com/);
   });
 
@@ -172,11 +170,11 @@ test.describe("WebMCP tools", () => {
     await gotoHydrated(page, "/posts");
 
     const result = (await callTool(page, "open_page", {
-      path: "/thoughts",
+      path: "/about",
     })) as { navigated: boolean; path: string };
 
-    expect(result).toEqual({ navigated: true, path: "/thoughts" });
-    await expect(page).toHaveURL("/thoughts");
+    expect(result).toEqual({ navigated: true, path: "/about" });
+    await expect(page).toHaveURL("/about");
     await expect
       .poll(async () => page.evaluate(() => window.__webmcp?.aborted ?? []))
       .toContain("page_filter_posts_by_tag");

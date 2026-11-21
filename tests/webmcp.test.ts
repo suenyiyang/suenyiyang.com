@@ -2,10 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   getPost,
-  getThought,
   listPosts,
   listTags,
-  listThoughts,
   normalizePath,
   searchContent,
   truncate,
@@ -48,16 +46,6 @@ const records: ContentRecord[] = [
     path: "/about",
     url: "https://suenyiyang.com/about",
     content: "I build things with AI agents.",
-  },
-  {
-    kind: "thought",
-    id: "draft-idea",
-    title: "一个想法",
-    date: "2026-01-02",
-    tags: [],
-    path: "/thoughts#draft-idea",
-    url: "https://suenyiyang.com/thoughts#draft-idea",
-    content: "写下来才算想清楚。",
   },
 ];
 
@@ -136,8 +124,9 @@ test("search matches Chinese substrings and ANDs multiple words", () => {
 });
 
 test("search honours kind filter and limit", () => {
-  const thoughtsOnly = searchContent(records, { query: "想法", kind: "thought" });
-  assert.equal(thoughtsOnly.count, 1);
+  const pagesOnly = searchContent(records, { query: "AI", kind: "page" });
+  assert.equal(pagesOnly.count, 1);
+  assert.equal(pagesOnly.results[0]?.path, "/about");
 
   const limited = searchContent(records, { query: "ai", limit: 1 });
   assert.equal(limited.results.length, 1);
@@ -174,18 +163,6 @@ test("getPost resolves a post by URL or path and explains misses", () => {
     assert.equal(missing.error, "not_found");
     assert.ok(missing.available.includes("/posts/review-2025"));
   }
-});
-
-test("thought tools return the feed and single items", () => {
-  const list = listThoughts(records);
-  assert.equal(list.count, 1);
-  assert.equal(list.thoughts[0]?.id, "draft-idea");
-
-  const single = getThought(records, { id: "draft-idea" });
-  assert.equal(single.found, true);
-
-  const missing = getThought(records, { id: "nope" });
-  assert.equal(missing.found, false);
 });
 
 test("listTags is deduped and alphabetical", () => {

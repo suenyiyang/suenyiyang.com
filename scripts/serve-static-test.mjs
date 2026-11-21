@@ -39,5 +39,5 @@ createServer((req, res) => {
     res.end("Not found");
   }
 }).listen(4387, "127.0.0.1", () =>
-  console.log("Thoughts static test server http://127.0.0.1:4387")
+  console.log("Static test server http://127.0.0.1:4387")
 );

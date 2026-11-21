@@ -1,5 +1,4 @@
 import mdx from "@mdx-js/rollup";
-import { thoughtsPlugin } from "./config/thoughts";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import remarkFrontmatter from "remark-frontmatter";
@@ -27,7 +26,6 @@ import flexokiLight from "./config/themes/flexoki-light.json";
 
 export default defineConfig({
   plugins: [
-    thoughtsPlugin(),
     mdx({
       remarkPlugins: [
         remarkFrontmatter,
