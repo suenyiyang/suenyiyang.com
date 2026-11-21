@@ -5,10 +5,8 @@
  */
 import {
   getPost,
-  getThought,
   listPosts,
   listTags,
-  listThoughts,
   readNumber,
   readString,
   searchContent,
@@ -75,15 +73,14 @@ export function createGlobalTools(deps: ToolDeps): WebMcpTool[] {
         guides: {
           about: `${deps.site.url}/about`,
           posts: `${deps.site.url}/posts`,
-          thoughts: `${deps.site.url}/thoughts`,
         },
       }),
     },
     {
       name: "search_content",
-      title: "Search posts, pages and thoughts",
+      title: "Search posts and pages",
       description:
-        "Search every post, standalone page and thought on this blog by keyword. Matches titles, tags, descriptions and body text; multiple words are AND-ed and Chinese works as plain substring matching. Returns ranked results with a canonical URL and a snippet — use it before get_post.",
+        "Search every post and standalone page on this blog by keyword. Matches titles, tags, descriptions and body text; multiple words are AND-ed and Chinese works as plain substring matching. Returns ranked results with a canonical URL and a snippet — use it before get_post.",
       inputSchema: {
         type: "object",
         properties: {
@@ -94,9 +91,9 @@ export function createGlobalTools(deps: ToolDeps): WebMcpTool[] {
           },
           kind: {
             type: "string",
-            enum: ["all", "post", "page", "thought"],
+            enum: ["all", "post", "page"],
             description:
-              "Restrict to long-form posts, standalone pages, or short thoughts. Defaults to all.",
+              "Restrict to long-form posts or standalone pages. Defaults to all.",
           },
           limit: {
             type: "integer",
@@ -181,60 +178,6 @@ export function createGlobalTools(deps: ToolDeps): WebMcpTool[] {
       },
     },
     {
-      name: "list_thoughts",
-      title: "List thoughts",
-      description:
-        "List short, dated thoughts (the /thoughts feed), newest first, including their full text. Use this for recent opinions and quick notes that are not full posts.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          since: {
-            type: "string",
-            description: "Only thoughts on or after this date, 'YYYY-MM-DD'.",
-          },
-          limit: {
-            type: "integer",
-            minimum: 1,
-            maximum: 50,
-            description: "Maximum number of thoughts. Defaults to 20.",
-          },
-        },
-      },
-      annotations: READ_ONLY,
-      execute: async (rawInput) => {
-        const input = asArgs(rawInput);
-        const index = await deps.loadIndex();
-        return listThoughts(index, {
-          since: readString(input.since) || undefined,
-          limit: readNumber(input.limit),
-        });
-      },
-    },
-    {
-      name: "get_thought",
-      title: "Get one thought",
-      description:
-        "Return a single thought by id (the `id` field from list_thoughts).",
-      inputSchema: {
-        type: "object",
-        properties: {
-          id: {
-            type: "string",
-            description: "Thought id, e.g. 'hello-agents'.",
-          },
-        },
-        required: ["id"],
-      },
-      annotations: READ_ONLY,
-      execute: async (rawInput) => {
-        const input = asArgs(rawInput);
-        const id = readString(input.id);
-        if (!id) return invalidInput("`id` is required.");
-        const index = await deps.loadIndex();
-        return getThought(index, { id });
-      },
-    },
-    {
       name: "list_tags",
       title: "List tags",
       description:
@@ -265,7 +208,7 @@ export function createGlobalTools(deps: ToolDeps): WebMcpTool[] {
       name: "open_page",
       title: "Open a page",
       description:
-        "Navigate the site to an internal path such as '/posts', '/thoughts' or '/posts/review-2025'. Only same-site paths are accepted. Use this after telling the user where you are taking them.",
+        "Navigate the site to an internal path such as '/posts', '/about' or '/posts/review-2025'. Only same-site paths are accepted. Use this after telling the user where you are taking them.",
       inputSchema: {
         type: "object",
         properties: {

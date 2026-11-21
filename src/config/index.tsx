@@ -5,7 +5,6 @@ export const siteConfig: SiteConfig = {
   logo: <Logo />,
   navItems: [
     { label: "文章", href: "/posts" },
-    { label: "想法", href: "/thoughts" },
     { label: "关于", href: "/about" },
     { label: "友链", href: "/links" },
   ],

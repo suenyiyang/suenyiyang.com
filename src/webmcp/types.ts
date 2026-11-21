@@ -1,17 +1,17 @@
 /** Types shared by the build-time content index, the tool handlers and the tests. */
 
-export type ContentKind = "post" | "page" | "thought";
+export type ContentKind = "post" | "page";
 
 export interface ContentRecord {
   kind: ContentKind;
-  /** Stable id: pathname for pages/posts, thought id for thoughts. */
+  /** Stable id: pathname for pages and posts. */
   id: string;
   title: string;
   /** YYYY-MM-DD when known. */
   date?: string;
   description?: string;
   tags: string[];
-  /** Site-relative pathname. Thoughts point at `/thoughts#<id>`. */
+  /** Site-relative pathname. */
   path: string;
   /** Absolute URL, handy for citations. */
   url: string;

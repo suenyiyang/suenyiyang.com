@@ -3,7 +3,6 @@ import { readdirSync } from "node:fs";
 import path from "node:path";
 
 import { ENV_BASE } from '../config/env';
-import { readThoughts } from '../config/thoughts';
 
 const PAGES_DIR = path.resolve(__dirname, "../pages");
 const FILE_EXTENSIONS = [".mdx", ".md"];
@@ -50,12 +49,8 @@ const nestedRoutes = (params: {
   return routes;
 };
 
-const thoughtsBase = `/${ENV_BASE ? ENV_BASE.replace(/^\/+|\/+$/g, "") + "/" : ""}thoughts`;
-readThoughts();
-
 export default [
   ...nestedRoutes({ routesDir: PAGES_DIR, fileExtensions: FILE_EXTENSIONS }),
-  route(thoughtsBase, "routes/thoughts.tsx"),
   // Prerendered to build/client/404/index.html, then copied to a flat
   // 404.html for Cloudflare (`not_found_handling = "404-page"`).
   route("/404", "routes/not-found.tsx"),

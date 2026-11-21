@@ -82,9 +82,7 @@ export function truncate(
 }
 
 function normalizeKind(value: string): SearchKind {
-  return value === "post" || value === "page" || value === "thought"
-    ? value
-    : "all";
+  return value === "post" || value === "page" ? value : "all";
 }
 
 function snippetFor(record: ContentRecord, terms: string[]): string {
@@ -219,9 +217,7 @@ export function getPost(
   input: { path: string },
 ): GetContentResult {
   const requested = normalizePath(input.path);
-  const record = records.find(
-    (item) => item.kind !== "thought" && normalizePath(item.path) === requested,
-  );
+  const record = records.find((item) => normalizePath(item.path) === requested);
 
   if (!record) {
     return {
@@ -229,10 +225,7 @@ export function getPost(
       error: "not_found",
       requested,
       hint: "Use search_content or list_posts to find a valid path.",
-      available: records
-        .filter((item) => item.kind !== "thought")
-        .map((item) => item.path)
-        .slice(0, MAX_LIST_RESULTS),
+      available: records.map((item) => item.path).slice(0, MAX_LIST_RESULTS),
     };
   }
 
@@ -245,87 +238,6 @@ export function getPost(
     date: record.date,
     description: record.description,
     tags: record.tags,
-    content: body.text,
-    truncated: body.truncated,
-  };
-}
-
-export function listThoughts(
-  records: ContentRecord[],
-  input: { since?: string; limit?: number } = {},
-): {
-  count: number;
-  thoughts: {
-    id: string;
-    title: string;
-    date?: string;
-    url: string;
-    content: string;
-    truncated: boolean;
-  }[];
-} {
-  const since = readString(input.since);
-  const limit = clamp(readNumber(input.limit), 20, MAX_LIST_RESULTS);
-
-  const thoughts = records
-    .filter((record) => record.kind === "thought")
-    .filter((record) => !since || (record.date ?? "") >= since)
-    .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
-
-  return {
-    count: thoughts.length,
-    thoughts: thoughts.slice(0, limit).map((record) => {
-      const body = truncate(record.content, 2000);
-      return {
-        id: record.id,
-        title: record.title,
-        date: record.date,
-        url: record.url,
-        content: body.text,
-        truncated: body.truncated,
-      };
-    }),
-  };
-}
-
-export function getThought(
-  records: ContentRecord[],
-  input: { id: string },
-):
-  | {
-      found: true;
-      id: string;
-      title: string;
-      date?: string;
-      url: string;
-      content: string;
-      truncated: boolean;
-    }
-  | { found: false; error: "not_found"; requested: string; available: string[] } {
-  const id = readString(input.id).replace(/^#/, "");
-  const record = records.find(
-    (item) => item.kind === "thought" && item.id === id,
-  );
-
-  if (!record) {
-    return {
-      found: false,
-      error: "not_found",
-      requested: id,
-      available: records
-        .filter((item) => item.kind === "thought")
-        .map((item) => item.id)
-        .slice(0, MAX_LIST_RESULTS),
-    };
-  }
-
-  const body = truncate(record.content);
-  return {
-    found: true,
-    id: record.id,
-    title: record.title,
-    date: record.date,
-    url: record.url,
     content: body.text,
     truncated: body.truncated,
   };

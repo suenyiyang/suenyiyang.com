@@ -4,7 +4,6 @@ import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import type { Plugin } from "vite";
 import { SITE_URL, routeFromFile, walkMdx } from "./seo-files";
-import { readThoughts } from "./thoughts";
 import { absolutePageUrl, withoutTrailingSlash } from "../src/utils/trailingSlash";
 import type { ContentRecord } from "../src/webmcp/types";
 
@@ -76,19 +75,6 @@ export function buildContentIndex(): ContentRecord[] {
     });
   }
 
-  for (const thought of readThoughts()) {
-    records.push({
-      kind: "thought",
-      id: thought.id,
-      title: thought.title,
-      date: thought.date.slice(0, 10),
-      tags: [],
-      path: `/thoughts#${thought.id}`,
-      url: `${SITE_URL}/thoughts#${thought.id}`,
-      content: thought.content,
-    });
-  }
-
   return records;
 }
 
@@ -102,7 +88,6 @@ export function contentIndexPlugin(): Plugin {
       if (id !== VIRTUAL_ID) return null;
 
       for (const file of walkMdx(pagesDir)) this.addWatchFile(file);
-      for (const thought of readThoughts()) this.addWatchFile(thought.file);
 
       const json = JSON.stringify(buildContentIndex())
         .replace(/\u2028/g, "\\u2028")
