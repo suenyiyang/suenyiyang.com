@@ -35,7 +35,7 @@ export const siteConfig: SiteConfig = {
     // (/favicon.ico is what most of them probe first). Regenerate the whole set
     // from the avatar with `pnpm icons`.
     favicon: "/icon-192.webp",
-    ogImage: "/og.jpg",
+    ogImage: "/og.jpg?v=2",
     twitter: "@suenyiyang",
   },
 };
