@@ -37,7 +37,7 @@ test.describe("Link preview metadata", () => {
     );
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
-      "https://suenyiyang.com/og.jpg"
+      "https://suenyiyang.com/og.jpg?v=3"
     );
     await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
       "content",

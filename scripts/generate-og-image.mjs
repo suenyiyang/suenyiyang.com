@@ -8,9 +8,8 @@
  *     node scripts/generate-og-image.mjs
  *
  * It renders through the Chromium that Playwright already provides: that gets
- * the real site fonts (LXGW WenKai / IBM Plex Mono) and real text layout
- * instead of whatever fontconfig happens to find, at the cost of one headless
- * page load.
+ * the real site font (LXGW WenKai) and real text layout instead of whatever
+ * fontconfig happens to find, at the cost of one headless page load.
  *
  * JPEG rather than the PNG the card started as: the portrait is a paper-textured
  * illustration, which costs ~750 KB in PNG and ~110 KB here, and the unfurlers
@@ -28,13 +27,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const siteName = "Yiyang Suen";
 const description =
   "Personal blog including frontend tech, life sharing, AI exploration and more.";
-const siteHost = "suenyiyang.com";
 
 // The avatar is painted on cream paper: #ECE4D7 averaged over its background,
 // close enough that the card's flat fill reads as the same paper.
 const ink = "#1A1817";
 const secondaryInk = "#575653";
-const mutedInk = "#878580";
 const surface = "#ECE5D7";
 
 const WIDTH = 1200;
@@ -42,9 +39,6 @@ const HEIGHT = 630;
 
 const asDataUrl = async (file, mime) =>
   `data:${mime};base64,${(await fs.readFile(file)).toString("base64")}`;
-
-const fontFile = (pkg, file) =>
-  path.join(root, "node_modules", pkg, "files", file);
 
 const inlineFontCss = async (pkg, cssFile) => {
   const cssPath = path.join(root, "node_modules", pkg, cssFile);
@@ -73,15 +67,6 @@ const html = `<!doctype html>
     <style>
       ${await inlineFontCss("lxgw-wenkai-webfont", "lxgwwenkai-regular.css")}
       ${await inlineFontCss("lxgw-wenkai-webfont", "lxgwwenkai-bold.css")}
-      @font-face {
-        font-family: "IBM Plex Mono";
-        font-style: normal;
-        font-weight: 400;
-        src: url(${await asDataUrl(
-          fontFile("@fontsource/ibm-plex-mono", "ibm-plex-mono-latin-400-normal.woff2"),
-          "font/woff2"
-        )}) format("woff2");
-      }
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -138,21 +123,12 @@ const html = `<!doctype html>
         line-height: 1.45;
         color: ${secondaryInk};
       }
-
-      .host {
-        margin-top: 34px;
-        font-family: "IBM Plex Mono", ui-monospace, monospace;
-        font-size: 21px;
-        letter-spacing: 0.04em;
-        color: ${mutedInk};
-      }
     </style>
   </head>
   <body>
     <div class="copy">
       <h1>${siteName}</h1>
       <p>${description}</p>
-      <div class="host">${siteHost}</div>
     </div>
     <img
       class="avatar"
