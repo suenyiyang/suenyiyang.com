@@ -8,7 +8,7 @@
  *     node scripts/generate-og-image.mjs
  *
  * It renders through the Chromium that Playwright already provides: that gets
- * the real site fonts (Source Serif 4 / IBM Plex Mono) and real text layout
+ * the real site fonts (LXGW WenKai / IBM Plex Mono) and real text layout
  * instead of whatever fontconfig happens to find, at the cost of one headless
  * page load.
  *
@@ -46,6 +46,24 @@ const asDataUrl = async (file, mime) =>
 const fontFile = (pkg, file) =>
   path.join(root, "node_modules", pkg, "files", file);
 
+const inlineFontCss = async (pkg, cssFile) => {
+  const cssPath = path.join(root, "node_modules", pkg, cssFile);
+  const cssDir = path.dirname(cssPath);
+  const css = await fs.readFile(cssPath, "utf8");
+  const matches = [...css.matchAll(/url\(['"]?([^'")]+)['"]?\)/g)];
+  const replacements = await Promise.all(
+    matches.map(async ([full, rel]) => [
+      full,
+      `url(${await asDataUrl(path.resolve(cssDir, rel), "font/woff2")})`,
+    ])
+  );
+  let inlined = css;
+  for (const [from, to] of replacements) {
+    inlined = inlined.replace(from, to);
+  }
+  return inlined;
+};
+
 const avatar = await loadAvatar();
 
 const html = `<!doctype html>
@@ -53,15 +71,8 @@ const html = `<!doctype html>
   <head>
     <meta charset="utf-8" />
     <style>
-      @font-face {
-        font-family: "Source Serif 4";
-        font-style: normal;
-        font-weight: 200 900;
-        src: url(${await asDataUrl(
-          fontFile("@fontsource-variable/source-serif-4", "source-serif-4-latin-wght-normal.woff2"),
-          "font/woff2"
-        )}) format("woff2-variations");
-      }
+      ${await inlineFontCss("lxgw-wenkai-webfont", "lxgwwenkai-regular.css")}
+      ${await inlineFontCss("lxgw-wenkai-webfont", "lxgwwenkai-bold.css")}
       @font-face {
         font-family: "IBM Plex Mono";
         font-style: normal;
@@ -81,7 +92,7 @@ const html = `<!doctype html>
         overflow: hidden;
         background: ${surface};
         color: ${ink};
-        font-family: "Source Serif 4", Georgia, serif;
+        font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", serif;
         -webkit-font-smoothing: antialiased;
       }
 
@@ -116,7 +127,7 @@ const html = `<!doctype html>
 
       h1 {
         font-size: 74px;
-        font-weight: 620;
+        font-weight: 700;
         line-height: 1.08;
         letter-spacing: 0.005em;
       }
