@@ -27,13 +27,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const siteName = "Yiyang Suen";
 const description =
   "Personal blog including frontend tech, life sharing, AI exploration and more.";
-const siteHost = "suenyiyang.com";
 
 // The avatar is painted on cream paper: #ECE4D7 averaged over its background,
 // close enough that the card's flat fill reads as the same paper.
 const ink = "#1A1817";
 const secondaryInk = "#575653";
-const mutedInk = "#878580";
 const surface = "#ECE5D7";
 
 const WIDTH = 1200;
@@ -125,20 +123,12 @@ const html = `<!doctype html>
         line-height: 1.45;
         color: ${secondaryInk};
       }
-
-      .host {
-        margin-top: 34px;
-        font-size: 21px;
-        letter-spacing: 0.04em;
-        color: ${mutedInk};
-      }
     </style>
   </head>
   <body>
     <div class="copy">
       <h1>${siteName}</h1>
       <p>${description}</p>
-      <div class="host">${siteHost}</div>
     </div>
     <img
       class="avatar"
