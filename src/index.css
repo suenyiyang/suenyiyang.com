@@ -75,7 +75,7 @@
   --color-text-muted: #6F6E69;          /* base-600 · dates, captions, markers */
   --color-text-body: #343331;           /* base-850 · body copy */
   --color-border-light: #E6E4D9;        /* base-100 · hairlines, chips */
-  --color-accent: #027AFF;
+  --color-accent: #205EA6;              /* blue-600 */
 
   --color-bg-dark: #100F0F;             /* black */
   --color-text-primary-dark: #E6E4D9;   /* base-100 */
@@ -83,7 +83,7 @@
   --color-text-muted-dark: #878580;     /* base-500 */
   --color-text-body-dark: #CECDC3;      /* base-200 */
   --color-border-dark: #343331;         /* base-850 */
-  --color-accent-dark: #027AFF;
+  --color-accent-dark: #205EA6;         /* blue-600 */
 }
 
 :root {
@@ -104,7 +104,7 @@
   --reading-quote-bar: #E6E4D9;         /* base-100 */
   --reading-rule: #E6E4D9;              /* base-100 */
   --radius-surface: 8px;
-  --reading-accent: #027AFF;
+  --reading-accent: #205EA6;            /* blue-600 */
   --reading-highlight: color-mix(in srgb, var(--reading-accent) 19%, transparent);
   --reading-highlight-overlap: color-mix(in srgb, var(--reading-accent) 8%, transparent);
   /* Accent tint over paper, so selection follows the accent */
@@ -163,7 +163,7 @@
   --reading-code-text: #CECDC3;         /* base-200 */
   --reading-quote-bar: #343331;         /* base-850 */
   --reading-rule: #343331;              /* base-850 */
-  --reading-accent: #027AFF;
+  --reading-accent: #205EA6;            /* blue-600 */
   --reading-highlight: color-mix(in srgb, var(--reading-accent) 29%, transparent);
   --reading-highlight-overlap: color-mix(in srgb, var(--reading-accent) 12%, transparent);
   --reading-selection-bg: color-mix(in srgb, var(--reading-accent) 32%, var(--reading-paper));

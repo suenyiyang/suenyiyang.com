@@ -22,8 +22,8 @@ test.describe("Table of contents", () => {
     await expect(active).toBeVisible();
     for (const dark of [false, true]) {
       await page.evaluate((enabled) => document.documentElement.classList.toggle("dark", enabled), dark);
-      await expect(active).toHaveCSS("color", "rgb(2, 122, 255)");
-      await expect(active).toHaveCSS("border-left-color", "rgb(2, 122, 255)");
+      await expect(active).toHaveCSS("color", "rgb(32, 94, 166)");
+      await expect(active).toHaveCSS("border-left-color", "rgb(32, 94, 166)");
     }
   });
 

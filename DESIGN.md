@@ -24,7 +24,7 @@
 | 次级墨 | `--reading-text-secondary` | `#575653` (`base-700`) | `#9F9D96` (`base-400`) | 摘要、引用、默认导航、TOC 链接 |
 | 弱化墨 | `--reading-text-muted` | `#6F6E69` (`base-600`) | `#878580` (`base-500`) | 日期、图注、列表标记、版权 |
 | 细线 | `--reading-rule` | `#E6E4D9` (`base-100`) | `#343331` (`base-850`) | 极少数必要分隔线、标签描边、输入框边框 |
-| 强调色 | `--reading-accent` | `#027AFF` | `#027AFF` | 链接、条目悬停、TOC 当前项、进度环、聚焦外框 |
+| 强调色 | `--reading-accent` | `#205EA6` (`blue-600`) | `#205EA6` (`blue-600`) | 链接、条目悬停、TOC 当前项、进度环、聚焦外框 |
 
 - **选中态与荧光笔**：均由 `--reading-accent` 通过 `color-mix` 派生（选中背景为强调色混入纸面 20% / 深色 32%；`<mark>` 为双层半透明手绘笔触，仅落于文字下半部）。
 - **主题切换**：支持 `light` / `auto` / `dark` 三态，切换时通过 View Transition API 从点击点做 `420ms` 圆形擦除过渡。
